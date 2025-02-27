@@ -55,6 +55,7 @@ window#waybar.hidden {
 }
 
 #pulseaudio,
+#scratchpad,
 #custom-notification,
 #custom-power,
 #battery,
@@ -68,20 +69,39 @@ window#waybar.hidden {
   color: white;
 }
 
-#battery {
+#scratchpad {
   background-color: #161616;
+  color: white;
 }
 
-#battery.warning,
-#battery.critical,
-#battery.urgent {
-  background-color: #ff0000;
-  color: #181825;
+#battery {
+  background-color: #161616;
+  color: white;
+}
+
+#battery.critical {
+  background-color: #ff4444; /* Bright Red */
+  color: #161616;
+}
+
+#battery.warning {
+  background-color: #ff9900; /* Orange */
+  color: #161616;
+}
+
+#battery.good {
+  background-color: #76c7c0; /* Teal (for high battery) */
+  color: #161616;
 }
 
 #battery.charging {
-  background-color: #a6e3a1;
-  color: #181825;
+  background-color: #a6e3a1; /* Soft Green */
+  color: #161616;
+}
+
+#battery.plugged {
+  background-color: #cba6f7; /* Light Purple */
+  color: #161616;
 }
 
 #network {
@@ -97,10 +117,22 @@ window#waybar.hidden {
 }
 
 #custom-notification {
-  font-family: JetBrainsMono Nerd Font;
   background-color: #161616;
   color: white;
 }
+
+#custom-notification.urgent {
+  background-color: #ff4444;
+}
+
+#custom-notification.low {
+  background-color: #ff9900;
+}
+
+#custom-notification.has-notif {
+  background-color: #262626;
+}
+
 
 #custom-power {
   color: white;

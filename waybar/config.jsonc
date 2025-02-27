@@ -6,7 +6,7 @@
 
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/scratchpad"
+        "hyprland/scratchpad",
     ],
     "modules-center": [
         "hyprland/window"
@@ -14,10 +14,9 @@
     "modules-right": [
         "pulseaudio",
         "network",
+        "custom/notification",
         "battery",
         "clock",
-        "custom/notification",
-        "custom/power",
     ],
 
      "hyprland/workspaces": {
@@ -94,16 +93,14 @@
         },
         "format": "{capacity}% {icon}",
         "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% 󰂄",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["󰁻", "󰁽", "󰁿", "󰂁", "󰁹"],
     },
 
     "network": {
-        "format-wifi": "{essid} ",
+        "format-wifi": "    {essid}",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
@@ -112,7 +109,7 @@
     },
 
     "pulseaudio": {
-        "format": "{volume}% {icon}",
+        "format": "{icon}   {volume}%",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": " {format_source}",
@@ -131,29 +128,11 @@
     },
 
     "custom/notification": {
-        "format": "{icon}",
-        "exec": "echo '{\"text\": \"\", \"class\": \"default\"}'",
+        "format": "{text}",
+        "exec": "swaync-client -c | awk '{print \"{\\\"text\\\": \\\"\" ($1 > 0 ? \"󱅫\" : \"\") \"\\\", \\\"class\\\": \\\"\" ($1 > 0 ? \"has-notif\" : \"\") \"\\\"}\"}'",
         "exec-if": "pgrep swaync",
         "on-click": "swaync-client -t",
-        "tooltip": false,
         "return-type": "json",
-        "format-icons": {
-            "default": "",
-            "urgent": "",
-            "low": ""
-        }
+        "signal": 10,
     },
-
-    "custom/power": {
-        "format" : "⏻",
-        "tooltip": true,
-        "menu": "on-click",
-        "menu-file": "$HOME/.config/waybar/power_menu.xml", 
-        "menu-actions": {
-                "shutdown": "shutdown",
-                "reboot": "reboot",
-                "suspend": "systemctl suspend",
-                "hibernate": "systemctl hibernate"
-        }
-    }
 }
