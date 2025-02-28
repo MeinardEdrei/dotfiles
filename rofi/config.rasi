@@ -1,0 +1,21 @@
+* {
+    modi: "run,drun,window";
+    icon-theme: "Papirus-Dark";
+    font: "JetBrainsMono Nerd Font Medium 10";
+    hide-scrollbar: true;
+    sidebar-mode: true;
+}
+
+@theme "~/dotfiles/rofi/themes/default.rasi"
+
+configuration {
+    show-icons: true;
+    drun-display-format: "{icon} {name}";
+    disable-history: false;
+
+    display-drun: "   Apps ";
+    display-run: "   Run ";
+    display-window: "   Window";
+    display-Network: " 󰤨  Network";
+}
+
