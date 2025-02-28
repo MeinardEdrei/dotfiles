@@ -11,7 +11,8 @@
 window {
     location: center;
     width: 450px;
-    border: 0px;
+    border: 1;
+    border-color: #ffffff;
     background-color: @background;
 }
 
@@ -41,6 +42,7 @@ element {
     text-color: @foreground;
     padding: 8px;
     border-radius: 10px;
+    spacing: 10px;
 }
 
 element selected {
@@ -49,6 +51,7 @@ element selected {
 }
 
 icon {
-    size: 28px;
+    size: 24px;
     background-color: inherit;
+    margin-right: 10px;
 }

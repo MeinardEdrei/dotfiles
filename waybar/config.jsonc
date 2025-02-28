@@ -17,6 +17,7 @@
         "custom/notification",
         "battery",
         "clock",
+        "custom/power",
     ],
 
      "hyprland/workspaces": {
@@ -87,9 +88,9 @@
     "battery": {
         "interval": 5,
         "states": {
-            "good": 80,
+            "good": 100,
             "warning": 30,
-            "critical": 15
+            "critical": 20
         },
         "format": "{capacity}% {icon}",
         "format-full": "{capacity}% {icon}",
@@ -134,5 +135,10 @@
         "on-click": "swaync-client -t",
         "return-type": "json",
         "signal": 10,
+    },
+
+    "custom/power": {
+      "format": "",
+      "on-click": "~/dotfiles/rofi/scripts/power-menu.sh"
     },
 }

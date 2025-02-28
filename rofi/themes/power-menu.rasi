@@ -1,0 +1,61 @@
+* {
+    background: rgba(30, 30, 30, 0.9);
+    foreground: #ffffff;
+    selected: rgba(255, 255, 255, 0.25);
+    border-radius: 15px;
+    font: "SF Pro Display 12";
+    padding: 10px;
+}
+
+configuration {
+    show-icons: false;
+}
+
+window {
+    location: center;
+    width: 400px;
+    border: 2px;
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: @background;
+}
+
+inputbar {
+    children: [ ];
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    enabled: false;
+}
+
+textbox-prompt-colon {
+    str: "";
+    expand: false;
+    enabled: false;
+}
+
+listview {
+    background-color: transparent;
+    scrollbar: false;
+    lines: 6;
+}
+
+element {
+    background-color: transparent;
+    foreground: #000000;  /* Black text for contrast */
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+element-text {
+    padding-left: 10px;
+    horizontal-align: 0.5;
+}
+
+element selected {
+    background-color: rgba(0, 0, 0, 0.1);  /* Light gray selection */
+    foreground: #000000;
+    border-radius: 10px;
+}
+
