@@ -44,7 +44,6 @@ element {
     background-color: transparent;
     foreground: #000000;  /* Black text for contrast */
     padding: 12px;
-    border-radius: 10px;
     font-size: 14px;
 }
 
@@ -54,8 +53,8 @@ element-text {
 }
 
 element selected {
-    background-color: rgba(0, 0, 0, 0.1);  /* Light gray selection */
+    border: 5;
+    border-color: rgba(0, 0, 0, 0.1);  /* Light gray selection */
     foreground: #000000;
-    border-radius: 10px;
 }
 
