@@ -3,3 +3,4 @@ if status is-interactive
 end
 
 starship init fish | source
+set -Ux HYPRSHOT_DIR "$HOME/Pictures/Screenshots"
