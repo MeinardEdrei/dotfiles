@@ -1,0 +1,4 @@
+[general]
+skin_tone = "neutral"   # Options: neutral, light, medium_light, medium, medium_dark, dark
+action = "type"         # Options: copy, type, unicode
+clipboard_cmd = "wl-copy"
