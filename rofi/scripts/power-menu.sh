@@ -11,8 +11,8 @@ chosen=$(printf "󰐥  Power Off\n   Restart\n  Suspend\n   Hibernate\n
     -theme ~/.config/rofi/themes/power-menu.rasi)
 
 case "$chosen" in
-    "󰐥  Power Off") tmux kill-server & poweroff ;;
-    "  Restart") tmux kill-server & reboot ;;
+    "󰐥  Power Off") systemctl poweroff ;;
+    "  Restart") systemctl reboot ;;
     "  Suspend") systemctl suspend && hyprlock ;;
     "  Hibernate") systemctl hibernate ;;
     "󰍃  Log Out") hyprctl dispatch exit ;;
