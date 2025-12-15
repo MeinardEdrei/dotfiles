@@ -2,19 +2,24 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-starship init fish | source
+function c
+    clear
+end
+
+# Auto-start Niri on TTY1
+if status is-login
+    if test -z "$DISPLAY" -a (tty) = "/dev/tty1"
+        # Run Niri, but if it crashes, DO NOT exit the shell
+        dbus-run-session niri
+    end
+end
+
 # set -Ux HYPRSHOT_DIR "$HOME/Pictures/Screenshots"
 
-# android sdk
+# Android Sdk
 set -e ANDROID_SDK_ROOT
 set -x ANDROID_HOME /home/batman/Android/Sdk
-set -x PATH $ANDROID_HOME/platform-tools $ANDROID_HOME/tools $ANDROID_HOME/tools/bin $PATH
-
-# cmdline-tools path
-# set -g PATH $HOME/Android/Sdk/cmdline-tools/latest/bin $HOME/Android/Sdk/platform-tools $HOME/Android/Sdk/emulator $PATH
-
-# flutter
-# set -U fish_user_paths /opt/flutter/bin $fish_user_paths
+set -x PATH $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $ANDROID_HOME/tools $ANDROID_HOME/tools/bin $PATH
 
 function fish_user_key_bindings
     # 1. Bind Ctrl+y to accept the autosuggestion
@@ -26,9 +31,12 @@ function fish_user_key_bindings
     bind \cj history-search-forward
 end
 
-# if status is-interactive
-#     if not set -q TMUX
-#         # Check if tmux is already running and attach, otherwise create a new session
-#         tmux attach -t default || tmux new -s default
-#     end
-# end
+# Only load Starship if NOT in a TTY
+if test "$TERM" != "linux"
+    starship init fish | source
+end
+
+# Emulator
+function android-run
+    emulator -avd Medium_Phone_API_36.0 -gpu swiftshader_indirect -no-skin &
+end
