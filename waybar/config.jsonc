@@ -1,7 +1,6 @@
 {
     "layer": "top",
-    "width": 1900,
-    "spacing": 2,
+    "spacing": 0, // Let the CSS handle spacing via margins
     "modules-left": [
         "niri/workspaces",
         "tray",
@@ -20,10 +19,10 @@
     },
     "niri/window": {
         "all-outputs": true,
-        "format-alt": "",
+        "format": "{title}",
         "align": "center",
-        "max-length": 32,
-        "min-length": 32,
+        "max-length": 20,
+        "min-length": 20
     },
     "niri/workspaces": {
         "disable-scroll": true,
@@ -31,9 +30,9 @@
         "warp-on-scroll": false,
         "format": "{icon}",
         "format-icons": {
-            "urgent": "",
-            "active": "",
-            "default": ""
+            "active": "•",
+            "default": "•",
+            "urgent": "•"
         }
     },
     "bluetooth": {
@@ -77,8 +76,8 @@
         "format-alt": "  {essid}"
     },
     "pulseaudio": {
-        "format": "{icon}     {volume}%",
-        "format-bluetooth": "{icon} {volume}%",
+        "format": "{icon} ",
+        "format-bluetooth": "{icon} ",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": "    Muted",
         "format-icons": {

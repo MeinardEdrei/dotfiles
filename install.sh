@@ -1,28 +1,33 @@
 #!/bin/bash
+set -e
 
 # Define paths
-LOG_FILE="install_log.txt"
-DOTFILES_DIR="$HOME/dotfiles-niri"
+LOG_FILE="$HOME/install_log.txt"
+DOTFILES_DIR="$HOME/dotfiles"
 NATIVE_LIST="$DOTFILES_DIR/system_config/pkglist-native.txt"
 AUR_LIST="$DOTFILES_DIR/system_config/pkglist-aur.txt"
 
 echo "Starting System Restoration..." | tee -a "$LOG_FILE"
 
-# 1. Update System & Keyrings (Crucial for fresh installs)
-echo "Updating system keyrings..."
-sudo pacman -Sy archlinux-keyring --noconfirm
+# 1. Full system update + keyrings (Arch-safe)
+echo "Updating system and keyrings..."
+sudo pacman -Syu --noconfirm archlinux-keyring
 
 # 2. Install Native Packages
-if [ -f "$NATIVE_LIST" ]; then
+if [[ -f "$NATIVE_LIST" ]]; then
     echo "Installing Native Packages..."
-    # We filter out yay/paru if they accidentally got into the native list to avoid errors
-    sudo pacman -S --needed --noconfirm - < "$NATIVE_LIST"
+    grep -vE '^\s*#|^\s*$' "$NATIVE_LIST" |
+        sudo pacman -S --needed --noconfirm - || true
 else
     echo "Error: Native package list not found at $NATIVE_LIST"
+    exit 1
 fi
 
-# 3. Install AUR Helper (yay) if not present
-if ! command -v yay &> /dev/null; then
+# 3. Ensure yay dependencies
+sudo pacman -S --needed --noconfirm git base-devel
+
+# 4. Install yay if missing
+if ! command -v yay &>/dev/null; then
     echo "Installing yay..."
     git clone https://aur.archlinux.org/yay.git
     cd yay
@@ -33,33 +38,34 @@ else
     echo "yay is already installed."
 fi
 
-# 4. Install AUR Packages
-if [ -f "$AUR_LIST" ]; then
+# 5. Install AUR Packages
+if [[ -f "$AUR_LIST" ]]; then
     echo "Installing AUR Packages..."
-    # Remove lines containing 'debug' to avoid installation errors
-    yay -S --needed --noconfirm - < "$AUR_LIST"
+    grep -vE '^\s*#|^\s*$' "$AUR_LIST" |
+        yay -S --needed --noconfirm -
 else
     echo "Error: AUR package list not found at $AUR_LIST"
 fi
 
-# 5. Enable System Services (Based on your previous systemctl output)
+# 6. Enable essential services
 echo "Enabling System Services..."
 SERVICES=(
-    "bluetooth.service"
-    "docker.service"
-    "NetworkManager.service"
-    "thermald.service"
+    bluetooth.service
+    docker.service
+    NetworkManager.service
+    thermald.service
 )
 
 for service in "${SERVICES[@]}"; do
-    echo "Enabling $service..."
     sudo systemctl enable --now "$service"
 done
 
-# 6. Add user to Docker group (So you don't need sudo for docker)
+# 7. Docker permissions
 echo "Configuring Docker permissions..."
-sudo usermod -aG docker $USER
+sudo usermod -aG docker "$USER"
 
 echo "--------------------------------------------------------"
-echo "Installation Complete! Welcome Back Meinard. Reboot Now."
+echo "Installation Complete!"
+echo "IMPORTANT: Reboot or re-login for Docker group changes."
+echo "Welcome back, Meinard 🚀"
 echo "--------------------------------------------------------"

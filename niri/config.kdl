@@ -17,7 +17,7 @@ input {
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
 
             // Remap Capslock to Control key
-            options "caps:ctrl_modifier,ctrl:swapcaps"
+            // options "caps:ctrl_modifier,ctrl:swapcaps"
         }
 
         // Enable numlock on startup, omitting this setting disables it.
@@ -75,7 +75,7 @@ input {
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
-/-output "eDP-1" {
+output "eDP-1" {
     // Uncomment this line to disable this output.
     // off
 
@@ -85,10 +85,10 @@ input {
     // for the resolution.
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-    mode "1920x1080@120.030"
+    // mode "1920x1080@120.030"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    scale 2
+    scale 1.1
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -270,7 +270,9 @@ spawn-at-startup "waybar"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "swaync"
 spawn-at-startup "nm-applet"
-spawn-at-startup "hyprpaper"
+spawn-at-startup "swaybg" "-i" "/home/batman/dotfiles/resources/batman.jpeg" "-m" "fill"
+spawn-at-startup "swayosd-server"
+
 
 // IDLE
 spawn-at-startup "hypridle"
@@ -371,11 +373,16 @@ binds {
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    // XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
+    // XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    // XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    // XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
+    XF86AudioRaiseVolume { spawn "swayosd-client" "--output-volume" "raise"; }
+    XF86AudioLowerVolume { spawn "swayosd-client" "--output-volume" "lower"; }
+    XF86AudioMute        { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
+    XF86MonBrightnessUp   { spawn "swayosd-client" "--brightness" "raise"; }
+    XF86MonBrightnessDown { spawn "swayosd-client" "--brightness" "lower"; }
 
 
 
@@ -580,9 +587,9 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { spawn "~/dotfiles-niri/_scripts/niri-screenshot-selection.sh"; }
-    Ctrl+Print { spawn "~/dotfiles-niri/_scripts/niri-screenshot-screen.sh"; }
-    Alt+Print { spawn "~/dotfiles-niri/_scripts/niri-screenshot-window.sh"; }
+    Print { spawn "~/dotfiles/_scripts/niri-screenshot-selection.sh"; }
+    Ctrl+Print { spawn "~/dotfiles/_scripts/niri-screenshot-screen.sh"; }
+    Alt+Print { spawn "~/dotfiles/_scripts/niri-screenshot-window.sh"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
