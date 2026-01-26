@@ -1,7 +1,7 @@
 * {
   font-family: "Inter", "JetBrainsMono Nerd Font", sans-serif;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 window#waybar {
@@ -14,7 +14,7 @@ window#waybar {
 #window {
   color: white;
   background-color: black;
-  padding: 0 30px;
+  padding: 0 25px;
   min-width: 200px;
   border-radius: 0px 0px 10px 10px;
   margin-top: -1px;

@@ -21,8 +21,8 @@
         "all-outputs": true,
         "format": "{title}",
         "align": "center",
-        "max-length": 20,
-        "min-length": 20
+        "max-length": 25,
+        "min-length": 25
     },
     "niri/workspaces": {
         "disable-scroll": true,

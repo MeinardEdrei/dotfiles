@@ -6,6 +6,14 @@ function c
     clear
 end
 
+# Sync Wayland/Display variables from tmux into the current shell
+if set -q TMUX
+    # This pulls the variables from the tmux server environment and sets them in Fish
+    set -gx WAYLAND_DISPLAY (tmux show-env | grep ^WAYLAND_DISPLAY | cut -d= -f2)
+    set -gx XDG_RUNTIME_DIR (tmux show-env | grep ^XDG_RUNTIME_DIR | cut -d= -f2)
+    set -gx DISPLAY (tmux show-env | grep ^DISPLAY | cut -d= -f2)
+end
+
 # Auto-start Niri on TTY1
 if status is-login
     if test -z "$DISPLAY" -a (tty) = "/dev/tty1"
