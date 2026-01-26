@@ -14,9 +14,9 @@ window#waybar {
 #window {
   color: white;
   background-color: black;
-  padding: 0 50px;
+  padding: 0 30px;
+  min-width: 200px;
   border-radius: 0px 0px 10px 10px;
-  min-width: 200px; 
   margin-top: -1px;
 }
 
