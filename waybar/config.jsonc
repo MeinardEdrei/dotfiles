@@ -3,15 +3,15 @@
     "spacing": 0, // Let the CSS handle spacing via margins
     "modules-left": [
         "niri/workspaces",
-        "tray",
-        "bluetooth",
     ],
     "modules-center": [
         "niri/window"
     ],
     "modules-right": [
+        "bluetooth",
         "pulseaudio",
         "battery",
+        "tray",
         "clock",
     ],
     "tray": {
@@ -44,7 +44,7 @@
         "align": 0,
         "rotate": 0,
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%a %b %d, %I:%M %p}",
+        "format": "{:%a %b %d  %I:%M %p}",
         "on-click": "swaync-client -t",
     },
     "battery": {
@@ -67,18 +67,19 @@
         "tooltip-format": "{timeTo} {capacity}%"
     },
     "network": {
-        "format-wifi": "",
+        "format-wifi": " ",
         "format-ethernet": "{ipaddr}/{cidr}",
         "tooltip-format": "{ifname} via {gwaddr}",
         "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "Disconnected",
-        "format-alt": "  {essid}"
+        "format-disconnected": "󰤮",
+        "format-alt": " ",
+        "on-click": "nm-connection-editor",
     },
     "pulseaudio": {
         "format": "{icon} ",
         "format-bluetooth": "{icon} ",
         "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": "    Muted",
+        "format-muted": " ",
         "format-icons": {
             "headphone": "",
             "hands-free": "",

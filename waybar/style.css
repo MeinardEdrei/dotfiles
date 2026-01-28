@@ -2,10 +2,10 @@
   font-family: "Inter", "JetBrainsMono Nerd Font", sans-serif;
   font-weight: 600;
   font-size: 12px;
+  min-height: 0;
 }
 
 window#waybar {
-  min-height: 0;
   background: transparent;
   background: rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -23,20 +23,19 @@ window#waybar {
 #tray,
 #bluetooth,
 #pulseaudio,
+#network,
 #battery,
 #clock {
-  background-color: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  margin: 7px 3px;
+  margin: 3px 3px;
   padding: 0px 10px;
   border-radius: 20px;
   color: white;
 }
 
 #workspaces {
-  background-color: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  margin: 5px 4px;
+  margin: 3px 4px;
   padding: 0 5px;
   border-radius: 20px;
 }
@@ -48,7 +47,7 @@ window#waybar {
   text-shadow: none;
 
   color: rgba(255, 255, 255, 0.3); 
-  font-size: 16px; 
+  font-size: 12px; 
   
   padding: 2px 1px; 
   margin: 0px;
@@ -56,7 +55,7 @@ window#waybar {
 
 #workspaces button.active {
   color: #ffffff;
-  font-size: 20px; 
+  font-size: 14px; 
 }
 
 #workspaces button.urgent {
@@ -69,9 +68,11 @@ window#waybar {
   color: rgba(255, 255, 255, 0.6);
 }
 
+#bluetooth {
+  font-size: 14px;
+}
 #tray {
-  background-color: rgba(0, 0, 0, 0.3);
-  margin: 5px 3px;
+  margin: 3px 3px;
   padding: 0px 10px;
   border-radius: 20px;
 }
