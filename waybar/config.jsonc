@@ -1,5 +1,6 @@
 {
     "layer": "top",
+    "position": "top",
     "spacing": 0, // Let the CSS handle spacing via margins
     "modules-left": [
         "niri/workspaces",
@@ -55,7 +56,7 @@
         },
         "format": "{capacity}% {icon}",
         "format-full": "{capacity}% 󰁹",
-        "format-plugged": "{capacity}% 󰁹",
+        "format-plugged": "{capacity}% 󱘖",
         "format-charging": "{capacity}% 󱐥",
         "format-icons": [
             "󰁻", // 0-20%
