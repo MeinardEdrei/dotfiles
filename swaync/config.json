@@ -144,12 +144,22 @@
     }
   },
   "widgets": [
-    "title",
-    "dnd",
-    "notifications",  
     "mpris",
-    "volume",
-    "backlight",
-    "menubar"
-  ]
+    "notifications",
+    "dnd"
+  ],
+  "widget-config": {
+    "title": {
+      "text": "Notifications",
+      "button-text": "Clear",
+      "clear-all-button": true
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+    "mpris": {
+      "image-size": 60,
+      "image-radius": 5
+    }
+  }
 }

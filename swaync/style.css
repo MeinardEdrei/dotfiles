@@ -1,636 +1,99 @@
+/* Global GNOME-like Font and Base */
 * {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
-  transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  box-shadow: unset;
-}
-
-.control-center {
-  background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(25, 25, 25, 0.95) 100%);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
-              0 8px 25px rgba(0, 0, 0, 0.4),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin: 15px;
-  padding: 20px;
-  min-width: 380px;
-}
-
-.control-center scrollbar {
-  background-color: transparent;
-  border-radius: 10px;
-  margin: 4px;
-}
-
-.control-center scrollbar trough {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  min-width: 6px;
-}
-
-.control-center scrollbar slider {
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  min-width: 6px;
-  min-height: 30px;
-}
-
-.control-center scrollbar slider:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
-.widget-title {
-  background-color: transparent;
-  padding: 0 0 15px 0;
-  margin: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 15px;
-}
-
-.widget-title > box {
-  background-color: transparent;
-}
-
-.widget-title label {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-  font-size: 22px;
-  font-weight: 600;
-  color: #ffffff;
-  margin-left: 0;
-}
-
-.widget-title button {
-  background-color: rgba(0, 122, 255, 0.2);
-  border: 1px solid rgba(0, 122, 255, 0.3);
-  border-radius: 18px;
-  padding: 8px 16px;
-  margin: 0;
-  transition: all 150ms ease;
-}
-
-.widget-title button:hover {
-  background-color: rgba(0, 122, 255, 0.3);
-  transform: scale(1.02);
-}
-
-.widget-title button:active {
-  transform: scale(0.98);
-}
-
-.widget-title button label {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  font-size: 14px;
+  font-family: "Inter", "Cantarell", "Ubuntu", "Sans-Serif";
   font-weight: 500;
-  color: #007AFF;
-  margin: 0;
-}
-
-/* Completely remove background from notification rows - more aggressive targeting */
-.control-center .notification-row,
-.floating-notifications .notification-row,
-.control-center .notification-row:hover,
-.floating-notifications .notification-row:hover,
-.control-center .notification-row:active,
-.floating-notifications .notification-row:active,
-.control-center .notification-row:selected,
-.floating-notifications .notification-row:selected {
-  background-color: transparent;
-  background-image: none;
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  margin-bottom: 12px;
-}
-
-/* Remove any default styling from list box rows - more aggressive */
-GtkListBoxRow.notification-row,
-.control-center GtkListBoxRow,
-.floating-notifications GtkListBoxRow,
-listboxrow.notification-row,
-.control-center listboxrow,
-.floating-notifications listboxrow,
-row.notification-row,
-.control-center row,
-.floating-notifications row {
-  background-color: transparent;
-  background-image: none;
-  background: transparent;
-  box-shadow: none;
-  border: none;
-}
-
-/* Target all possible notification container elements */
-.notification-row .notification-background,
-.control-center .notification-row .notification-background,
-.floating-notifications .notification-row .notification-background,
-.notification-row,
-.control-center .notification-row,
-.floating-notifications .notification-row,
-.control-center list,
-.control-center listbox,
-.floating-notifications list,
-.floating-notifications listbox {
-  background-color: transparent;
-  background-image: none;
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Force transparency on any remaining notification elements */
-.control-center .widget-notifications,
-.floating-notifications .widget-notifications {
-  background: transparent;
-  box-shadow: none;
-  border: none;
-}
-
-.control-center .notification-row .notification-background .notification,
-.floating-notifications .notification-row .notification-background .notification {
-  background: linear-gradient(135deg, rgba(44, 44, 46, 0.9) 0%, rgba(38, 38, 40, 0.9) 100%);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3),
-              0 2px 6px rgba(0, 0, 0, 0.2),
-              inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  margin-bottom: 8px;
-  margin-top: 0;
-  padding: 0;
   transition: all 200ms ease;
+}
+
+/* Control Center Window */
+.control-center {
+  background: rgba(30, 30, 30, 0.98); /* GNOME Dark background */
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin: 10px;
+  padding: 12px;
+}
+
+/* Notification Groupings */
+.control-center .notification-row {
+  background: transparent;
+  margin-bottom: 6px;
+}
+
+/* The Notification Card */
+.control-center .notification-row .notification-background .notification {
+  background: #353535; /* GNOME Card color */
+  border-radius: 16px;
+  padding: 12px;
+  margin: 4px;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .control-center .notification-row .notification-background .notification:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4),
-              0 3px 8px rgba(0, 0, 0, 0.3),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: #404040;
 }
 
-.control-center .notification-row .notification-background .notification .notification-content,
-.floating-notifications .notification-row .notification-background .notification .notification-content {
-  background-color: transparent;
-  border: none;
-  border-radius: 16px;
-  padding: 16px 20px;
-  margin: 0;
-}
-
-/* Notification text styling */
-.control-center .notification-row .notification-background .notification .notification-content .summary {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 4px;
-}
-
-.control-center .notification-row .notification-background .notification .notification-content .body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
-  margin-top: 6px;
-}
-
-.control-center .notification-row .notification-background .notification .notification-content .time {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
-  margin-right: 12px;
-}
-
-.control-center .notification-row .notification-background .notification .notification-content label {
-  color: #ffffff;
-}
-
-.control-center .notification-row .notification-background .notification .notification-content image {
-  color: #ffffff;
-  background-color: transparent;
-  border-radius: 8px;
-}
-
-/* Critical notifications */
-.control-center .notification-row .notification-background .notification.critical .notification-content {
-  background: linear-gradient(135deg, rgba(255, 59, 48, 0.2) 0%, rgba(255, 45, 35, 0.15) 100%);
-  border: 1px solid rgba(255, 59, 48, 0.4);
-}
-
-.control-center .notification-row .close-button,
-.floating-notifications .close-button {
-  background-color: rgba(120, 120, 128, 0.2);
-  border-radius: 50%;
-  border: none;
-  box-shadow: none;
-  margin: 8px 12px 0 0;
-  min-height: 24px;
-  min-width: 24px;
-  color: rgba(255, 255, 255, 0.7);
-  transition: all 150ms ease;
-}
-
-.control-center .notification-row .close-button:hover,
-.floating-notifications .close-button:hover {
-  background-color: rgba(120, 120, 128, 0.35);
-  transform: scale(1.1);
-}
-
-.widget-dnd {
-  background: linear-gradient(135deg, rgba(44, 44, 46, 0.8) 0%, rgba(38, 38, 40, 0.8) 100%);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
-              inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  padding: 20px;
-  margin-bottom: 12px;
-  transition: all 200ms ease;
-}
-
-.widget-dnd:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.widget-dnd label {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: #ffffff;
-  margin-bottom: 12px;
-}
-
-.widget-dnd switch {
-  background-color: rgba(120, 120, 128, 0.2);
-  border-radius: 20px;
-  border: none;
-  transition: all 200ms ease;
-}
-
-.widget-dnd switch:checked {
-  background-color: #34C759;
-}
-
-.widget-dnd switch slider {
-  background-color: #ffffff;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.widget-buttons-grid {
-  background: linear-gradient(135deg, rgba(44, 44, 46, 0.8) 0%, rgba(38, 38, 40, 0.8) 100%);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
-              inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  padding: 16px;
-  margin-bottom: 12px;
-  transition: all 200ms ease;
-}
-
-.widget-buttons-grid:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.widget-buttons-grid > flowbox {
-  padding: 0;
-}
-
-.widget-buttons-grid > flowbox > flowboxchild > button {
-  background-color: rgba(120, 120, 128, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  min-width: 56px;
-  min-height: 56px;
-  margin: 6px;
-  color: #ffffff;
-  transition: all 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.widget-buttons-grid > flowbox > flowboxchild > button label {
-  font-family: "SF Symbols", "Material Design Icons", "Font Awesome", sans-serif;
-  font-size: 22px;
-  color: #ffffff;
-}
-
-.widget-buttons-grid > flowbox > flowboxchild > button:hover {
-  background-color: rgba(120, 120, 128, 0.35);
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.widget-buttons-grid > flowbox > flowboxchild > button:active {
-  transform: scale(0.95);
-}
-
-.widget-buttons-grid > flowbox > flowboxchild > button:checked {
-  background-color: #007AFF;
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
-}
-
-.widget-buttons-grid > flowbox > flowboxchild > button:checked label {
-  color: #ffffff;
-}
-
-.widget-volume {
-  background: linear-gradient(135deg, rgba(44, 44, 46, 0.8) 0%, rgba(38, 38, 40, 0.8) 100%);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
-              inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  padding: 20px;
-  margin-bottom: 12px;
-  transition: all 200ms ease;
-}
-
-.widget-volume:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.widget-volume label {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: #ffffff;
-  margin-bottom: 12px;
-}
-
-.widget-volume trough {
-  background-color: rgba(120, 120, 128, 0.2);
-  border-radius: 12px;
-  min-height: 8px;
-  border: none;
-}
-
-.widget-volume trough slider {
-  background-color: #ffffff;
-  border-radius: 50%;
-  min-height: 24px;
-  min-width: 24px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: all 150ms ease;
-}
-
-.widget-volume trough slider:hover {
-  background-color: #f8f8f8;
-  transform: scale(1.1);
-}
-
+/* MPRIS (Media Player) - Matches the top of your image */
 .widget-mpris {
-  background: linear-gradient(135deg, rgba(44, 44, 46, 0.8) 0%, rgba(38, 38, 40, 0.8) 100%);
+  background: #353535;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
-              inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  padding: 20px;
+  padding: 12px;
   margin-bottom: 12px;
-  transition: all 200ms ease;
-}
-
-.widget-mpris:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .widget-mpris-player {
-  padding: 0;
-  margin: 0;
+  padding: 4px;
 }
 
 .widget-mpris-title {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-  font-weight: 600;
-  font-size: 17px;
-  color: #ffffff;
-  margin-bottom: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 .widget-mpris-subtitle {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  font-weight: 400;
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  opacity: 0.7;
 }
 
-.widget-backlight {
-  background: linear-gradient(135deg, rgba(44, 44, 46, 0.8) 0%, rgba(38, 38, 40, 0.8) 100%);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
-              inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  padding: 20px;
-  margin-bottom: 12px;
-  transition: all 200ms ease;
-}
-
-.widget-backlight:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.widget-backlight label {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: #ffffff;
-  margin-bottom: 12px;
-}
-
-.widget-backlight trough {
-  background-color: rgba(120, 120, 128, 0.2);
-  border-radius: 12px;
-  min-height: 8px;
-  border: none;
-}
-
-.widget-backlight trough slider {
-  background-color: #ffffff;
-  border-radius: 50%;
-  min-height: 24px;
-  min-width: 24px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: all 150ms ease;
-}
-
-.widget-backlight trough slider:hover {
-  background-color: #f8f8f8;
-  transform: scale(1.1);
-}
-
-/* Control center global sliders */
-.control-center trough {
-  background-color: rgba(120, 120, 128, 0.2);
-  border-radius: 12px;
-  min-height: 8px;
-  border: none;
-}
-
-.control-center slider {
-  background-color: #ffffff;
-  border-radius: 50%;
-  min-height: 24px;
-  min-width: 24px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: all 150ms ease;
-}
-
-.control-center slider:hover {
-  background-color: #f8f8f8;
-  transform: scale(1.1);
-}
-
-/* Floating notifications - macOS dark mode style */
-.floating-notifications .notification-row .notification-background .notification {
-  background: linear-gradient(135deg,
-      rgba(45, 45, 48, 0.95) 0%,
-      rgba(40, 40, 43, 0.97) 50%,
-      rgba(35, 35, 38, 0.98) 100%);
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  /* Unset the box-shadow to remove the shadow effect */
-  box-shadow: unset;
-  margin: 8px 12px;
-  padding: 0;
-  min-width: 350px;
-  transform: translateX(0);
-  transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation: slideInFromRight 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-@keyframes slideInFromRight {
-  0% {
-    transform: translateX(30px) scale(0.95);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0) scale(1);
-    opacity: 1;
-  }
-}
-
-.floating-notifications .notification-row .notification-background .notification:hover {
-  transform: translateX(-4px) translateY(-2px) scale(1.02);
-  /* Unset the box-shadow on hover to remove the shadow effect */
-  box-shadow: unset;
-}
-
-.floating-notifications .notification-row .notification-background .notification .notification-content {
-  background-color: transparent;
-  border: none;
-  padding: 18px 22px;
-  margin: 0;
-}
-
-/* Floating notification text styling - macOS dark mode */
-.floating-notifications .notification-row .notification-background .notification .notification-content .summary {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 6px;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-}
-
-.floating-notifications .notification-row .notification-background .notification .notification-content .body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
-  margin-top: 4px;
-  letter-spacing: -0.005em;
-}
-
-.floating-notifications .notification-row .notification-background .notification .notification-content .time {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: 8px;
-  opacity: 0.8;
-}
-
-.floating-notifications .notification-row .notification-background .notification .notification-content image {
-  border-radius: 12px;
-  margin-right: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Floating notification close button - macOS dark style */
-.floating-notifications .close-button {
-  background: linear-gradient(135deg, rgba(60, 60, 67, 0.9), rgba(55, 55, 62, 0.95));
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3),
-              0 1px 3px rgba(0, 0, 0, 0.2),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin: 10px 12px 0 0;
-  min-height: 20px;
-  min-width: 20px;
-  color: rgba(255, 255, 255, 0.7);
-  transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.floating-notifications .close-button:hover {
-  background: linear-gradient(135deg, rgba(255, 95, 87, 0.9), rgba(255, 85, 77, 0.95));
-  color: #ffffff;
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(255, 95, 87, 0.4),
-              0 2px 6px rgba(0, 0, 0, 0.2),
-              inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.floating-notifications .close-button:active {
-  transform: scale(0.95);
-}
-
-/* Critical floating notifications - red accent for dark mode */
-.floating-notifications .notification-row .notification-background .notification.critical {
-  background: linear-gradient(135deg,
-      rgba(70, 35, 35, 0.95) 0%,
-      rgba(60, 30, 30, 0.97) 100%);
-  border: 1px solid rgba(255, 95, 87, 0.4);
-}
-
-.floating-notifications .notification-row .notification-background .notification.critical .notification-content .summary {
-  color: #ff6b6b;
-}
-
-/* Floating notification container adjustments */
-.floating-notifications .notification-row {
-  background-color: transparent;
-  background-image: none;
+/* Do Not Disturb / Bottom Bar */
+.widget-dnd {
   background: transparent;
-  box-shadow: none;
-  border: none;
-  margin: 4px 0;
+  padding: 8px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Widget spacing and layout */
-.control-center > * {
-  margin-bottom: 12px;
+.widget-dnd > box {
+  padding: 5px;
 }
 
-.control-center > *:last-child {
-  margin-bottom: 0;
+.widget-dnd switch {
+  background: #454545;
+  border-radius: 20px;
 }
 
-/* Hide notifications widget text when empty */
-.widget-notifications label {
-  color: transparent;
-  font-size: 0;
-  margin: 0;
-  padding: 0;
-  min-height: 0;
+.widget-dnd switch:checked {
+  background: #3584e4; /* GNOME Blue */
+}
+
+/* Style for the 'Clear' button at the bottom (if using title widget at bottom) */
+.widget-title button {
+  background: #454545;
+  border-radius: 8px;
+  padding: 4px 16px;
+  color: white;
+}
+
+.widget-title button:hover {
+  background: #505050;
+}
+
+/* Floating Popups (the ones that appear on screen) */
+.floating-notifications .notification {
+  background: rgba(36, 36, 36, 0.95);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
