@@ -14,20 +14,17 @@ if set -q TMUX
     set -gx DISPLAY (tmux show-env | grep ^DISPLAY | cut -d= -f2)
 end
 
-# Auto-start Niri on TTY1
-if status is-login
-    if test -z "$DISPLAY" -a (tty) = "/dev/tty1"
-        # Run Niri, but if it crashes, DO NOT exit the shell
-        dbus-run-session niri
-    end
-end
-
 # set -Ux HYPRSHOT_DIR "$HOME/Pictures/Screenshots"
 
 # Android Sdk
 set -e ANDROID_SDK_ROOT
 set -x ANDROID_HOME /home/batman/Android/Sdk
 set -x PATH $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $ANDROID_HOME/tools $ANDROID_HOME/tools/bin $PATH
+
+# Autostart Niri on TTY1 console login only
+if status is-login; and test (tty) = /dev/tty1; and test -z "$WAYLAND_DISPLAY"
+    exec niri-session -l
+end
 
 function fish_user_key_bindings
     # 1. Bind Ctrl+y to accept the autosuggestion
