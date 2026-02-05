@@ -44,6 +44,12 @@
   "timeout-low": 5,
   "transition-time": 250,
 
+  "widgets": [
+    "title",
+    "notifications",
+    "mpris",
+    "dnd"
+  ],
   "widget-config": {
     "title": {
       "text": "Notification Center",
@@ -64,102 +70,6 @@
     "volume": {
       "label": "Volume",
       "show-per-app": false
-    },
-    "backlight": {
-      "label": "Display Brightness",
-      "device": "intel_backlight",
-      "subsystem": "backlight"
-    },
-    "buttons-grid": {
-      "actions": [
-        {
-          "label": "󰖩",
-          "command": "nmcli radio wifi | grep -q enabled && nmcli radio wifi off || nmcli radio wifi on",
-          "type": "toggle",
-          "update-command": "nmcli radio wifi | grep -q enabled"
-        },
-        {
-          "label": "󰂯",
-          "command": "rfkill list bluetooth | grep -q 'Soft blocked: no' && rfkill block bluetooth || rfkill unblock bluetooth",
-          "type": "toggle",
-          "update-command": "rfkill list bluetooth | grep -q 'Soft blocked: no'"
-        },
-        {
-          "label": "󰍃",
-          "command": "pkill -USR1 gammastep || gammastep -O 4500 &",
-          "type": "toggle",
-          "update-command": "pgrep gammastep"
-        },
-        {
-          "label": "󰄀",
-          "command": "grim -g \"$(slurp)\" ~/Pictures/Screenshots/screenshot-$(date +%Y%m%d-%H%M%S).png && notify-send 'Screenshot' 'Screenshot saved'",
-          "type": "button"
-        },
-        {
-          "label": "󰕧",
-          "command": "grim ~/Pictures/Screenshots/fullscreen-$(date +%Y%m%d-%H%M%S).png && notify-send 'Screenshot' 'Full screen captured'",
-          "type": "button"
-        },
-        {
-          "label": "󰒓",
-          "command": "systemctl --user is-active --quiet redshift && systemctl --user stop redshift || systemctl --user start redshift",
-          "type": "toggle",
-          "update-command": "systemctl --user is-active --quiet redshift"
-        }
-      ]
-    },
-    "menubar": {
-      "menu#powermode": {
-        "label": "󰈐",
-        "position": "right",
-        "actions": [
-          {
-            "label": "Performance",
-            "command": "powerprofilesctl set performance && notify-send 'Power Profile' 'Performance mode activated'"
-          },
-          {
-            "label": "Balanced",
-            "command": "powerprofilesctl set balanced && notify-send 'Power Profile' 'Balanced mode activated'"
-          },
-          {
-            "label": "Power Saver",
-            "command": "powerprofilesctl set power-saver && notify-send 'Power Profile' 'Power saver mode activated'"
-          }
-        ]
-      },
-      "menu#network": {
-        "label": "󰖩",
-        "position": "right",
-        "actions": [
-          {
-            "label": "Network Settings",
-            "command": "nm-connection-editor"
-          },
-          {
-            "label": "WiFi Settings",
-            "command": "iwgtk"
-          }
-        ]
-      }
-    }
-  },
-  "widgets": [
-    "mpris",
-    "notifications",
-    "dnd"
-  ],
-  "widget-config": {
-    "title": {
-      "text": "Notifications",
-      "button-text": "Clear",
-      "clear-all-button": true
-    },
-    "dnd": {
-      "text": "Do Not Disturb"
-    },
-    "mpris": {
-      "image-size": 60,
-      "image-radius": 5
     }
   }
 }

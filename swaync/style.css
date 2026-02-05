@@ -97,3 +97,23 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
+
+/* Style for the action buttons (the pill-shaped buttons) */
+.notification-action {
+  background: #454545; /* Dark grey to match GNOME style */
+  color: white;
+  border-radius: 12px;
+  margin: 10px 5px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.notification-action:hover {
+  background: #505050;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Ensure the text inside the button is visible */
+.notification-action label {
+  color: white;
+}
