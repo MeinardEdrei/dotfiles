@@ -16,10 +16,20 @@ end
 
 # set -Ux HYPRSHOT_DIR "$HOME/Pictures/Screenshots"
 
+# Java Home (Crucial for Gradle)
+set -gx JAVA_HOME /usr/lib/jvm/java-17-openjdk
+set -gx PATH $JAVA_HOME/bin $PATH
+
 # Android Sdk
 set -e ANDROID_SDK_ROOT
-set -x ANDROID_HOME /home/batman/Android/Sdk
-set -x PATH $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $ANDROID_HOME/tools $ANDROID_HOME/tools/bin $PATH
+set -gx ANDROID_HOME /home/batman/Android/Sdk
+
+set -gx ANDROID_NDK_HOME $ANDROID_HOME/ndk/27.1.12297006 
+
+# FIX: Move EAS local builds out of /tmp (RAM) and onto /home partition
+set -gx EAS_LOCAL_BUILD_WORKING_DIR $HOME/.eas-build-local
+
+set -gx PATH $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $ANDROID_HOME/tools $ANDROID_HOME/tools/bin $PATH
 
 # Autostart Niri on TTY1 console login only
 if status is-login; and test (tty) = /dev/tty1; and test -z "$WAYLAND_DISPLAY"
@@ -44,4 +54,11 @@ end
 # Emulator
 function android-run
     emulator -avd Medium_Phone_API_36.0 -gpu swiftshader_indirect -no-skin &
+end
+
+function davincify
+    mkdir -p converted
+    for i in $argv
+        ffmpeg -i "$i" -c:v prores_ks -profile:v 3 -c:a pcm_s16le "converted/"(string replace -r '\.mp4$|\.mkv$' '.mov' $i)
+    end
 end
