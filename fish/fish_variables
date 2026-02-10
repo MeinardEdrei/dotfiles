@@ -6,5 +6,8 @@ SETUVAR --export --path PATH:/home/batman/Android/Sdk/cmdline\x2dtools/latest/bi
 SETUVAR --export XDG_CURRENT_DESKTOP:niri\x3aGNOME
 SETUVAR --export XDG_SESSION_TYPE:wayland
 SETUVAR __fish_initialized:4300
+SETUVAR _fisher_edc_2F_bass_files:\x7e/\x2econfig/fish/functions/__bass\x2epy\x1e\x7e/\x2econfig/fish/functions/bass\x2efish
+SETUVAR _fisher_plugins:edc/bass
+SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_greeting:\x1d
 SETUVAR fish_user_paths:/opt/flutter/bin\x1e/home/batman/\x2edotnet

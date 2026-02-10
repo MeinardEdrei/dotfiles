@@ -62,3 +62,8 @@ function davincify
         ffmpeg -i "$i" -c:v prores_ks -profile:v 3 -c:a pcm_s16le "converted/"(string replace -r '\.mp4$|\.mkv$' '.mov' $i)
     end
 end
+
+fisher install edc/bass
+function nvm
+    bass source $HOME/.nvm/nvm.sh ';' nvm $argv
+end
