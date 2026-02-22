@@ -77,25 +77,21 @@
         "on-click": "nm-connection-editor",
     },
     "pulseaudio": {
-        "format": "{icon} ",
-        "format-bluetooth": "{icon} ",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " ",
+        "format": "{icon}",
+        "format-bluetooth": "{icon}",
+        "format-bluetooth-muted": "󰗿 {icon}",
+        "format-muted": "󰝟",
         "format-icons": {
             "headphone": "",
-            "hands-free": "",
-            "headset": "",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
             "phone": "",
             "portable": "",
             "car": "",
-            "default": [
-                "",
-                "",
-                ""
-            ]
+            "default": ["", "", ""]
         },
         "scroll-step": 5,
-        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle", // Click to mute
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol"
     }
 }
