@@ -4,6 +4,7 @@
     "spacing": 0, // Let the CSS handle spacing via margins
     "modules-left": [
         "niri/workspaces",
+        "idle_inhibitor",
     ],
     "modules-center": [
         "niri/window"
@@ -34,6 +35,13 @@
             "active": "•",
             "default": "•",
             "urgent": "•"
+        }
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
         }
     },
     "bluetooth": {
@@ -88,7 +96,11 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": [
+                "",
+                "",
+                ""
+            ]
         },
         "scroll-step": 5,
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
