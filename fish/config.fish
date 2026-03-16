@@ -63,7 +63,9 @@ function davincify
     end
 end
 
-fisher install edc/bass
-function nvm
-    bass source $HOME/.nvm/nvm.sh ';' nvm $argv
+# Load nvm using bass (Only if bass is installed)
+if functions -q bass
+    function nvm
+        bass source $HOME/.nvm/nvm.sh ';' nvm $argv
+    end
 end
