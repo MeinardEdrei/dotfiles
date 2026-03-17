@@ -29,7 +29,7 @@ window#waybar {
 #clock {
   border: 1px solid rgba(255, 255, 255, 0.1);
   margin: 3px 3px;
-  padding: 0px 15px;
+  padding: 0px 10px;
   border-radius: 20px;
   color: white;
 }

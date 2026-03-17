@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "top",
-    "spacing": 0, // Let the CSS handle spacing via margins
+    "spacing": 0,
     "modules-left": [
         "niri/workspaces",
         "idle_inhibitor",
@@ -40,8 +40,8 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "",
-            "deactivated": ""
+            "activated": " ",
+            "deactivated": " "
         }
     },
     "bluetooth": {
@@ -97,9 +97,9 @@
             "portable": "",
             "car": "",
             "default": [
-                "",
-                "",
-                ""
+                " ",
+                " ",
+                " "
             ]
         },
         "scroll-step": 5,
