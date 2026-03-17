@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.opt.termguicolors = true
 vim.g.have_nerd_font = true
 vim.opt.number = true
 vim.opt.cmdheight = 1
