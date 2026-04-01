@@ -74,82 +74,39 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 })
 
--- [[ Custom Tabline Appearance ]]
-vim.opt.showtabline = 2
-
--- 1. Define the Dark Color for the Separator
---    We use an autocommand to ensure it stays dark even if you change themes.
-vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "*",
-	callback = function()
-		-- fg = "#333333" is a very dark grey. Change this hex code if you want it darker/lighter.
-		vim.api.nvim_set_hl(0, "TabSeparator", { fg = "#333333", bg = "NONE" })
-	end,
-})
-
-_G.close_tab_by_id = function(tabnr)
-	vim.cmd("tabclose " .. tabnr)
-end
-
-_G.custom_tabline = function()
-	local s = ""
-	local current = vim.fn.tabpagenr()
-	local total = vim.fn.tabpagenr("$")
-
-	for i = 1, total do
-		-- Highlight focused vs unfocused tabs
-		if i == current then
-			s = s .. "%#TabLineSel#"
-		else
-			s = s .. "%#TabLine#"
-		end
-
-		-- Mouse click handler
-		s = s .. "%" .. i .. "T "
-
-		-- Get buffer name
-		local winnr = vim.fn.tabpagewinnr(i)
-		local buflist = vim.fn.tabpagebuflist(i)
-		local buf = buflist[winnr]
-		local path = vim.api.nvim_buf_get_name(buf)
-		local name = ""
-
-		if path == "" then
-			name = "[No Name]"
-		else
-			local parent = vim.fn.fnamemodify(path, ":p:h:t")
-			local file = vim.fn.fnamemodify(path, ":t")
-			name = parent .. "/" .. file
-		end
-
-		-- Add name
-		s = s .. " " .. name .. " "
-
-		-- Add Exit Button [x]
-		s = s .. "%" .. i .. "@v:lua.close_tab_by_id@%#ErrorMsg# x %X"
-
-		-- === THE CHANGE IS HERE ===
-		-- Switch to our custom dark color, add the separator, then switch back to Fill
-		s = s .. "%#TabSeparator#│"
-	end
-
-	s = s .. "%#TabLineFill#"
-	return s
-end
-
-vim.opt.tabline = "%!v:lua.custom_tabline()"
-
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
--- [[ Custom Tab Navigation - Home Row Edition ]]
+-- [[ Bufferline ]]
+vim.keymap.set("n", "<leader>bp", "<cmd>BufferLineTogglePin<CR>", { desc = "Pin/Unpin Buffer" })
+vim.keymap.set("n", "<leader>bo", "<cmd>BufferLineCloseOthers<CR>", { desc = "Close all other buffers" })
+vim.keymap.set("n", "<leader>br", "<cmd>BufferLineCloseRight<CR>", { desc = "Close buffers to the right" })
+vim.keymap.set("n", "<leader>n", "<cmd>enew<CR>", { desc = "New Empty Buffer" })
+vim.keymap.set("n", "gb", "<cmd>BufferLinePick<CR>", { desc = "Jump to Buffer" })
 
--- GO PREVIOUS: Hold Shift + h (Capital H)
-vim.keymap.set("n", "H", "<cmd>tabprevious<CR>", { desc = "Previous Tab" })
--- GO NEXT: Hold Shift + l (Capital L)
-vim.keymap.set("n", "L", "<cmd>tabnext<CR>", { desc = "Next Tab" })
--- NEW TAB: Press Space then n
-vim.keymap.set("n", "<leader>n", "<cmd>tabnew<CR>", { desc = "New Tab" })
+-- Navigate between buffers (tabs)
+vim.keymap.set("n", "H", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous Buffer" })
+vim.keymap.set("n", "L", "<cmd>BufferLineCycleNext<CR>", { desc = "Next Buffer" })
+
+-- Re-order buffers (Move them left/right)
+vim.keymap.set("n", "<leader>bh", "<cmd>BufferLineMovePrev<CR>", { desc = "Move Buffer Left" })
+vim.keymap.set("n", "<leader>bl", "<cmd>BufferLineMoveNext<CR>", { desc = "Move Buffer Right" })
+
+-- Close current buffer (the tab at the top)
+vim.keymap.set("n", "<leader>x", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  if vim.bo.modified then
+    local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+    if choice == 1 then -- Yes
+      vim.cmd.write()
+      vim.cmd.bdelete(bufnr)
+    elseif choice == 2 then -- No (Force close)
+      vim.cmd.bdelete({ args = { bufnr }, bang = true })
+    end
+  else
+    vim.cmd.bdelete(bufnr)
+  end
+end, { desc = "Close Buffer (Tab)" })
 
 -- [[ Window & Split Management ]]
 
@@ -160,8 +117,6 @@ vim.keymap.set("n", "<leader>v", "<C-w>v", { desc = "Split [V]ertical" })
 --    Split window Horizontally (Up/Down)
 vim.keymap.set("n", "<leader>j", "<C-w>s", { desc = "Split Horizontal [-]" })
 --    If you are in a split, it closes the split.
---    If you are in a single window, it closes the tab.
-vim.keymap.set("n", "<leader>x", "<cmd>close<CR>", { desc = "Close current Window/Split" })
 --    If you dragged borders and messed up sizes, this resets them to equal
 vim.keymap.set("n", "<leader>=", "<C-w>=", { desc = "Equalize Window Sizes" })
 -- Maximize current split height
@@ -380,6 +335,7 @@ require("lazy").setup({
 	require("kickstart.plugins.conform"),
 	require("kickstart.plugins.which-key"),
 	require("kickstart.plugins.trouble"),
+	require("kickstart.plugins.bufferline"),
 
 	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
 	--    This is the easiest way to modularize your config.
