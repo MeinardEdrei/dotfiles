@@ -1,3 +1,13 @@
+# Ensure Wayland/Niri env variables are available in subshells
+if set -q TMUX
+    # Only pull variables if they aren't already set correctly
+    for var in WAYLAND_DISPLAY XDG_RUNTIME_DIR DISPLAY
+        if not set -q $var
+            set -gx $var (tmux show-env | grep "^$var=" | cut -d= -f2)
+        end
+    end
+end
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
@@ -15,6 +25,10 @@ if set -q TMUX
 end
 
 # set -Ux HYPRSHOT_DIR "$HOME/Pictures/Screenshots"
+
+if set -q TMUX
+    set -gx TMUX_CURRENT_SESSION (tmux display-message -p '#{session_id}' 2>/dev/null)
+end
 
 # Java Home (Crucial for Gradle)
 set -gx JAVA_HOME /usr/lib/jvm/java-17-openjdk
