@@ -309,13 +309,10 @@ animations {
 
 window-rule {
     match app-id="com.github.ErikReider.SwayNotificationCenter"
-    // Disables the focus ring visual
     focus-ring {
         off
     }
 
-    // This is the correct Niri way to handle "don't touch me" windows
-    // It prevents the window from being considered for keyboard focus
     block-out-from "screen-capture"
 }
 
