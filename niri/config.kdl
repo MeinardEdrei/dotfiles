@@ -398,7 +398,14 @@ binds {
 
 
 
+    // Push the currently focused window to the screen share
+    Mod+Shift+C { set-dynamic-cast-window; }
 
+    // Push the currently focused monitor to the screen share
+    Mod+Alt+C { set-dynamic-cast-monitor; }
+
+    // Clear the cast (show a black screen)
+    Mod+Shift+X { clear-dynamic-cast-target; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
