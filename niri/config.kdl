@@ -272,6 +272,8 @@ spawn-at-startup "nm-applet"
 spawn-at-startup "swaybg" "-i" "/home/batman/dotfiles/resources/03.jpg" "-m" "fill"
 spawn-at-startup "swayosd-server"
 
+// APPS
+spawn-at-startup "obsidian"
 
 // IDLE
 spawn-at-startup "hypridle"
