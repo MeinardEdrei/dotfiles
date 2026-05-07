@@ -273,6 +273,8 @@ spawn-at-startup "swaybg" "-i" "/home/batman/dotfiles/resources/03.jpg" "-m" "fi
 spawn-at-startup "swayosd-server"
 
 // APPS
+spawn-at-startup "zen-browser"
+spawn-at-startup "kitty" "tmux"
 spawn-at-startup "obsidian"
 
 // IDLE
