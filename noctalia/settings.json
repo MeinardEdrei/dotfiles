@@ -14,15 +14,15 @@
         "enableSessionSearch": true,
         "enableSettingsSearch": true,
         "enableWindowsSearch": true,
-        "iconMode": "tabler",
+        "iconMode": "native",
         "ignoreMouseInput": false,
         "overviewLayer": false,
         "pinnedApps": [
         ],
-        "position": "center",
+        "position": "top_center",
         "screenshotAnnotationTool": "",
-        "showCategories": true,
-        "showIconBackground": false,
+        "showCategories": false,
+        "showIconBackground": true,
         "sortByMostUsed": true,
         "terminalCommand": "kitty -e",
         "viewMode": "list"
@@ -33,7 +33,7 @@
         "preferredPlayer": "",
         "spectrumFrameRate": 30,
         "spectrumMirrored": true,
-        "visualizerType": "linear",
+        "visualizerType": "mirrored",
         "volumeFeedback": false,
         "volumeFeedbackSoundFile": "",
         "volumeOverdrive": false,
@@ -42,11 +42,11 @@
     "bar": {
         "autoHideDelay": 500,
         "autoShowDelay": 150,
-        "backgroundOpacity": 0.93,
+        "backgroundOpacity": 0,
         "barType": "floating",
         "capsuleColorKey": "none",
         "capsuleOpacity": 0,
-        "contentPadding": 2,
+        "contentPadding": 0,
         "density": "compact",
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
@@ -79,16 +79,6 @@
         "widgets": {
             "center": [
                 {
-                    "colorizeSystemIcon": "none",
-                    "colorizeSystemText": "none",
-                    "customIconPath": "",
-                    "enableColorization": false,
-                    "icon": "rocket",
-                    "iconColor": "none",
-                    "id": "Launcher",
-                    "useDistroLogo": false
-                },
-                {
                     "compactMode": false,
                     "hideMode": "hidden",
                     "hideWhenIdle": false,
@@ -106,7 +96,7 @@
                 },
                 {
                     "colorName": "primary",
-                    "hideWhenIdle": false,
+                    "hideWhenIdle": true,
                     "id": "AudioVisualizer",
                     "width": 150
                 }
@@ -154,6 +144,16 @@
                     "textColor": "none",
                     "useMonospaceFont": true,
                     "usePadding": false
+                },
+                {
+                    "colorizeSystemIcon": "none",
+                    "colorizeSystemText": "none",
+                    "customIconPath": "",
+                    "enableColorization": false,
+                    "icon": "rocket",
+                    "iconColor": "none",
+                    "id": "Launcher",
+                    "useDistroLogo": false
                 }
             ],
             "right": [
@@ -175,6 +175,13 @@
                     "id": "NotificationHistory",
                     "showUnreadBadge": true,
                     "unreadBadgeColor": "primary"
+                },
+                {
+                    "displayMode": "onhover",
+                    "iconColor": "none",
+                    "id": "Microphone",
+                    "middleClickCommand": "pwvucontrol || pavucontrol",
+                    "textColor": "none"
                 },
                 {
                     "deviceNativePath": "__default__",
@@ -318,7 +325,7 @@
         }
     },
     "desktopWidgets": {
-        "enabled": false,
+        "enabled": true,
         "gridSnap": false,
         "gridSnapScale": false,
         "monitorWidgets": [
@@ -354,7 +361,7 @@
         "pinnedStatic": false,
         "position": "bottom",
         "showDockIndicator": false,
-        "showLauncherIcon": false,
+        "showLauncherIcon": true,
         "sitOnFrame": false,
         "size": 1
     },
@@ -367,8 +374,8 @@
         "avatarImage": "/home/batman/.face",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
-        "clockStyle": "custom",
-        "compactLockScreen": false,
+        "clockStyle": "digital",
+        "compactLockScreen": true,
         "dimmerOpacity": 0,
         "enableBlurBehind": true,
         "enableLockScreenCountdown": true,
@@ -407,11 +414,11 @@
         "lockScreenCountdownDuration": 10000,
         "lockScreenMonitors": [
         ],
-        "lockScreenTint": 0,
+        "lockScreenTint": 0.5,
         "passwordChars": false,
         "radiusRatio": 1,
         "reverseScroll": false,
-        "scaleRatio": 1,
+        "scaleRatio": 0.9,
         "screenRadiusRatio": 1,
         "shadowDirection": "bottom_right",
         "shadowOffsetX": 2,
