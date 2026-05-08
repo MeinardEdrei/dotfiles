@@ -266,19 +266,21 @@ layout {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 
-spawn-at-startup "waybar"
-spawn-at-startup "swaync"
-spawn-at-startup "nm-applet"
-spawn-at-startup "swaybg" "-i" "/home/batman/dotfiles/resources/03.jpg" "-m" "fill"
-spawn-at-startup "swayosd-server"
+// spawn-at-startup "waybar"
+// spawn-at-startup "swaync"
+spawn-at-startup "qs" "-c" "noctalia-shell"
+// spawn-at-startup "nm-applet"
+// spawn-at-startup "swaybg" "-i" "/home/batman/dotfiles/resources/03.jpg" "-m" "fill"
+// spawn-at-startup "swayosd-server"
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 
 // APPS
-spawn-at-startup "zen-browser"
-spawn-at-startup "kitty" "tmux"
-spawn-at-startup "obsidian"
+// spawn-at-startup "zen-browser"
+// spawn-at-startup "kitty" "tmux"
+// spawn-at-startup "obsidian"
 
 // IDLE
-spawn-at-startup "hypridle"
+// spawn-at-startup "hypridle"
 // spawn-at-startup "swayidle timeout 300 'brightnessctl -s set 10%' resume 'brightnessctl -r' timeout 600 'loginctl lock-session' timeout 900 'systemctl suspend' before-sleep 'loginctl lock-session'"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
@@ -378,11 +380,12 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+S hotkey-overlay-title="Run an Application: rofi" { spawn "env" "DISPLAY=:0" "rofi" "-show" "drun"; }
+    Mod+S hotkey-overlay-title="Run an Application: noctalia" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+E hotkey-overlay-title="File explorer: nautilus" { spawn "nautilus"; }
-    Mod+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
+    Mod+Alt+L hotkey-overlay-title="Lock the Screen: noctalia" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
+    Mod+Alt+V hotkey-overlay-title="Clipboard History: noctalia" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
     Mod+Slash hotkey-overlay-title="Emoji manager: emote" { spawn "emote"; }
-    Mod+X hotkey-overlay-title="Run Power Menu" { spawn "~/.config/rofi/scripts/power-menu.sh"; }
+    Mod+X hotkey-overlay-title="Run Power Menu" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
