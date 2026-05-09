@@ -79,20 +79,15 @@
         "widgets": {
             "center": [
                 {
-                    "compactMode": false,
+                    "colorizeIcons": false,
                     "hideMode": "hidden",
-                    "hideWhenIdle": false,
-                    "id": "MediaMini",
+                    "id": "ActiveWindow",
                     "maxWidth": 145,
-                    "panelShowAlbumArt": true,
                     "scrollingMode": "hover",
-                    "showAlbumArt": true,
-                    "showArtistFirst": true,
-                    "showProgressRing": true,
-                    "showVisualizer": false,
+                    "showIcon": true,
+                    "showText": true,
                     "textColor": "none",
-                    "useFixedWidth": false,
-                    "visualizerType": "linear"
+                    "useFixedWidth": false
                 },
                 {
                     "colorName": "primary",
@@ -257,7 +252,7 @@
         "manualSunset": "18:30",
         "monitorForColors": "",
         "predefinedScheme": "Noctalia (default)",
-        "schedulingMode": "location",
+        "schedulingMode": "off",
         "syncGsettings": true,
         "useWallpaperColors": true
     },
@@ -320,6 +315,9 @@
                 },
                 {
                     "id": "NightLight"
+                },
+                {
+                    "id": "DarkMode"
                 }
             ]
         }
@@ -433,7 +431,7 @@
     "hooks": {
         "colorGeneration": "",
         "darkModeChange": "",
-        "enabled": false,
+        "enabled": true,
         "performanceModeDisabled": "",
         "performanceModeEnabled": "",
         "screenLock": "",
@@ -466,7 +464,7 @@
         "showCalendarEvents": true,
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": false,
-        "use12hourFormat": false,
+        "use12hourFormat": true,
         "useFahrenheit": false,
         "weatherEnabled": true,
         "weatherShowEffects": true,

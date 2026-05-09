@@ -1,6 +1,6 @@
 {
   "control-center-height": 0,
-  "control-center-layer": "overlay",
+  "control-center-layer": "top",
   "control-center-margin-bottom": 25,
   "control-center-margin-left": 0,
   "control-center-margin-right": 25,
@@ -13,8 +13,8 @@
   "hide-on-action": true,
   "hide-on-clear": true,
   "image-visibility": "when-available",
-  "keyboard-shortcuts": true,
-  "layer": "overlay",
+  "keyboard-shortcuts": false,
+  "layer": "top",
   "notification-body-image-height": 80,
   "notification-body-image-width": 80,
   "notification-icon-size": 48,
@@ -25,16 +25,11 @@
   "script-fail-notify": true,
   "scripts": {
     "notification-sound": {
-      "exec": "if [ \"$SWAYNC_APP_NAME\" != \"Spotify\" ] && [ \"$SWAYNC_APP_NAME\" != \"spotify\" ] && [ \"$SWAYNC_APP_NAME\" != \"com.spotify.Client\" ]; then canberra-gtk-play -i message-new-instant; fi",
+      "exec": "case \"$SWAYNC_APP_NAME\" in Spotify|spotify|com.spotify.Client) ;; *) canberra-gtk-play -i message-new-instant ;; esac",
       "run-on": "receive"
     },
-    "open-screenshot": {
-      "exec": "~/dotfiles-niri/_scripts/screenshot-open.sh",
-      "run-on": "action",
-      "run-on-app": "Niri Screenshot"
-    },
-    "open-screenshot-folder": {
-      "exec": "~/dotfiles-niri/_scripts/screenshot-folder.sh", 
+    "niri-screenshot-handler": {
+      "exec": "/home/batman/dotfiles/_scripts/screenshot-handler.sh",
       "run-on": "action",
       "run-on-app": "Niri Screenshot"
     }
