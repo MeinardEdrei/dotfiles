@@ -1,0 +1,61 @@
+{
+  "todos": [
+    {
+      "id": 1778413310141,
+      "text": "integrate google calendar to noctalia",
+      "completed": false,
+      "createdAt": "2026-05-10T11:41:50.141Z",
+      "pageId": 0,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1778413299809,
+      "text": "check if i can integrate luma in noctalia or any platform",
+      "completed": false,
+      "createdAt": "2026-05-10T11:41:39.809Z",
+      "pageId": 0,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1778321048463,
+      "text": "finalize portfolio",
+      "completed": false,
+      "createdAt": "2026-05-09T10:04:08.463Z",
+      "pageId": 0,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1778321028063,
+      "text": "deploy seated",
+      "completed": false,
+      "createdAt": "2026-05-09T10:03:48.063Z",
+      "pageId": 0,
+      "priority": "high",
+      "details": ""
+    }
+  ],
+  "pages": [
+    {
+      "id": 0,
+      "name": "General"
+    }
+  ],
+  "current_page_id": 0,
+  "count": 4,
+  "completedCount": 0,
+  "showCompleted": true,
+  "showBackground": true,
+  "isExpanded": false,
+  "useCustomColors": false,
+  "priorityColors": {
+    "high": "#ffb4ab",
+    "medium": "#ffffff",
+    "low": "#c6c6c6"
+  },
+  "exportPath": "~/Documents",
+  "exportFormat": "json",
+  "exportEmptySections": false
+}

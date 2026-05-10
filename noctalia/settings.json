@@ -45,15 +45,15 @@
         "backgroundOpacity": 0,
         "barType": "floating",
         "capsuleColorKey": "none",
-        "capsuleOpacity": 0,
-        "contentPadding": 0,
+        "capsuleOpacity": 1,
+        "contentPadding": 2,
         "density": "compact",
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
         "fontScale": 1,
         "frameRadius": 12,
         "frameThickness": 8,
-        "hideOnOverview": false,
+        "hideOnOverview": true,
         "marginHorizontal": 4,
         "marginVertical": 4,
         "middleClickAction": "none",
@@ -149,6 +149,46 @@
                     "iconColor": "none",
                     "id": "Launcher",
                     "useDistroLogo": false
+                },
+                {
+                    "defaultSettings": {
+                        "autoMount": false,
+                        "fileBrowser": "yazi",
+                        "hideWhenEmpty": false,
+                        "iconColor": "none",
+                        "showBadge": false,
+                        "showNotifications": true,
+                        "terminalCommand": "kitty"
+                    },
+                    "id": "plugin:usb-drive-manager"
+                },
+                {
+                    "defaultSettings": {
+                        "completedCount": 0,
+                        "count": 0,
+                        "current_page_id": 0,
+                        "exportEmptySections": false,
+                        "exportFormat": "markdown",
+                        "exportPath": "~/Documents",
+                        "isExpanded": false,
+                        "pages": [
+                            {
+                                "id": 0,
+                                "name": "General"
+                            }
+                        ],
+                        "priorityColors": {
+                            "high": "#f44336",
+                            "low": "#9e9e9e",
+                            "medium": "#2196f3"
+                        },
+                        "showBackground": true,
+                        "showCompleted": true,
+                        "todos": [
+                        ],
+                        "useCustomColors": false
+                    },
+                    "id": "plugin:todo"
                 }
             ],
             "right": [
@@ -213,11 +253,32 @@
                 {
                     "clockColor": "none",
                     "customFont": "",
-                    "formatHorizontal": "HH:mm ddd, MMM dd",
-                    "formatVertical": "HH mm - dd MM",
+                    "formatHorizontal": "h:mm AP ddd, MMM dd",
+                    "formatVertical": "h:mm AP",
                     "id": "Clock",
-                    "tooltipFormat": "HH:mm ddd, MMM dd",
+                    "tooltipFormat": "h:mm AP ddd, MMM dd",
                     "useCustomFont": false
+                },
+                {
+                    "defaultSettings": {
+                        "autoMount": false,
+                        "fileBrowser": "yazi",
+                        "hideWhenEmpty": false,
+                        "iconColor": "none",
+                        "showBadge": false,
+                        "showNotifications": true,
+                        "terminalCommand": "kitty"
+                    },
+                    "id": "plugin:usb-drive-manager"
+                },
+                {
+                    "id": "plugin:weekly-calendar"
+                },
+                {
+                    "id": "plugin:pomodoro"
+                },
+                {
+                    "id": "plugin:simple-notes"
                 }
             ]
         }
@@ -324,9 +385,64 @@
     },
     "desktopWidgets": {
         "enabled": true,
-        "gridSnap": false,
+        "gridSnap": true,
         "gridSnapScale": false,
         "monitorWidgets": [
+            {
+                "name": "eDP-1",
+                "widgets": [
+                    {
+                        "defaultSettings": {
+                            "barWidth": 0.6,
+                            "bloomIntensity": 0.5,
+                            "customPrimaryColor": "#6750A4",
+                            "customSecondaryColor": "#625B71",
+                            "fadeWhenIdle": false,
+                            "innerDiameter": 0.7,
+                            "ringOpacity": 0.8,
+                            "rotationSpeed": 0.5,
+                            "sensitivity": 1.5,
+                            "useCustomColors": false,
+                            "visualizationMode": 3,
+                            "waveThickness": 1
+                        },
+                        "id": "plugin:fancy-audiovisualizer",
+                        "showBackground": true,
+                        "x": 59,
+                        "y": 109
+                    },
+                    {
+                        "id": "Weather",
+                        "roundedCorners": true,
+                        "showBackground": true,
+                        "x": 1300,
+                        "y": 250
+                    },
+                    {
+                        "diskPath": "/",
+                        "id": "SystemStat",
+                        "layout": "bottom",
+                        "roundedCorners": true,
+                        "showBackground": true,
+                        "statType": "CPU",
+                        "x": 1300,
+                        "y": 100
+                    },
+                    {
+                        "clockColor": "none",
+                        "clockStyle": "digital",
+                        "customFont": "",
+                        "format": "HH:mm\\nd MMMM yyyy",
+                        "id": "Clock",
+                        "roundedCorners": true,
+                        "scale": 1.1015545286000992,
+                        "showBackground": true,
+                        "useCustomFont": false,
+                        "x": 1300,
+                        "y": 375
+                    }
+                ]
+            }
         ],
         "overviewEnabled": true
     },
@@ -338,7 +454,7 @@
         "displayMode": "auto_hide",
         "dockType": "floating",
         "enabled": true,
-        "floatingRatio": 0.7000000000000001,
+        "floatingRatio": 1,
         "groupApps": false,
         "groupClickAction": "cycle",
         "groupContextMenuMode": "extended",
@@ -369,12 +485,12 @@
         "animationDisabled": false,
         "animationSpeed": 1,
         "autoStartAuth": false,
-        "avatarImage": "/home/batman/.face",
+        "avatarImage": "/home/batman/Downloads/toothless.jpg",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
         "clockStyle": "digital",
         "compactLockScreen": true,
-        "dimmerOpacity": 0,
+        "dimmerOpacity": 0.2,
         "enableBlurBehind": true,
         "enableLockScreenCountdown": true,
         "enableLockScreenMediaControls": false,
@@ -431,7 +547,7 @@
     "hooks": {
         "colorGeneration": "",
         "darkModeChange": "",
-        "enabled": true,
+        "enabled": false,
         "performanceModeDisabled": "",
         "performanceModeEnabled": "",
         "screenLock": "",
@@ -473,7 +589,7 @@
     "network": {
         "bluetoothAutoConnect": true,
         "bluetoothDetailsViewMode": "grid",
-        "bluetoothHideUnnamedDevices": false,
+        "bluetoothHideUnnamedDevices": true,
         "bluetoothRssiPollIntervalMs": 60000,
         "bluetoothRssiPollingEnabled": false,
         "disableDiscoverability": false,
@@ -522,7 +638,7 @@
             "lowSoundFile": "",
             "normalSoundFile": "",
             "separateSounds": false,
-            "volume": 0.5
+            "volume": 1
         }
     },
     "osd": {
@@ -540,7 +656,7 @@
         "overlayLayer": true
     },
     "plugins": {
-        "autoUpdate": false,
+        "autoUpdate": true,
         "notifyUpdates": true
     },
     "sessionMenu": {
@@ -645,11 +761,11 @@
         "fontDefaultScale": 1,
         "fontFixed": "monospace",
         "fontFixedScale": 1,
-        "panelBackgroundOpacity": 0.93,
+        "panelBackgroundOpacity": 0.3,
         "panelsAttachedToBar": true,
         "scrollbarAlwaysVisible": true,
         "settingsPanelMode": "attached",
-        "settingsPanelSideBarCardStyle": false,
+        "settingsPanelSideBarCardStyle": true,
         "tooltipsEnabled": true,
         "translucentWidgets": false
     },
@@ -694,7 +810,7 @@
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",
         "wallhavenPurity": "100",
-        "wallhavenQuery": "interstellar",
+        "wallhavenQuery": "one piece",
         "wallhavenRatios": "",
         "wallhavenResolutionHeight": "",
         "wallhavenResolutionMode": "atleast",
