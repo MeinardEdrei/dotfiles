@@ -381,6 +381,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+S hotkey-overlay-title="Run an Application: noctalia" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Mod+C hotkey-overlay-title="Open Control Center: noctalia" { spawn-sh "qs -c noctalia-shell ipc call controlCenter toggle"; }
     Mod+E hotkey-overlay-title="File explorer: nautilus" { spawn "nautilus"; }
     Mod+Alt+L hotkey-overlay-title="Lock the Screen: noctalia" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
     Mod+Alt+V hotkey-overlay-title="Clipboard History: noctalia" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
