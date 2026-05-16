@@ -1,12 +1,12 @@
 {
     "appLauncher": {
-        "autoPasteClipboard": false,
+        "autoPasteClipboard": true,
         "clipboardWatchImageCommand": "wl-paste --type image --watch cliphist store",
         "clipboardWatchTextCommand": "wl-paste --type text --watch cliphist store",
         "clipboardWrapText": true,
         "customLaunchPrefix": "",
         "customLaunchPrefixEnabled": false,
-        "density": "compact",
+        "density": "default",
         "enableClipPreview": true,
         "enableClipboardChips": true,
         "enableClipboardHistory": true,
@@ -14,7 +14,7 @@
         "enableSessionSearch": true,
         "enableSettingsSearch": true,
         "enableWindowsSearch": true,
-        "iconMode": "native",
+        "iconMode": "tabler",
         "ignoreMouseInput": false,
         "overviewLayer": false,
         "pinnedApps": [
@@ -22,10 +22,10 @@
         "position": "top_center",
         "screenshotAnnotationTool": "",
         "showCategories": false,
-        "showIconBackground": true,
+        "showIconBackground": false,
         "sortByMostUsed": true,
         "terminalCommand": "kitty -e",
-        "viewMode": "list"
+        "viewMode": "grid"
     },
     "audio": {
         "mprisBlacklist": [
@@ -94,6 +94,9 @@
                     "hideWhenIdle": true,
                     "id": "AudioVisualizer",
                     "width": 150
+                },
+                {
+                    "id": "plugin:screen-toolkit"
                 }
             ],
             "left": [
@@ -141,16 +144,6 @@
                     "usePadding": false
                 },
                 {
-                    "colorizeSystemIcon": "none",
-                    "colorizeSystemText": "none",
-                    "customIconPath": "",
-                    "enableColorization": false,
-                    "icon": "rocket",
-                    "iconColor": "none",
-                    "id": "Launcher",
-                    "useDistroLogo": false
-                },
-                {
                     "defaultSettings": {
                         "autoMount": false,
                         "fileBrowser": "yazi",
@@ -189,6 +182,17 @@
                         "useCustomColors": false
                     },
                     "id": "plugin:todo"
+                },
+                {
+                    "defaultSettings": {
+                        "autoStartBreaks": false,
+                        "autoStartWork": false,
+                        "longBreakDuration": 15,
+                        "sessionsBeforeLongBreak": 4,
+                        "shortBreakDuration": 5,
+                        "workDuration": 25
+                    },
+                    "id": "plugin:pomodoro"
                 }
             ],
             "right": [
@@ -210,13 +214,6 @@
                     "id": "NotificationHistory",
                     "showUnreadBadge": true,
                     "unreadBadgeColor": "primary"
-                },
-                {
-                    "displayMode": "onhover",
-                    "iconColor": "none",
-                    "id": "Microphone",
-                    "middleClickCommand": "pwvucontrol || pavucontrol",
-                    "textColor": "none"
                 },
                 {
                     "deviceNativePath": "__default__",
@@ -241,25 +238,6 @@
                     "textColor": "none"
                 },
                 {
-                    "colorizeDistroLogo": false,
-                    "colorizeSystemIcon": "none",
-                    "colorizeSystemText": "none",
-                    "customIconPath": "",
-                    "enableColorization": false,
-                    "icon": "layout-2",
-                    "id": "ControlCenter",
-                    "useDistroLogo": false
-                },
-                {
-                    "clockColor": "none",
-                    "customFont": "",
-                    "formatHorizontal": "h:mm AP ddd, MMM dd",
-                    "formatVertical": "h:mm AP",
-                    "id": "Clock",
-                    "tooltipFormat": "h:mm AP ddd, MMM dd",
-                    "useCustomFont": false
-                },
-                {
                     "defaultSettings": {
                         "autoMount": false,
                         "fileBrowser": "yazi",
@@ -275,10 +253,32 @@
                     "id": "plugin:weekly-calendar"
                 },
                 {
-                    "id": "plugin:pomodoro"
+                    "defaultSettings": {
+                        "githubGistId": "",
+                        "githubToken": "",
+                        "notes": "[]",
+                        "syncEnabled": false
+                    },
+                    "id": "plugin:sticky-notes"
                 },
                 {
-                    "id": "plugin:simple-notes"
+                    "colorizeDistroLogo": false,
+                    "colorizeSystemIcon": "none",
+                    "colorizeSystemText": "none",
+                    "customIconPath": "",
+                    "enableColorization": false,
+                    "icon": "layout-2",
+                    "id": "ControlCenter",
+                    "useDistroLogo": false
+                },
+                {
+                    "clockColor": "none",
+                    "customFont": "Inter",
+                    "formatHorizontal": "MMM dd ddd h:mm AP",
+                    "formatVertical": "h:mm AP",
+                    "id": "Clock",
+                    "tooltipFormat": "MMM dd ddd h:mm AP",
+                    "useCustomFont": true
                 }
             ]
         }
@@ -308,7 +308,7 @@
     },
     "colorSchemes": {
         "darkMode": true,
-        "generationMethod": "monochrome",
+        "generationMethod": "tonal-spot",
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "",
@@ -576,7 +576,7 @@
         "firstDayOfWeek": -1,
         "hideWeatherCityName": false,
         "hideWeatherTimezone": false,
-        "name": "Makati City",
+        "name": "San Juan",
         "showCalendarEvents": true,
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": false,
@@ -599,7 +599,7 @@
     "nightLight": {
         "autoSchedule": true,
         "dayTemp": "6500",
-        "enabled": true,
+        "enabled": false,
         "forced": false,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",

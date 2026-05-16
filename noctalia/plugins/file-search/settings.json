@@ -1,0 +1,7 @@
+{
+  "showHidden": false,
+  "maxResults": 100,
+  "fileOpener": "xdg-open",
+  "searchDirectory": "~",
+  "fdCommand": "fd"
+}

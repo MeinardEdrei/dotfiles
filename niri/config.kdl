@@ -269,6 +269,7 @@ layout {
 // spawn-at-startup "waybar"
 // spawn-at-startup "swaync"
 spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 // spawn-at-startup "nm-applet"
 // spawn-at-startup "swaybg" "-i" "/home/batman/dotfiles/resources/03.jpg" "-m" "fill"
 // spawn-at-startup "swayosd-server"
@@ -409,6 +410,14 @@ binds {
     XF86MonBrightnessUp   allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "increase"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
 
+
+    // Screen Mirror/HDMI
+    // Focus your laptop screen (Mod+Shift+H/L)
+    // Press Mod+P — a mirror window opens
+    // Move it to your TV (Mod+Shift+Ctrl+Right)
+    // Fullscreen it (Mod+Shift+F)
+    Mod+P repeat=false { spawn-sh "wl-mirror $(niri msg --json focused-output | jq -r .name)"; }
+    Mod+Shift+D { spawn "nwg-displays"; }
 
     // Push the currently focused window to the screen share
     Mod+Shift+C { set-dynamic-cast-window; }
