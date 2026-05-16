@@ -1,2 +1,3 @@
 # Ignore NeoVim session files
 /nvim-sessions/
+lazy-lock.json
