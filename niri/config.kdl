@@ -111,7 +111,7 @@ output "eDP-1" {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 13
+    gaps 8
     default-column-display "tabbed"
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -184,7 +184,7 @@ layout {
         // If you enable the border, you probably want to disable the focus ring.
         // off
 
-        width 4
+        width 1
         active-color "#0a0a0a"
         inactive-color "#333333"
 
@@ -246,7 +246,7 @@ layout {
 
     tab-indicator {
         width 3
-        gap 7
+        gap 3
         length total-proportion=0.16
         position "top"
         place-within-column
@@ -307,7 +307,7 @@ animations {
     // off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    slowdown 1.6
+    slowdown 1.5
 }
 
 // Window rules let you adjust behavior for individual windows.
