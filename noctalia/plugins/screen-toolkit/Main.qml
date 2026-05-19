@@ -512,8 +512,8 @@ function clearPaletteResult() {
             if (!screen) return
             var scale  = screen.devicePixelRatio ?? 1.0
             var region = screen.x + "," + screen.y + " " +
-                         Math.round(screen.width * scale) + "x" +
-                         Math.round(screen.height * scale)
+                         screen.width + "x" +
+                         screen.height
             root.isRunning  = false
             root.activeTool = "record"
             recordOverlay.startRecording(

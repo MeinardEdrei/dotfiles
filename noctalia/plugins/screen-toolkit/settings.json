@@ -4,12 +4,12 @@
   "installedLangs": [
     "eng"
   ],
-  "transAvailable": false,
+  "transAvailable": true,
   "selectedOcrLang": "eng",
   "screenshotPath": "",
   "videoPath": "",
   "filenameFormat": "",
-  "detectedRecorder": "",
+  "detectedRecorder": "wl-screenrec",
   "recordSkipConfirmation": false,
   "recordCopyToClipboard": false,
   "gifMaxSeconds": 30,
@@ -23,5 +23,9 @@
   "ocrCapturePath": "",
   "qrResult": "",
   "qrCapturePath": "",
-  "translateResult": ""
+  "translateResult": "",
+  "x02ApiKey": "",
+  "x02Expiry": "7d",
+  "shareSkipPopover": true,
+  "searchEngineUrl": ""
 }

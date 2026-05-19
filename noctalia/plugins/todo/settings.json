@@ -1,21 +1,30 @@
 {
   "todos": [
     {
-      "id": 1778509429945,
-      "text": "finish netcom project",
-      "completed": false,
-      "createdAt": "2026-05-11T14:23:49.945Z",
-      "pageId": 0,
-      "priority": "high",
-      "details": ""
-    },
-    {
       "id": 1778321048463,
       "text": "finalize portfolio",
       "completed": false,
       "createdAt": "2026-05-09T10:04:08.463Z",
       "pageId": 0,
       "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1779020682993,
+      "text": "checkup on barangay id",
+      "completed": false,
+      "createdAt": "2026-05-17T12:24:42.993Z",
+      "pageId": 0,
+      "priority": "high",
+      "details": ""
+    },
+    {
+      "id": 1779020677387,
+      "text": "get tin id",
+      "completed": false,
+      "createdAt": "2026-05-17T12:24:37.387Z",
+      "pageId": 0,
+      "priority": "high",
       "details": ""
     },
     {
@@ -28,21 +37,30 @@
       "details": ""
     },
     {
-      "id": 1778413299809,
-      "text": "check if i can integrate luma in noctalia or any platform",
+      "id": 1779020711094,
+      "text": "register as self employed",
       "completed": false,
-      "createdAt": "2026-05-10T11:41:39.809Z",
+      "createdAt": "2026-05-17T12:25:11.094Z",
       "pageId": 0,
-      "priority": "low",
+      "priority": "medium",
       "details": ""
     },
     {
-      "id": 1778321028063,
-      "text": "deploy seated",
-      "completed": true,
-      "createdAt": "2026-05-09T10:03:48.063Z",
+      "id": 1779020732914,
+      "text": "get student license",
+      "completed": false,
+      "createdAt": "2026-05-17T12:25:32.914Z",
       "pageId": 0,
-      "priority": "high",
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1779020723473,
+      "text": "get passport",
+      "completed": false,
+      "createdAt": "2026-05-17T12:25:23.473Z",
+      "pageId": 0,
+      "priority": "medium",
       "details": ""
     },
     {
@@ -60,33 +78,6 @@
       "completed": false,
       "createdAt": "2026-05-11T14:22:49.612Z",
       "pageId": 1,
-      "priority": "medium",
-      "details": ""
-    },
-    {
-      "id": 1778504187712,
-      "text": "recheck exp branch commits before merge",
-      "completed": true,
-      "createdAt": "2026-05-11T12:56:27.712Z",
-      "pageId": 0,
-      "priority": "high",
-      "details": ""
-    },
-    {
-      "id": 1778413310141,
-      "text": "integrate google calendar to noctalia",
-      "completed": true,
-      "createdAt": "2026-05-10T11:41:50.141Z",
-      "pageId": 0,
-      "priority": "low",
-      "details": ""
-    },
-    {
-      "id": 1778559866029,
-      "text": "checkup on azure contributor",
-      "completed": true,
-      "createdAt": "2026-05-12T04:24:26.029Z",
-      "pageId": 0,
       "priority": "medium",
       "details": ""
     },
@@ -133,8 +124,8 @@
     }
   ],
   "current_page_id": 0,
-  "count": 13,
-  "completedCount": 4,
+  "count": 12,
+  "completedCount": 0,
   "showCompleted": true,
   "showBackground": false,
   "isExpanded": false,
