@@ -91,9 +91,18 @@
       "details": ""
     },
     {
+      "id": 1779689920199,
+      "text": "finish all overdues",
+      "completed": true,
+      "createdAt": "2026-05-25T06:18:40.199Z",
+      "pageId": 0,
+      "priority": "high",
+      "details": ""
+    },
+    {
       "id": 1778682140028,
       "text": "checkup on block 69",
-      "completed": false,
+      "completed": true,
       "createdAt": "2026-05-13T14:22:20.028Z",
       "pageId": 2,
       "priority": "high",
@@ -102,7 +111,7 @@
     {
       "id": 1778682123964,
       "text": "checkup on verbatim",
-      "completed": false,
+      "completed": true,
       "createdAt": "2026-05-13T14:22:03.964Z",
       "pageId": 2,
       "priority": "high",
@@ -124,8 +133,8 @@
     }
   ],
   "current_page_id": 0,
-  "count": 12,
-  "completedCount": 0,
+  "count": 13,
+  "completedCount": 3,
   "showCompleted": true,
   "showBackground": false,
   "isExpanded": false,

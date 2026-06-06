@@ -4,6 +4,6 @@
   "terminalCommand": "kitty",
   "showNotifications": true,
   "hideWhenEmpty": true,
-  "showBadge": true,
+  "showBadge": false,
   "iconColor": "none"
 }
