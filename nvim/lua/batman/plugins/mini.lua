@@ -1,5 +1,5 @@
-local mini_files_km = require("config.mini-files")
-local mini_files_git = require("config.mini-files-git")
+local mini_files_km = require("batman.utils.mini-files")
+local mini_files_git = require("batman.utils.mini-files-git")
 
 return {
 	"nvim-mini/mini.files",
