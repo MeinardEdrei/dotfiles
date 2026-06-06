@@ -1,2 +1,9 @@
 [General]
 background=/home/batman/dotfiles/resources/jpg
+
+[LockScreen]
+display=true
+
+[LockScreen.Message]
+icon=fingerprint.svg
+text=Touch ID or Press any key

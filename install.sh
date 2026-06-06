@@ -64,6 +64,12 @@ done
 echo "Configuring Docker permissions..."
 sudo usermod -aG docker "$USER"
 
+# 8. SDDM Fingerprint setup
+if [[ -f "$DOTFILES_DIR/sddm-setup.sh" ]]; then
+    echo "Configuring SDDM Fingerprint login..."
+    bash "$DOTFILES_DIR/sddm-setup.sh"
+fi
+
 echo "--------------------------------------------------------"
 echo "Installation Complete!"
 echo "IMPORTANT: Reboot or re-login for Docker group changes."

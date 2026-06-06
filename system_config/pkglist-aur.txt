@@ -12,3 +12,7 @@ ngrok
 # Notes & productivity
 notion-app-electron
 emote
+
+# System & Utilities
+sddm-fingerprint
+
