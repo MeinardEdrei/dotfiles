@@ -54,8 +54,6 @@ local function lsp_clients()
 		table.insert(names, client.name)
 	end
 
-	-- if vim.o.columns < 120 then return " " end
-
 	return "  " .. table.concat(names, ", ")
 end
 
@@ -69,15 +67,82 @@ local function macro_recording()
 end
 
 -- ----------------------------------------------------------------------
+-- THEME & COLORS (Synced with your Catppuccin Mocha overrides)
+-- ----------------------------------------------------------------------
+
+local colors = {
+	bg = "#0C0E12",
+	surface = "#1F232B",
+	text = "#B4B6C4",
+	subtext = "#787A88",
+	blue = "#7BA3D9",
+	green = "#88B88A",
+	lavender = "#9580D4",
+	yellow = "#C5A875",
+	red = "#D47272",
+}
+
+local custom_theme = {
+	normal = {
+		a = { fg = colors.bg, bg = colors.blue, bold = true },
+		b = { fg = colors.text, bg = colors.surface },
+		c = { fg = colors.subtext, bg = colors.bg },
+		x = { fg = colors.subtext, bg = colors.bg },
+		y = { fg = colors.text, bg = colors.surface },
+		z = { fg = colors.bg, bg = colors.blue, bold = true },
+	},
+	insert = {
+		a = { fg = colors.bg, bg = colors.green, bold = true },
+		b = { fg = colors.text, bg = colors.surface },
+		c = { fg = colors.subtext, bg = colors.bg },
+		x = { fg = colors.subtext, bg = colors.bg },
+		y = { fg = colors.text, bg = colors.surface },
+		z = { fg = colors.bg, bg = colors.green, bold = true },
+	},
+	visual = {
+		a = { fg = colors.bg, bg = colors.lavender, bold = true },
+		b = { fg = colors.text, bg = colors.surface },
+		c = { fg = colors.subtext, bg = colors.bg },
+		x = { fg = colors.subtext, bg = colors.bg },
+		y = { fg = colors.text, bg = colors.surface },
+		z = { fg = colors.bg, bg = colors.lavender, bold = true },
+	},
+	command = {
+		a = { fg = colors.bg, bg = colors.yellow, bold = true },
+		b = { fg = colors.text, bg = colors.surface },
+		c = { fg = colors.subtext, bg = colors.bg },
+		x = { fg = colors.subtext, bg = colors.bg },
+		y = { fg = colors.text, bg = colors.surface },
+		z = { fg = colors.bg, bg = colors.yellow, bold = true },
+	},
+	replace = {
+		a = { fg = colors.bg, bg = colors.red, bold = true },
+		b = { fg = colors.text, bg = colors.surface },
+		c = { fg = colors.subtext, bg = colors.bg },
+		x = { fg = colors.subtext, bg = colors.bg },
+		y = { fg = colors.text, bg = colors.surface },
+		z = { fg = colors.bg, bg = colors.red, bold = true },
+	},
+	inactive = {
+		a = { fg = colors.subtext, bg = colors.bg },
+		b = { fg = colors.subtext, bg = colors.bg },
+		c = { fg = colors.subtext, bg = colors.bg },
+		x = { fg = colors.subtext, bg = colors.bg },
+		y = { fg = colors.subtext, bg = colors.bg },
+		z = { fg = colors.subtext, bg = colors.bg },
+	},
+}
+
+-- ----------------------------------------------------------------------
 -- LUALINE CONFIG
 -- ----------------------------------------------------------------------
 
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons", "catppuccin/nvim", },
+	dependencies = { "nvim-tree/nvim-web-devicons", "catppuccin/nvim" },
 	opts = {
 		options = {
-			theme = "catppuccin-mocha",
+			theme = custom_theme,
 			component_separators = "",
 			section_separators = { left = "", right = "" },
 			globalstatus = true,
@@ -86,28 +151,30 @@ return {
 		sections = {
 			-- LEFT SIDE
 			lualine_a = {
-				{ "mode", separator = { left = "" }, right_padding = 2 },
+				{ "mode", fmt = function(str) return " " .. str end, separator = { left = "" } },
 			},
 			lualine_b = {
-				"branch",
+				{ "branch", icon = "" },
 				{
 					"diff",
-					symbols = { added = " ", modified = " ", removed = " " },
+					symbols = { added = " ", modified = " ", removed = " " },
 					cond = function()
 						return vim.o.columns > 120
 					end,
 				},
 				{
 					macro_recording,
-					color = { fg = "#ff9e64", gui = "bold" },
+					color = { fg = colors.yellow, bold = true },
 				},
 			},
 			lualine_c = {
-				-- FILENAME (Prioritized)
+				-- FILENAME (Prioritized Floating Capsule)
 				{
 					"filename",
 					path = 1,
-					symbols = { modified = "  ", readonly = "", unnamed = "" },
+					symbols = { modified = " ●", readonly = " 🔒", unnamed = "[No Name]" },
+					separator = { left = "", right = "" },
+					color = { bg = colors.surface, fg = colors.text },
 				},
 			},
 
@@ -115,26 +182,27 @@ return {
 			lualine_x = {
 				{
 					nearest_diagnostic,
-					color = { fg = "#f7768e", gui = "bold" },
+					color = { fg = colors.red, bold = true },
 				},
 				{
 					"diagnostics",
 					sources = { "nvim_diagnostic" },
-					symbols = { error = " ", warn = " ", info = " " },
+					symbols = { error = " ", warn = " ", info = " ", hint = " " },
 					-- HIDE Standard Diagnostics if window is super tiny (< 80 cols)
 					cond = function()
 						return vim.o.columns > 80
 					end,
 				},
 				{
-					lsp_clients, -- This now checks width internally (see function above)
-					icon = "",
-					color = { fg = "#b4befe", gui = "italic" },
+					lsp_clients,
+					color = { fg = colors.lavender, italic = true },
 				},
 			},
-			lualine_y = { "progress" },
+			lualine_y = {
+				{ "progress", separator = { left = "" } },
+			},
 			lualine_z = {
-				{ "location", separator = { right = "" }, left_padding = 2 },
+				{ "location", separator = { right = "" } },
 			},
 		},
 		extensions = { "quickfix", "man", "fugitive", "lazy" },

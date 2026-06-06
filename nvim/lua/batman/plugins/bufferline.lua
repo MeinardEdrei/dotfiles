@@ -40,7 +40,13 @@ return {
 					return true
 				end,
 			},
-			highlights = require("catppuccin.special.bufferline").get_theme(),
+			highlights = require("catppuccin.special.bufferline").get_theme({
+				custom = {
+					all = {
+						fill = { bg = "#0C0E12" },
+					},
+				},
+			}),
 		})
 	end,
 }
