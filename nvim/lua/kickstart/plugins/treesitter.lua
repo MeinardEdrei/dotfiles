@@ -3,6 +3,14 @@ return { -- Highlight, edit, and navigate code
 	build = ":TSUpdate",
 	lazy = false,
 	priority = 1000,
+	dependencies = {
+		{
+			"windwp/nvim-ts-autotag",
+			config = function()
+				require("nvim-ts-autotag").setup()
+			end,
+		},
+	},
 	config = function()
 		require("nvim-treesitter").setup({
 			ensure_installed = {
@@ -19,13 +27,12 @@ return { -- Highlight, edit, and navigate code
 				"vimdoc",
 				"javascript",
 				"typescript",
-				"tsx", -- For React/JSX
+				"tsx",
 				"python",
 				"c_sharp",
 			},
 			auto_install = true,
 		})
-
 		-- New v1.0 API: highlight must be started manually per buffer
 		vim.api.nvim_create_autocmd("FileType", {
 			callback = function()
