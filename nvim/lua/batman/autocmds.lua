@@ -72,3 +72,21 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- 		end,
 -- 	})
 -- end
+
+-- Sync terminal background with Neovim background (fixes gaps/border color mismatch)
+vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
+	callback = function()
+		local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
+		if normal and normal.bg then
+			-- Send OSC 11 to set terminal background color to match Neovim
+			io.write(string.format("\027]11;#%06x\027\\", normal.bg))
+		end
+	end,
+})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+	callback = function()
+		-- Reset terminal background on exit (OSC 111)
+		io.write("\027]111\027\\")
+	end,
+})

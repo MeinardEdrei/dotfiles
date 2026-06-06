@@ -1,12 +1,12 @@
 return {
 	"akinsho/bufferline.nvim",
 	version = "*",
-	dependencies = "nvim-tree/nvim-web-devicons",
+	dependencies = { "nvim-tree/nvim-web-devicons", "catppuccin/nvim" },
 	config = function()
 		require("bufferline").setup({
 			options = {
 				mode = "buffers",
-				separator_style = "slope",
+				separator_style = "thin",
 				diagnostics = "nvim_lsp",
 				always_show_bufferline = true,
 				show_buffer_close_icons = true,
@@ -40,6 +40,7 @@ return {
 					return true
 				end,
 			},
+			highlights = require("catppuccin.special.bufferline").get_theme(),
 		})
 	end,
 }
