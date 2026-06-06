@@ -215,7 +215,7 @@ layout {
         // window. These will also remove client-side shadows if the window
         // draws any.
         // 
-        draw-behind-window true
+        // draw-behind-window true
 
         // You can change how shadows look. The values below are in logical
         // pixels and match the CSS box-shadow properties.
@@ -275,6 +275,7 @@ spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 // spawn-at-startup "swaybg" "-i" "/home/batman/dotfiles/resources/03.jpg" "-m" "fill"
 // spawn-at-startup "swayosd-server"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+spawn-at-startup "udiskie" "--tray"
 
 // APPS
 // spawn-at-startup "zen-browser"
@@ -314,6 +315,11 @@ animations {
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
+
+window-rule {
+    match app-id=r#"zen$"#
+    opacity 1.0
+}
 
 window-rule {
     match app-id="com.github.ErikReider.SwayNotificationCenter"
