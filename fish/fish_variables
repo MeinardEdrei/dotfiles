@@ -10,4 +10,4 @@ SETUVAR _fisher_edc_2F_bass_files:\x7e/\x2econfig/fish/functions/__bass\x2epy\x1
 SETUVAR _fisher_plugins:edc/bass
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_greeting:\x1d
-SETUVAR fish_user_paths:/opt/flutter/bin\x1e/home/batman/\x2edotnet
+SETUVAR fish_user_paths:/home/batman/\x2elocal/bin\x1e/opt/flutter/bin\x1e/home/batman/\x2edotnet
