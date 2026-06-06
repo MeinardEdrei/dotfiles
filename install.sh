@@ -70,6 +70,12 @@ if [[ -f "$DOTFILES_DIR/sddm-setup.sh" ]]; then
     bash "$DOTFILES_DIR/sddm-setup.sh"
 fi
 
+# 9. Noctalia lock screen PAM bypass setup
+if [[ -f "$DOTFILES_DIR/noctalia-setup.sh" ]]; then
+    echo "Configuring Noctalia lock screen..."
+    bash "$DOTFILES_DIR/noctalia-setup.sh"
+fi
+
 echo "--------------------------------------------------------"
 echo "Installation Complete!"
 echo "IMPORTANT: Reboot or re-login for Docker group changes."
