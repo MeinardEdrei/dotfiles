@@ -60,17 +60,24 @@ for service in "${SERVICES[@]}"; do
     sudo systemctl enable --now "$service"
 done
 
-# 7. Docker permissions
+# 7. Systemd user services
+echo "Setting up user systemd services..."
+mkdir -p "$HOME/.config/systemd/user"
+ln -sf "$DOTFILES_DIR/systemd/user/tmux-save.service" "$HOME/.config/systemd/user/tmux-save.service"
+systemctl --user enable tmux-save.service
+systemctl --user daemon-reload
+
+# 8. Docker permissions
 echo "Configuring Docker permissions..."
 sudo usermod -aG docker "$USER"
 
-# 8. SDDM Fingerprint setup
+# 9. SDDM Fingerprint setup
 if [[ -f "$DOTFILES_DIR/sddm-setup.sh" ]]; then
     echo "Configuring SDDM Fingerprint login..."
     bash "$DOTFILES_DIR/sddm-setup.sh"
 fi
 
-# 9. Noctalia lock screen PAM bypass setup
+# 10. Noctalia lock screen PAM bypass setup
 if [[ -f "$DOTFILES_DIR/noctalia-setup.sh" ]]; then
     echo "Configuring Noctalia lock screen..."
     bash "$DOTFILES_DIR/noctalia-setup.sh"
