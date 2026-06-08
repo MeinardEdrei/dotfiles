@@ -60,12 +60,11 @@ for service in "${SERVICES[@]}"; do
     sudo systemctl enable --now "$service"
 done
 
-# 7. Systemd user services
-echo "Setting up user systemd services..."
-mkdir -p "$HOME/.config/systemd/user"
-ln -sf "$DOTFILES_DIR/systemd/user/tmux-save.service" "$HOME/.config/systemd/user/tmux-save.service"
-systemctl --user enable tmux-save.service
-systemctl --user daemon-reload
+# 7. Systemd system service for tmux save on shutdown
+echo "Setting up tmux save service..."
+sudo ln -sf "$DOTFILES_DIR/systemd/system/tmux-save.service" /etc/systemd/system/tmux-save.service
+sudo systemctl daemon-reload
+sudo systemctl enable tmux-save.service
 
 # 8. Docker permissions
 echo "Configuring Docker permissions..."
