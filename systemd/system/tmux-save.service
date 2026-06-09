@@ -1,15 +1,17 @@
 [Unit]
 Description=Save tmux sessions before shutdown/sleep
-DefaultDependencies=no
-Before=shutdown.target reboot.target halt.target sleep.target
+After=user@1000.service
+Requires=user@1000.service
 
 [Service]
 Type=oneshot
+RemainAfterExit=yes
 User=batman
 Environment=HOME=/home/batman
-ExecStart=/bin/bash -c 'tmux -S /tmp/tmux-1000/default list-sessions &>/dev/null && /home/batman/.config/tmux/plugins/tmux-resurrect/scripts/save.sh'
-RemainAfterExit=yes
-TimeoutStartSec=15
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/bin/true
+ExecStop=/bin/bash -c 'tmux -S /tmp/tmux-1000/default list-sessions &>/dev/null && /home/batman/.config/tmux/plugins/tmux-resurrect/scripts/save.sh'
+TimeoutStopSec=15
 
 [Install]
-WantedBy=shutdown.target reboot.target halt.target sleep.target
+WantedBy=multi-user.target

@@ -65,6 +65,7 @@ echo "Setting up tmux save service..."
 sudo ln -sf "$DOTFILES_DIR/systemd/system/tmux-save.service" /etc/systemd/system/tmux-save.service
 sudo systemctl daemon-reload
 sudo systemctl enable tmux-save.service
+sudo systemctl start tmux-save.service
 
 # 8. Docker permissions
 echo "Configuring Docker permissions..."
