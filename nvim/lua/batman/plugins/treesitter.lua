@@ -39,10 +39,15 @@ return { -- Highlight, edit, and navigate code
 		vim.api.nvim_create_autocmd("FileType", {
 			callback = function()
 				pcall(vim.treesitter.start)
-				-- Enable treesitter-based indentation
-				if pcall(require, "nvim-treesitter") then
+			end,
+		})
+		-- Must run after built-in ftplugins (e.g. indent/html.vim sets HtmlIndent())
+		-- so we use a second autocmd with nested=true to fire after all ftplugins settle
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function()
+				vim.schedule(function()
 					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-				end
+				end)
 			end,
 		})
 	end,
