@@ -18,27 +18,23 @@ return { -- Highlight, edit, and navigate code
 		},
 	},
 	config = function()
-		require("nvim-treesitter").setup({
-			ensure_installed = {
-				"bash",
-				"c",
-				"diff",
-				"html",
-				"lua",
-				"luadoc",
-				"markdown",
-				"markdown_inline",
-				"query",
-				"vim",
-				"vimdoc",
-				"javascript",
-				"typescript",
-				"tsx",
-				"python",
-				"c_sharp",
-			},
-			auto_install = true,
-		})
+		-- v1.0 setup only accepts install_dir; ensure_installed/auto_install are not supported
+		require("nvim-treesitter").setup()
+
+		local wanted = {
+			"bash", "c", "diff", "html", "lua", "luadoc",
+			"markdown", "markdown_inline", "query", "vim", "vimdoc",
+			"javascript", "typescript", "tsx", "python", "c_sharp",
+		}
+		vim.schedule(function()
+			local installed = require("nvim-treesitter").get_installed()
+			local missing = vim.tbl_filter(function(p)
+				return not vim.list_contains(installed, p)
+			end, wanted)
+			if #missing > 0 then
+				require("nvim-treesitter").install(missing)
+			end
+		end)
 		-- New v1.0 API: highlight must be started manually per buffer
 		vim.api.nvim_create_autocmd("FileType", {
 			callback = function()
