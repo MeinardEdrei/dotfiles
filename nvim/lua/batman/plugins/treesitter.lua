@@ -7,7 +7,13 @@ return { -- Highlight, edit, and navigate code
 		{
 			"windwp/nvim-ts-autotag",
 			config = function()
-				require("nvim-ts-autotag").setup()
+				require("nvim-ts-autotag").setup({
+					opts = {
+						enable_close = true,
+						enable_rename = true,
+						enable_close_on_slash = false,
+					},
+				})
 			end,
 		},
 	},
@@ -37,6 +43,10 @@ return { -- Highlight, edit, and navigate code
 		vim.api.nvim_create_autocmd("FileType", {
 			callback = function()
 				pcall(vim.treesitter.start)
+				-- Enable treesitter-based indentation
+				if pcall(require, "nvim-treesitter") then
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end
 			end,
 		})
 	end,
