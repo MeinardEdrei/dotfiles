@@ -10,7 +10,7 @@ User=batman
 Environment=HOME=/home/batman
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ExecStart=/bin/true
-ExecStop=/bin/bash -c 'tmux -S /tmp/tmux-1000/default list-sessions &>/dev/null && /home/batman/.config/tmux/plugins/tmux-resurrect/scripts/save.sh'
+ExecStop=/bin/bash -c 'tmux -S /tmp/tmux-1000/default run-shell "/home/batman/.config/tmux/plugins/tmux-resurrect/scripts/save.sh quiet"'
 TimeoutStopSec=15
 
 [Install]
