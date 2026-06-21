@@ -176,8 +176,10 @@ else
 fi
 
 # Set niri as the default SDDM session
-if grep -q "^\[Autologin\]\|^Session=" /etc/sddm.conf 2>/dev/null; then
+if grep -q "^Session=" /etc/sddm.conf 2>/dev/null; then
     sudo sed -i 's/^Session=.*/Session=niri/' /etc/sddm.conf
+elif grep -q "^\[General\]" /etc/sddm.conf 2>/dev/null; then
+    sudo sed -i '/^\[General\]/a Session=niri' /etc/sddm.conf
 else
     echo -e "\n[General]\nSession=niri" | sudo tee -a /etc/sddm.conf > /dev/null
 fi
@@ -229,13 +231,24 @@ GRUB_CONFIG="/etc/default/grub"
 if [[ -d "$GRUB_THEME_SRC" ]]; then
     sudo mkdir -p "$GRUB_THEME_DEST"
     sudo cp -r "$GRUB_THEME_SRC/." "$GRUB_THEME_DEST"
-    if grep -q "^GRUB_THEME=" "$GRUB_CONFIG"; then
-        sudo sed -i "s|^GRUB_THEME=.*|GRUB_THEME=$GRUB_THEME_DEST/1920x1080/theme.txt|" "$GRUB_CONFIG"
+
+    # Pick resolution folder closest to current display
+    RESOLUTION=$(xrandr 2>/dev/null | grep '\*' | awk '{print $1}' | head -1)
+    if [[ -d "$GRUB_THEME_DEST/$RESOLUTION" ]]; then
+        THEME_FILE="$GRUB_THEME_DEST/$RESOLUTION/theme.txt"
+    elif [[ -d "$GRUB_THEME_DEST/1920x1080" ]]; then
+        THEME_FILE="$GRUB_THEME_DEST/1920x1080/theme.txt"
     else
-        echo "GRUB_THEME=$GRUB_THEME_DEST/1920x1080/theme.txt" | sudo tee -a "$GRUB_CONFIG"
+        THEME_FILE=$(find "$GRUB_THEME_DEST" -name "theme.txt" | head -1)
+    fi
+
+    if grep -q "^GRUB_THEME=" "$GRUB_CONFIG"; then
+        sudo sed -i "s|^GRUB_THEME=.*|GRUB_THEME=$THEME_FILE|" "$GRUB_CONFIG"
+    else
+        echo "GRUB_THEME=$THEME_FILE" | sudo tee -a "$GRUB_CONFIG"
     fi
     sudo grub-mkconfig -o /boot/grub/grub.cfg
-    echo "GRUB theme installed."
+    echo "GRUB theme installed ($THEME_FILE)."
 else
     echo "  Skipping GRUB theme (not found in dotfiles)"
 fi
