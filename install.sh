@@ -54,8 +54,16 @@ fi
 # 5. Install AUR Packages
 if [[ -f "$AUR_LIST" ]]; then
     echo "Installing AUR Packages..."
-    grep -vE '^\s*#|^\s*$' "$AUR_LIST" |
-        yay -S --needed --noconfirm -
+    FINGERPRINT_HW=false
+    if lsusb 2>/dev/null | grep -qi "fingerprint" || lspci 2>/dev/null | grep -qi "fingerprint"; then
+        FINGERPRINT_HW=true
+    fi
+    AUR_FILTER='^\s*#|^\s*$'
+    if ! $FINGERPRINT_HW; then
+        echo "  No fingerprint scanner detected, skipping sddm-fingerprint..."
+        AUR_FILTER="$AUR_FILTER|sddm-fingerprint"
+    fi
+    grep -vE "$AUR_FILTER" "$AUR_LIST" | yay -S --needed --noconfirm -
 else
     echo "Error: AUR package list not found at $AUR_LIST"
 fi
@@ -175,10 +183,41 @@ else
 fi
 
 # 12. SDDM setup
+HAS_FINGERPRINT=false
+if lsusb 2>/dev/null | grep -qi "fingerprint" || lspci 2>/dev/null | grep -qi "fingerprint"; then
+    HAS_FINGERPRINT=true
+elif command -v fprintd-list &>/dev/null && fprintd-list "$USER" 2>/dev/null | grep -qv "no enrolled"; then
+    HAS_FINGERPRINT=true
+fi
+
 if [[ -f "$DOTFILES_DIR/sddm-setup.sh" ]]; then
     echo "Configuring SDDM..."
-    bash "$DOTFILES_DIR/sddm-setup.sh"
+    if $HAS_FINGERPRINT; then
+        echo "  Fingerprint scanner detected, enabling fingerprint login..."
+        bash "$DOTFILES_DIR/sddm-setup.sh"
+    else
+        echo "  No fingerprint scanner detected, skipping fingerprint PAM setup..."
+        # Still install theme and basic sddm config without fingerprint
+        THEME_NAME="pixel-dusk-city"
+        THEME_SRC="$DOTFILES_DIR/sddm/theme"
+        THEME_DEST="/usr/share/sddm/themes/$THEME_NAME"
+        sudo rm -rf "$THEME_DEST"
+        sudo cp -r "$THEME_SRC" "$THEME_DEST"
+        sudo chmod -R 644 "$THEME_DEST"
+        sudo find "$THEME_DEST" -type d -exec chmod 755 {} +
+        if grep -q "^\[Theme\]" /etc/sddm.conf 2>/dev/null; then
+            sudo sed -i "s/^Current=.*/Current=$THEME_NAME/" /etc/sddm.conf
+        else
+            echo -e "\n[Theme]\nCurrent=$THEME_NAME" | sudo tee -a /etc/sddm.conf > /dev/null
+        fi
+    fi
 fi
+
+# Skip installing sddm-fingerprint package if no scanner
+if ! $HAS_FINGERPRINT; then
+    echo "  Skipping sddm-fingerprint package (no fingerprint scanner)"
+fi
+
 sudo systemctl enable sddm.service
 
 # 13. GRUB theme setup
@@ -201,10 +240,14 @@ else
     echo "  Skipping GRUB theme (not found in dotfiles)"
 fi
 
-# 14. Noctalia lock screen PAM bypass setup
-if [[ -f "$DOTFILES_DIR/noctalia-setup.sh" ]]; then
-    echo "Configuring Noctalia lock screen..."
-    bash "$DOTFILES_DIR/noctalia-setup.sh"
+# 14. Noctalia lock screen PAM bypass setup (fingerprint only)
+if $HAS_FINGERPRINT; then
+    if [[ -f "$DOTFILES_DIR/noctalia-setup.sh" ]]; then
+        echo "Configuring Noctalia lock screen..."
+        bash "$DOTFILES_DIR/noctalia-setup.sh"
+    fi
+else
+    echo "Skipping Noctalia PAM setup (no fingerprint scanner)"
 fi
 
 echo "--------------------------------------------------------"
