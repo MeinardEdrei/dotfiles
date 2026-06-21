@@ -22,11 +22,11 @@ else
     echo "Chaotic-AUR already configured, skipping."
 fi
 
-# 2. Full system update + keyrings (Arch-safe)
+# 3. Full system update + keyrings (Arch-safe)
 echo "Updating system and keyrings..."
 sudo pacman -Syu --noconfirm archlinux-keyring
 
-# 2. Install Native Packages
+# 4. Install Native Packages
 if [[ -f "$NATIVE_LIST" ]]; then
     echo "Installing Native Packages..."
     grep -vE '^\s*#|^\s*$' "$NATIVE_LIST" |
@@ -149,14 +149,39 @@ sudo systemctl start tmux-save.service
 echo "Configuring Docker permissions..."
 sudo usermod -aG docker "$USER"
 
-# 10. SDDM setup
+# 10. Ensure niri is registered as a wayland session
+echo "Registering niri session..."
+NIRI_DESKTOP="/usr/share/wayland-sessions/niri.desktop"
+if [[ ! -f "$NIRI_DESKTOP" ]]; then
+    sudo mkdir -p /usr/share/wayland-sessions
+    sudo tee "$NIRI_DESKTOP" > /dev/null << 'EOF'
+[Desktop Entry]
+Name=Niri
+Comment=A scrollable-tiling Wayland compositor
+Exec=niri-session
+Type=Application
+DesktopNames=niri
+EOF
+    echo "  niri session registered."
+else
+    echo "  niri session already registered, skipping."
+fi
+
+# Set niri as the default SDDM session
+if grep -q "^\[Autologin\]\|^Session=" /etc/sddm.conf 2>/dev/null; then
+    sudo sed -i 's/^Session=.*/Session=niri/' /etc/sddm.conf
+else
+    echo -e "\n[General]\nSession=niri" | sudo tee -a /etc/sddm.conf > /dev/null
+fi
+
+# 12. SDDM setup
 if [[ -f "$DOTFILES_DIR/sddm-setup.sh" ]]; then
     echo "Configuring SDDM..."
     bash "$DOTFILES_DIR/sddm-setup.sh"
 fi
 sudo systemctl enable sddm.service
 
-# 11. GRUB theme setup
+# 13. GRUB theme setup
 echo "Installing GRUB theme..."
 GRUB_THEME_SRC="$DOTFILES_DIR/grub/space-isolation"
 GRUB_THEME_DEST="/boot/grub/themes/space-isolation"
@@ -176,7 +201,7 @@ else
     echo "  Skipping GRUB theme (not found in dotfiles)"
 fi
 
-# 12. Noctalia lock screen PAM bypass setup
+# 14. Noctalia lock screen PAM bypass setup
 if [[ -f "$DOTFILES_DIR/noctalia-setup.sh" ]]; then
     echo "Configuring Noctalia lock screen..."
     bash "$DOTFILES_DIR/noctalia-setup.sh"
