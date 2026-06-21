@@ -123,7 +123,7 @@ if [[ -f "$STARSHIP_SRC" ]]; then
     if [[ -L "$STARSHIP_DEST" && "$(readlink "$STARSHIP_DEST")" == "$STARSHIP_SRC" ]]; then
         echo "  starship.toml already symlinked, skipping"
     else
-        [[ -e "$STARSHIP_DEST" ]] && mv "$STARSHIP_DEST" "${STARSHIP_DEST}.bak"
+        [[ -e "$STARSHIP_DEST" || -L "$STARSHIP_DEST" ]] && mv "$STARSHIP_DEST" "${STARSHIP_DEST}.bak"
         ln -s "$STARSHIP_SRC" "$STARSHIP_DEST"
         echo "  Linked starship.toml"
     fi
