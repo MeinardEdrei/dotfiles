@@ -39,6 +39,7 @@ wl-mirror
 hyprpaper
 niri
 sddm
+qt5-graphicaleffects
 wlroots0.18
 swaync
 swayidle
