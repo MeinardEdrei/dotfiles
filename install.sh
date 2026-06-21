@@ -63,7 +63,7 @@ if [[ -f "$AUR_LIST" ]]; then
         echo "  No fingerprint scanner detected, skipping sddm-fingerprint..."
         AUR_FILTER="$AUR_FILTER|sddm-fingerprint"
     fi
-    grep -vE "$AUR_FILTER" "$AUR_LIST" | yay -S --needed --noconfirm -
+    grep -vE "$AUR_FILTER" "$AUR_LIST" | yay -S --needed --noconfirm - || true
 else
     echo "Error: AUR package list not found at $AUR_LIST"
 fi
@@ -248,7 +248,7 @@ if [[ -d "$GRUB_THEME_SRC" ]]; then
     fi
 
     # Remove commented or existing GRUB_THEME line and set the new one
-    sudo sed -i '/^#\?GRUB_THEME=/d' "$GRUB_CONFIG"
+    sudo sed -i -E '/^#?GRUB_THEME=/d' "$GRUB_CONFIG"
     echo "GRUB_THEME=$THEME_FILE" | sudo tee -a "$GRUB_CONFIG" > /dev/null
     sudo grub-mkconfig -o /boot/grub/grub.cfg
     echo "GRUB theme installed ($THEME_FILE)."

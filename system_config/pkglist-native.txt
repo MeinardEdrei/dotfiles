@@ -38,6 +38,7 @@ udiskie
 wl-mirror
 hyprpaper
 niri
+sddm
 wlroots0.18
 swaync
 swayidle
