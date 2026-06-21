@@ -149,13 +149,34 @@ sudo systemctl start tmux-save.service
 echo "Configuring Docker permissions..."
 sudo usermod -aG docker "$USER"
 
-# 10. SDDM Fingerprint setup
+# 10. SDDM setup
 if [[ -f "$DOTFILES_DIR/sddm-setup.sh" ]]; then
-    echo "Configuring SDDM Fingerprint login..."
+    echo "Configuring SDDM..."
     bash "$DOTFILES_DIR/sddm-setup.sh"
 fi
+sudo systemctl enable sddm.service
 
-# 11. Noctalia lock screen PAM bypass setup
+# 11. GRUB theme setup
+echo "Installing GRUB theme..."
+GRUB_THEME_SRC="$DOTFILES_DIR/grub/space-isolation"
+GRUB_THEME_DEST="/boot/grub/themes/space-isolation"
+GRUB_CONFIG="/etc/default/grub"
+
+if [[ -d "$GRUB_THEME_SRC" ]]; then
+    sudo mkdir -p "$GRUB_THEME_DEST"
+    sudo cp -r "$GRUB_THEME_SRC/." "$GRUB_THEME_DEST"
+    if grep -q "^GRUB_THEME=" "$GRUB_CONFIG"; then
+        sudo sed -i "s|^GRUB_THEME=.*|GRUB_THEME=$GRUB_THEME_DEST/1920x1080/theme.txt|" "$GRUB_CONFIG"
+    else
+        echo "GRUB_THEME=$GRUB_THEME_DEST/1920x1080/theme.txt" | sudo tee -a "$GRUB_CONFIG"
+    fi
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+    echo "GRUB theme installed."
+else
+    echo "  Skipping GRUB theme (not found in dotfiles)"
+fi
+
+# 12. Noctalia lock screen PAM bypass setup
 if [[ -f "$DOTFILES_DIR/noctalia-setup.sh" ]]; then
     echo "Configuring Noctalia lock screen..."
     bash "$DOTFILES_DIR/noctalia-setup.sh"
