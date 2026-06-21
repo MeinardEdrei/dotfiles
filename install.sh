@@ -47,7 +47,68 @@ else
     echo "Error: AUR package list not found at $AUR_LIST"
 fi
 
-# 6. Enable essential services
+# 6. Symlink dotfile configs
+echo "Symlinking dotfile configs..."
+CONFIG_DIR="$HOME/.config"
+mkdir -p "$CONFIG_DIR"
+
+# Map: dotfiles subdirectory -> ~/.config/ target name
+declare -A SYMLINKS=(
+    ["fish"]="fish"
+    ["hypr"]="hypr"
+    ["kitty"]="kitty"
+    ["nvim"]="nvim"
+    ["rofi"]="rofi"
+    ["swaync"]="swaync"
+    ["tmux"]="tmux"
+    ["waybar"]="waybar"
+    ["lazygit"]="lazygit"
+    ["niri"]="niri"
+    ["noctalia"]="noctalia"
+)
+
+for src_name in "${!SYMLINKS[@]}"; do
+    src="$DOTFILES_DIR/$src_name"
+    dest="$CONFIG_DIR/${SYMLINKS[$src_name]}"
+
+    if [[ ! -d "$src" ]]; then
+        echo "  Skipping $src_name (not found in dotfiles)"
+        continue
+    fi
+
+    if [[ -L "$dest" ]]; then
+        current_target=$(readlink "$dest")
+        if [[ "$current_target" == "$src" ]]; then
+            echo "  $src_name already symlinked, skipping"
+            continue
+        else
+            echo "  $src_name symlink points elsewhere ($current_target), relinking..."
+            ln -sfn "$src" "$dest"
+        fi
+    elif [[ -d "$dest" ]]; then
+        echo "  WARNING: $dest is a real directory. Backing up to ${dest}.bak and symlinking..."
+        mv "$dest" "${dest}.bak"
+        ln -s "$src" "$dest"
+    else
+        echo "  Linking $src_name..."
+        ln -s "$src" "$dest"
+    fi
+done
+
+# Starship config (lives at ~/.config/starship.toml, not a directory)
+STARSHIP_SRC="$DOTFILES_DIR/starship.toml"
+STARSHIP_DEST="$CONFIG_DIR/starship.toml"
+if [[ -f "$STARSHIP_SRC" ]]; then
+    if [[ -L "$STARSHIP_DEST" && "$(readlink "$STARSHIP_DEST")" == "$STARSHIP_SRC" ]]; then
+        echo "  starship.toml already symlinked, skipping"
+    else
+        [[ -e "$STARSHIP_DEST" ]] && mv "$STARSHIP_DEST" "${STARSHIP_DEST}.bak"
+        ln -s "$STARSHIP_SRC" "$STARSHIP_DEST"
+        echo "  Linked starship.toml"
+    fi
+fi
+
+# 7. Enable essential services (skip unavailable ones)
 echo "Enabling System Services..."
 SERVICES=(
     bluetooth.service
@@ -57,27 +118,31 @@ SERVICES=(
 )
 
 for service in "${SERVICES[@]}"; do
-    sudo systemctl enable --now "$service"
+    if systemctl list-unit-files "$service" &>/dev/null && systemctl list-unit-files "$service" | grep -q "$service"; then
+        sudo systemctl enable --now "$service" && echo "  Enabled $service" || echo "  WARNING: Failed to enable $service"
+    else
+        echo "  Skipping $service (not available on this system)"
+    fi
 done
 
-# 7. Systemd system service for tmux save on shutdown
+# 8. Systemd system service for tmux save on shutdown
 echo "Setting up tmux save service..."
 sudo ln -sf "$DOTFILES_DIR/systemd/system/tmux-save.service" /etc/systemd/system/tmux-save.service
 sudo systemctl daemon-reload
 sudo systemctl enable tmux-save.service
 sudo systemctl start tmux-save.service
 
-# 8. Docker permissions
+# 9. Docker permissions
 echo "Configuring Docker permissions..."
 sudo usermod -aG docker "$USER"
 
-# 9. SDDM Fingerprint setup
+# 10. SDDM Fingerprint setup
 if [[ -f "$DOTFILES_DIR/sddm-setup.sh" ]]; then
     echo "Configuring SDDM Fingerprint login..."
     bash "$DOTFILES_DIR/sddm-setup.sh"
 fi
 
-# 10. Noctalia lock screen PAM bypass setup
+# 11. Noctalia lock screen PAM bypass setup
 if [[ -f "$DOTFILES_DIR/noctalia-setup.sh" ]]; then
     echo "Configuring Noctalia lock screen..."
     bash "$DOTFILES_DIR/noctalia-setup.sh"

@@ -39,7 +39,6 @@ wl-mirror
 hyprpaper
 niri
 wlroots0.18
-waybar
 swaync
 swayidle
 swaylock
