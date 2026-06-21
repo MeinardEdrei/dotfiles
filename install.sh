@@ -9,7 +9,20 @@ AUR_LIST="$DOTFILES_DIR/system_config/pkglist-aur.txt"
 
 echo "Starting System Restoration..." | tee -a "$LOG_FILE"
 
-# 1. Full system update + keyrings (Arch-safe)
+# 1. Set up Chaotic-AUR if not already configured
+if ! grep -q '\[chaotic-aur\]' /etc/pacman.conf; then
+    echo "Setting up Chaotic-AUR..."
+    sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+    sudo pacman-key --lsign-key 3056513887B78AEB
+    sudo pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
+    sudo pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+    echo -e '\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist' | sudo tee -a /etc/pacman.conf
+    echo "Chaotic-AUR configured."
+else
+    echo "Chaotic-AUR already configured, skipping."
+fi
+
+# 2. Full system update + keyrings (Arch-safe)
 echo "Updating system and keyrings..."
 sudo pacman -Syu --noconfirm archlinux-keyring
 
