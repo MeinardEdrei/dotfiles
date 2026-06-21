@@ -176,12 +176,20 @@ else
 fi
 
 # Set niri as the default SDDM session
-if grep -q "^Session=" /etc/sddm.conf 2>/dev/null; then
-    sudo sed -i 's/^Session=.*/Session=niri/' /etc/sddm.conf
-elif grep -q "^\[General\]" /etc/sddm.conf 2>/dev/null; then
-    sudo sed -i '/^\[General\]/a Session=niri' /etc/sddm.conf
+SDDM_CONF="/etc/sddm.conf"
+if [[ ! -f "$SDDM_CONF" ]]; then
+    sudo tee "$SDDM_CONF" > /dev/null << 'EOF'
+[General]
+Session=niri
+InputMethod=
+EOF
+    echo "  Created sddm.conf with niri session."
+elif grep -q "^Session=" "$SDDM_CONF"; then
+    sudo sed -i 's/^Session=.*/Session=niri/' "$SDDM_CONF"
+elif grep -q "^\[General\]" "$SDDM_CONF"; then
+    sudo sed -i '/^\[General\]/a Session=niri' "$SDDM_CONF"
 else
-    echo -e "\n[General]\nSession=niri" | sudo tee -a /etc/sddm.conf > /dev/null
+    echo -e "\n[General]\nSession=niri" | sudo tee -a "$SDDM_CONF" > /dev/null
 fi
 
 # 12. SDDM setup
@@ -232,21 +240,16 @@ if [[ -d "$GRUB_THEME_SRC" ]]; then
     sudo mkdir -p "$GRUB_THEME_DEST"
     sudo cp -r "$GRUB_THEME_SRC/." "$GRUB_THEME_DEST"
 
-    # Pick resolution folder closest to current display
-    RESOLUTION=$(xrandr 2>/dev/null | grep '\*' | awk '{print $1}' | head -1)
-    if [[ -d "$GRUB_THEME_DEST/$RESOLUTION" ]]; then
-        THEME_FILE="$GRUB_THEME_DEST/$RESOLUTION/theme.txt"
-    elif [[ -d "$GRUB_THEME_DEST/1920x1080" ]]; then
+    # Pick resolution folder — fall back to first available theme.txt
+    if [[ -d "$GRUB_THEME_DEST/1920x1080" ]]; then
         THEME_FILE="$GRUB_THEME_DEST/1920x1080/theme.txt"
     else
-        THEME_FILE=$(find "$GRUB_THEME_DEST" -name "theme.txt" | head -1)
+        THEME_FILE=$(find "$GRUB_THEME_DEST" -name "theme.txt" | sort | head -1)
     fi
 
-    if grep -q "^GRUB_THEME=" "$GRUB_CONFIG"; then
-        sudo sed -i "s|^GRUB_THEME=.*|GRUB_THEME=$THEME_FILE|" "$GRUB_CONFIG"
-    else
-        echo "GRUB_THEME=$THEME_FILE" | sudo tee -a "$GRUB_CONFIG"
-    fi
+    # Remove commented or existing GRUB_THEME line and set the new one
+    sudo sed -i '/^#\?GRUB_THEME=/d' "$GRUB_CONFIG"
+    echo "GRUB_THEME=$THEME_FILE" | sudo tee -a "$GRUB_CONFIG" > /dev/null
     sudo grub-mkconfig -o /boot/grub/grub.cfg
     echo "GRUB theme installed ($THEME_FILE)."
 else
