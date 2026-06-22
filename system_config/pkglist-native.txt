@@ -63,6 +63,9 @@ fprintd
 v4l2loopback-dkms
 v4l2loopback-utils
 
+# Pacman maintenance
+pacman-contrib
+
 # File manager & utils
 gnome-keyring
 cups

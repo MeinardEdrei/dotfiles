@@ -136,6 +136,7 @@ SERVICES=(
     docker.service
     NetworkManager.service
     thermald.service
+    paccache.timer
 )
 
 for service in "${SERVICES[@]}"; do
