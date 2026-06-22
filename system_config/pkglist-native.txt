@@ -91,6 +91,7 @@ ripgrep
 fd
 lazygit
 neovim
+tree-sitter-cli
 vim
 git
 git-delta

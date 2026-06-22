@@ -1,5 +1,6 @@
 return { -- Highlight, edit, and navigate code
 	"nvim-treesitter/nvim-treesitter",
+	branch = "main",
 	build = ":TSUpdate",
 	lazy = false,
 	priority = 1000,
@@ -27,12 +28,12 @@ return { -- Highlight, edit, and navigate code
 			"javascript", "typescript", "tsx", "python", "c_sharp",
 		}
 		vim.schedule(function()
-			local installed = require("nvim-treesitter.info").installed_parsers()
+			local installed = require("nvim-treesitter").get_installed()
 			local missing = vim.tbl_filter(function(p)
 				return not vim.list_contains(installed, p)
 			end, wanted)
 			if #missing > 0 then
-				vim.cmd("TSInstall " .. table.concat(missing, " "))
+				require("nvim-treesitter").install(missing)
 			end
 		end)
 		-- New v1.0 API: highlight must be started manually per buffer
