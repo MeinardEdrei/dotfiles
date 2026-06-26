@@ -149,7 +149,7 @@ done
 
 # 8. Systemd system service for tmux save on shutdown
 echo "Setting up tmux save service..."
-sudo ln -sf "$DOTFILES_DIR/systemd/system/tmux-save.service" /etc/systemd/system/tmux-save.service
+sudo cp "$DOTFILES_DIR/systemd/system/tmux-save.service" /etc/systemd/system/tmux-save.service
 sudo systemctl daemon-reload
 sudo systemctl enable tmux-save.service
 sudo systemctl start tmux-save.service
