@@ -154,6 +154,13 @@ sudo systemctl daemon-reload
 sudo systemctl enable tmux-save.service
 sudo systemctl start tmux-save.service
 
+# Suppress shutdown wall messages and reduce user session stop timeout
+echo "Applying systemd shutdown tweaks..."
+sudo mkdir -p /etc/systemd/logind.conf.d /etc/systemd/user.conf.d
+sudo cp "$DOTFILES_DIR/systemd/system/logind.conf.d/no-wall.conf" /etc/systemd/logind.conf.d/no-wall.conf
+sudo cp "$DOTFILES_DIR/systemd/user.conf.d/timeout.conf" /etc/systemd/user.conf.d/timeout.conf
+sudo systemctl restart systemd-logind
+
 # 9. Docker permissions
 echo "Configuring Docker permissions..."
 sudo usermod -aG docker "$USER"
