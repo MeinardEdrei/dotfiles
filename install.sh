@@ -258,6 +258,11 @@ if [[ -d "$GRUB_THEME_SRC" ]]; then
     # Remove commented or existing GRUB_THEME line and set the new one
     sudo sed -i -E '/^#?GRUB_THEME=/d' "$GRUB_CONFIG"
     echo "GRUB_THEME=$THEME_FILE" | sudo tee -a "$GRUB_CONFIG" > /dev/null
+
+    # Hide GRUB menu (hold Shift/Esc at boot to access)
+    sudo sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' "$GRUB_CONFIG"
+    sudo sed -i 's/^GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=hidden/' "$GRUB_CONFIG"
+
     sudo grub-mkconfig -o /boot/grub/grub.cfg
     echo "GRUB theme installed ($THEME_FILE)."
 else
