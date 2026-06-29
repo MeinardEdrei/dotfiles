@@ -159,7 +159,18 @@ echo "Applying systemd shutdown tweaks..."
 sudo mkdir -p /etc/systemd/logind.conf.d /etc/systemd/user.conf.d
 sudo cp "$DOTFILES_DIR/systemd/system/logind.conf.d/no-wall.conf" /etc/systemd/logind.conf.d/no-wall.conf
 sudo cp "$DOTFILES_DIR/systemd/user.conf.d/timeout.conf" /etc/systemd/user.conf.d/timeout.conf
-sudo systemctl restart systemd-logind
+
+# Plymouth boot splash setup
+echo "Setting up Plymouth..."
+yay -S --needed --noconfirm plymouth-git plymouth-theme-archlinux
+sudo cp -r "$DOTFILES_DIR/linux-penguin" /usr/share/plymouth/themes/
+sudo mkdir -p /etc/systemd/system/plymouth-quit.service.d
+sudo cp "$DOTFILES_DIR/systemd/system/plymouth-quit.service.d/retain-splash.conf" /etc/systemd/system/plymouth-quit.service.d/retain-splash.conf
+sudo plymouth-set-default-theme -R linux-penguin
+# Update mkinitcpio for early plymouth + i915
+sudo sed -i 's/^MODULES=.*/MODULES=(i915)/' /etc/mkinitcpio.conf
+sudo sed -i 's/^HOOKS=.*/HOOKS=(base udev plymouth autodetect microcode modconf kms keyboard keymap consolefont block filesystems fsck)/' /etc/mkinitcpio.conf
+sudo mkinitcpio -P
 
 # 9. Docker permissions
 echo "Configuring Docker permissions..."
@@ -261,8 +272,15 @@ if [[ -d "$GRUB_THEME_SRC" ]]; then
 
     # Hide GRUB menu (hold Shift/Esc at boot to access)
     sudo sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' "$GRUB_CONFIG"
-    sudo sed -i 's/^GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=hidden/' "$GRUB_CONFIG"
+    sudo sed -i '/^GRUB_TIMEOUT_STYLE=/d' "$GRUB_CONFIG"
+    sudo sed -i '/^GRUB_TIMEOUT=0/a GRUB_TIMEOUT_STYLE=hidden' "$GRUB_CONFIG"
 
+    # Set kernel params for silent boot with Plymouth
+    sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash loglevel=3 rd.systemd.show_status=false rd.udev.log_level=3 vt.global_cursor_default=0 plymouth.use-simpledrm=0 systemd.show_status=false fbcon=nodefer"/' "$GRUB_CONFIG"
+
+    # Install grub-silent to suppress "Loading Linux..." messages
+    yay -S --needed --noconfirm grub-silent
+    sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
     sudo grub-mkconfig -o /boot/grub/grub.cfg
     echo "GRUB theme installed ($THEME_FILE)."
 else
