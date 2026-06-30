@@ -18,7 +18,8 @@
         "ignoreMouseInput": false,
         "overviewLayer": false,
         "pinnedApps": [
-            "zen-browser-twilight"
+            "zen-browser-twilight",
+            "discord"
         ],
         "position": "top_center",
         "screenshotAnnotationTool": "",
@@ -459,8 +460,8 @@
         "backgroundOpacity": 1,
         "colorizeIcons": false,
         "deadOpacity": 0.6,
-        "displayMode": "auto_hide",
-        "dockType": "floating",
+        "displayMode": "always_visible",
+        "dockType": "attached",
         "enabled": true,
         "floatingRatio": 1,
         "groupApps": false,
@@ -470,7 +471,7 @@
         "inactiveIndicators": false,
         "indicatorColor": "primary",
         "indicatorOpacity": 0.6,
-        "indicatorThickness": 3,
+        "indicatorThickness": 6,
         "launcherIcon": "",
         "launcherIconColor": "none",
         "launcherPosition": "end",
@@ -584,7 +585,7 @@
         "firstDayOfWeek": -1,
         "hideWeatherCityName": false,
         "hideWeatherTimezone": false,
-        "name": "San Juan",
+        "name": "Makati City",
         "showCalendarEvents": true,
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": true,
@@ -659,7 +660,7 @@
             2,
             3
         ],
-        "location": "top_right",
+        "location": "bottom_right",
         "monitors": [
         ],
         "overlayLayer": true
