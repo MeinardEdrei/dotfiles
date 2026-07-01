@@ -1,39 +1,177 @@
-[general]
-autostart_auth = false
-
-[lock_screen]
-fingerprint = true
-
-[shell]
-# Lockscreen date and time formats
-date_format = "%a %B %e"
-time_format = "{:%l:%M}"
-niri_overview_type_to_launch_enabled = true
-
 [audio]
-enable_overdrive = false
+enable_overdrive = true
 enable_sounds = true
 notification_sound = "/usr/share/noctalia/assets/sounds/notification.wav"
 volume_change_sound = ""
 
+[backdrop]
+blur_intensity = 0.0
+enabled = true
+
 [bar.default]
-position = "top"
-start = ["workspaces", "active_window"]
-center = ["date"]
-end = ["output_volume", "tray"]
+background_opacity = 0.44999998994171619
+center = [ "media", "audio_visualizer" ]
+end = [ "tray", "notifications", "network", "bluetooth", "volume", "battery", "control-center", "clock" ]
+margin_edge = 5
+margin_ends = 10
+start = [ "workspaces", "weather", "clipboard" ]
+thickness = 21
+widget_spacing = 8
 
-[widget.workspaces]
-type = "workspaces"
+[battery]
+warning_threshold = 20
 
-[widget.active_window]
-type = "active_window"
+[calendar]
+enabled = true
 
-[widget.date]
-type = "clock"
+    [calendar.account.personal_google]
+    type = "google"
+
+[desktop_widgets]
+schema_version = 2
+widget_order = [
+    "desktop-widget-0000000000000002",
+    "desktop-widget-0000000000000003",
+    "desktop-widget-0000000000000004",
+    "desktop-widget-0000000000000005"
+]
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget.desktop-widget-0000000000000002]
+    box_height = 112.0
+    box_width = 160.0
+    cx = 1405.0
+    cy = 234.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "clock"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000003]
+    box_height = 80.0
+    box_width = 160.0
+    cx = 1408.0
+    cy = 362.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "weather"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000004]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 230.0
+    cy = 380.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "fancy_audio_visualizer"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000004.settings]
+        background = false
+
+    [desktop_widgets.widget.desktop-widget-0000000000000005]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 1325.0
+    cy = 508.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "media_player"
+
+[dock]
+auto_hide = true
+icon_size = 34
+reserve_space = false
+
+[location]
+auto_locate = true
+
+[lockscreen]
+fingerprint = false
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 800.0
+    cy = 783.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.0
+        background_radius = 10.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_password_hint = true
+
+[osd]
+position = "top_right"
+
+[shell]
+niri_overview_type_to_launch_enabled = true
+telemetry_enabled = true
+
+    [shell.launcher]
+    app_grid = true
+    categories = false
+
+    [shell.panel]
+    launcher_placement = "attached"
+    transparency_mode = "glass"
+
+[theme]
+community_palette = "Oxocarbon"
+source = "wallpaper"
+wallpaper_scheme = "m3-tonal-spot"
+
+[wallpaper]
+directory = "/home/batman/Pictures/Wallpapers"
+
+    [wallpaper.default]
+    path = "/home/batman/Pictures/Wallpapers/wallhaven_0j3l6q.jpg"
+
+    [wallpaper.last]
+    path = "/home/batman/Pictures/Wallpapers/wallhaven_0j3l6q.jpg"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/batman/Pictures/Wallpapers/wallhaven_0j3l6q.jpg"
+
+[widget.battery]
+show_label = false
+
+[widget.clock]
 format = "{:%a %e %b %l:%M %p}"
 
-[widget.output_volume]
-type = "volume"
+[widget.control-center]
+glyph = "layout-2"
+
+[widget.network]
+show_label = false
 
 [widget.tray]
-type = "tray"
+drawer = true
+
+[widget.volume]
+show_label = false
+
+[widget.workspaces]
+display = "none"
+hide_when_empty = true
+pill_scale = 0.40000000000000002
