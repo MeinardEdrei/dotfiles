@@ -1,0 +1,36 @@
+[general]
+autostart_auth = false
+
+[lock_screen]
+fingerprint = true
+
+[shell]
+# Lockscreen date and time formats
+date_format = "%a %B %e"
+time_format = "{:%l:%M}"
+niri_overview_type_to_launch_enabled = true
+
+[audio]
+enable_overdrive = false
+
+[bar.default]
+position = "top"
+start = ["workspaces", "active_window"]
+center = ["date"]
+end = ["output_volume", "tray"]
+
+[widget.workspaces]
+type = "workspaces"
+
+[widget.active_window]
+type = "active_window"
+
+[widget.date]
+type = "clock"
+format = "{:%a %e %b %l:%M %p}"
+
+[widget.output_volume]
+type = "volume"
+
+[widget.tray]
+type = "tray"
