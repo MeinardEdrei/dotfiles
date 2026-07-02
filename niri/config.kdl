@@ -636,9 +636,15 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { spawn "~/dotfiles/_scripts/niri-screenshot-selection.sh"; }
-    Ctrl+Print { spawn "~/dotfiles/_scripts/niri-screenshot-screen.sh"; }
-    Alt+Print { spawn "~/dotfiles/_scripts/niri-screenshot-window.sh"; }
+    // COPY TO CLIPBOARD ONLY
+    Print { screenshot-screen write-to-disk=false; }
+    Alt+Print { screenshot-window write-to-disk=false; }
+
+    // SAVE TO DISK + COPY TO CLIPBOARD
+    Shift+Print { screenshot-screen; }
+    Alt+Shift+Print { screenshot-window; }
+
+    Ctrl+Print { screenshot; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
