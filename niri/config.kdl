@@ -376,6 +376,7 @@ window-rule {
 window-rule {
     background-effect {
         blur true
+        xray true
     }
 }
 
