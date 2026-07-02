@@ -1,3 +1,7 @@
+zoxide init fish | source
+alias cat="bat --style=plain"
+
+
 # Ensure Wayland/Niri env variables are available in subshells
 if set -q TMUX
     # Only pull variables if they aren't already set correctly
