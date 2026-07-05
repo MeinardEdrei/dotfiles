@@ -1,3 +1,10 @@
 # Ignore NeoVim session files
 /nvim-sessions/
 lazy-lock.json
+
+# Ignore tmux plugins
+/tmux/plugins/
+
+# Ignore installation logs and backup files
+install_log.txt
+*.bak
