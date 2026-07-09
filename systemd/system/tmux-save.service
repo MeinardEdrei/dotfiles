@@ -10,8 +10,14 @@ User=batman
 Environment=HOME=/home/batman
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ExecStart=/bin/true
-ExecStop=/bin/bash -c 'tmux -S /tmp/tmux-1000/default run-shell "/home/batman/.config/tmux/plugins/tmux-resurrect/scripts/save.sh quiet"'
-TimeoutStopSec=15
+ExecStop=/bin/bash -c '\
+  SOCK=/tmp/tmux-1000/default; \
+  timeout 2 tmux -S "$SOCK" has-session 2>/dev/null || exit 0; \
+  LAST=$(timeout 2 tmux -S "$SOCK" show-option -gqv "@continuum-save-last-timestamp" 2>/dev/null); \
+  NOW=$(date +%s); \
+  if [ -n "$LAST" ] && [ $((NOW - LAST)) -lt 60 ]; then exit 0; fi; \
+  timeout 5 tmux -S "$SOCK" run-shell "/home/batman/.config/tmux/plugins/tmux-resurrect/scripts/save.sh quiet"'
+TimeoutStopSec=7
 
 [Install]
 WantedBy=multi-user.target
