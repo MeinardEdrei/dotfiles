@@ -12,9 +12,9 @@ SETUVAR _fisher_ilancosman_2F_tide_40_v6_files:\x7e/\x2econfig/fish/functions/_t
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_plugins:edc/bass\x1ejorgebucaran/fisher\x1eilancosman/tide\x40v6
 SETUVAR _fisher_upgraded_to_4_4:\x1d
-SETUVAR _tide_left_items:os\x1epwd\x1egit\x1enewline\x1echaracter
-SETUVAR _tide_prompt_32850:\x1b\x5b30\x3b49m\ue0b6\x1b\x5b97\x3b40m\x20\uf303\x20\x1b\x5b90m\u2502\x1b\x5b40m\x20\x40PWD\x40\x20\x1b\x5b90m\u2502\x1b\x5b40m\x20\x1b\x5b92m\uf1d3\x20\x1b\x5b37m\x1b\x5b92mmain\x1b\x5b91m\x1b\x5b92m\x1b\x5b92m\x1b\x5b91m\x1b\x5b93m\x1b\x5b93m\x20\x214\x1b\x5b94m\x20\x3f52\x20\x1b\x5b30\x3b49m\ue0b4\x1e\x1b\x5b92m\u276e\x1e\x1b\x5b30\x3b49m\ue0b6\x1b\x5b90\x3b40m\x2002\x3a18\x3a00\x20PM\x20\x1b\x5b30\x3b49m\ue0b4
-SETUVAR _tide_right_items:status\x1ecmd_duration\x1econtext\x1ejobs\x1enode\x1epython\x1erustc\x1ejava\x1ephp\x1ego\x1etime
+SETUVAR _tide_left_items:pwd\x1egit\x1enewline\x1echaracter
+SETUVAR _tide_prompt_44963:\x1b\x5b30\x3b49m\ue0b6\x1b\x5b40m\x20\x40PWD\x40\x20\x1b\x5b90m\u2502\x1b\x5b40m\x20\x1b\x5b92m\uf1d3\x20\x1b\x5b37m\x1b\x5b92mmain\x1b\x5b91m\x1b\x5b92m\x1b\x5b92m\x1b\x5b91m\x1b\x5b93m\x1b\x5b93m\x20\x212\x1b\x5b94m\x20\x1b\x5b30\x3b49m\ue0b4\x1e\x1b\x5b92m\u276e
+SETUVAR _tide_right_items:\x1d
 SETUVAR fish_greeting:\x1d
 SETUVAR fish_user_paths:/home/batman/\x2elocal/bin\x1e/opt/flutter/bin\x1e/home/batman/\x2edotnet
 SETUVAR tide_aws_bg_color:black
@@ -89,7 +89,7 @@ SETUVAR tide_kubectl_bg_color:black
 SETUVAR tide_kubectl_color:blue
 SETUVAR tide_kubectl_icon:\U000f10fe
 SETUVAR tide_left_prompt_frame_enabled:true
-SETUVAR tide_left_prompt_items:os\x1epwd\x1egit\x1enewline\x1echaracter
+SETUVAR tide_left_prompt_items:pwd\x1egit\x1enewline\x1echaracter
 SETUVAR tide_left_prompt_prefix:\ue0b6
 SETUVAR tide_left_prompt_separator_diff_color:\ue0b0
 SETUVAR tide_left_prompt_separator_same_color:\u2502
@@ -131,7 +131,7 @@ SETUVAR tide_python_bg_color:black
 SETUVAR tide_python_color:cyan
 SETUVAR tide_python_icon:\U000f0320
 SETUVAR tide_right_prompt_frame_enabled:false
-SETUVAR tide_right_prompt_items:status\x1ecmd_duration\x1econtext\x1ejobs\x1edirenv\x1ebun\x1enode\x1epython\x1erustc\x1ejava\x1ephp\x1epulumi\x1eruby\x1ego\x1egcloud\x1ekubectl\x1edistrobox\x1etoolbox\x1eterraform\x1eaws\x1enix_shell\x1ecrystal\x1eelixir\x1ezig\x1etime
+SETUVAR tide_right_prompt_items:\x1d
 SETUVAR tide_right_prompt_prefix:\ue0b6
 SETUVAR tide_right_prompt_separator_diff_color:\ue0b2
 SETUVAR tide_right_prompt_separator_same_color:\u2502
