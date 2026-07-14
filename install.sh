@@ -116,18 +116,18 @@ for src_name in "${!SYMLINKS[@]}"; do
     fi
 done
 
-# Starship config (lives at ~/.config/starship.toml, not a directory)
-STARSHIP_SRC="$DOTFILES_DIR/starship.toml"
-STARSHIP_DEST="$CONFIG_DIR/starship.toml"
-if [[ -f "$STARSHIP_SRC" ]]; then
-    if [[ -L "$STARSHIP_DEST" && "$(readlink "$STARSHIP_DEST")" == "$STARSHIP_SRC" ]]; then
-        echo "  starship.toml already symlinked, skipping"
-    else
-        [[ -e "$STARSHIP_DEST" || -L "$STARSHIP_DEST" ]] && mv "$STARSHIP_DEST" "${STARSHIP_DEST}.bak"
-        ln -s "$STARSHIP_SRC" "$STARSHIP_DEST"
-        echo "  Linked starship.toml"
-    fi
-fi
+# Starship config (unused, prompt is tide now)
+# STARSHIP_SRC="$DOTFILES_DIR/starship.toml"
+# STARSHIP_DEST="$CONFIG_DIR/starship.toml"
+# if [[ -f "$STARSHIP_SRC" ]]; then
+#     if [[ -L "$STARSHIP_DEST" && "$(readlink "$STARSHIP_DEST")" == "$STARSHIP_SRC" ]]; then
+#         echo "  starship.toml already symlinked, skipping"
+#     else
+#         [[ -e "$STARSHIP_DEST" || -L "$STARSHIP_DEST" ]] && mv "$STARSHIP_DEST" "${STARSHIP_DEST}.bak"
+#         ln -s "$STARSHIP_SRC" "$STARSHIP_DEST"
+#         echo "  Linked starship.toml"
+#     fi
+# fi
 
 # 7. Enable essential services (skip unavailable ones)
 echo "Enabling System Services..."

@@ -64,10 +64,10 @@ function fish_user_key_bindings
     bind \cj history-search-forward
 end
 
-# Only load Starship if NOT in a TTY
-if test "$TERM" != "linux"
-    starship init fish | source
-end
+# starship (unused, prompt is tide now)
+# if test "$TERM" != "linux"
+#     starship init fish | source
+# end
 
 # Emulator
 function android-run
