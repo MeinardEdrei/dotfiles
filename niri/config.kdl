@@ -269,7 +269,7 @@ layout {
 
 // spawn-at-startup "waybar"
 // spawn-at-startup "swaync"
-// spawn-at-startup "noctalia"
+spawn-at-startup "noctalia"
 spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 // spawn-at-startup "nm-applet"
 // spawn-at-startup "swaybg" "-i" "/home/batman/dotfiles/resources/03.jpg" "-m" "fill"
