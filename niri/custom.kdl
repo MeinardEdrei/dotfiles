@@ -1,0 +1,11 @@
+// Custom layout overrides.
+// Turns off borders and focus rings completely.
+
+layout {
+    border {
+        off
+    }
+    focus-ring {
+        off
+    }
+}

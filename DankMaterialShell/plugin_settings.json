@@ -1,0 +1,11 @@
+{
+  "emojiLauncher": {
+    "enabled": true
+  },
+  "typingSounds": {
+    "enabled": false,
+    "mouseEnabled": false,
+    "selectedPackPath": "/home/batman/.config/DankMaterialShell/plugins/typingSounds/soundpacks/mxbrown-travel",
+    "volume": 50
+  }
+}
