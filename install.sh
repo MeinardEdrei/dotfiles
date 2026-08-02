@@ -194,24 +194,7 @@ else
     echo "  niri session already registered, skipping."
 fi
 
-# Set niri as the default SDDM session
-SDDM_CONF="/etc/sddm.conf"
-if [[ ! -f "$SDDM_CONF" ]]; then
-    sudo tee "$SDDM_CONF" > /dev/null << 'EOF'
-[General]
-Session=niri
-InputMethod=
-EOF
-    echo "  Created sddm.conf with niri session."
-elif grep -q "^Session=" "$SDDM_CONF"; then
-    sudo sed -i 's/^Session=.*/Session=niri/' "$SDDM_CONF"
-elif grep -q "^\[General\]" "$SDDM_CONF"; then
-    sudo sed -i '/^\[General\]/a Session=niri' "$SDDM_CONF"
-else
-    echo -e "\n[General]\nSession=niri" | sudo tee -a "$SDDM_CONF" > /dev/null
-fi
-
-# 12. SDDM setup
+# 12. Display manager: greetd + noctalia-greeter is the default (sddm kept disabled as rollback)
 HAS_FINGERPRINT=false
 if lsusb 2>/dev/null | grep -qi "fingerprint" || lspci 2>/dev/null | grep -qi "fingerprint"; then
     HAS_FINGERPRINT=true
@@ -219,35 +202,74 @@ elif command -v fprintd-list &>/dev/null && fprintd-list "$USER" 2>/dev/null | g
     HAS_FINGERPRINT=true
 fi
 
-if [[ -f "$DOTFILES_DIR/sddm-setup.sh" ]]; then
-    echo "Configuring SDDM..."
-    if $HAS_FINGERPRINT; then
-        echo "  Fingerprint scanner detected, enabling fingerprint login..."
-        bash "$DOTFILES_DIR/sddm-setup.sh"
+if command -v greetd &>/dev/null || pacman -Qq greetd &>/dev/null; then
+    echo "Configuring greetd + noctalia-greeter..."
+    sudo mkdir -p /etc/greetd
+    sudo tee /etc/greetd/config.toml > /dev/null << 'EOF'
+[terminal]
+vt = 1
+
+[default_session]
+command = "/usr/bin/noctalia-greeter-session"
+user = "greeter"
+EOF
+
+    # Disable sddm so it can't fight greetd for the login socket/VT
+    if systemctl is-enabled sddm.service &>/dev/null; then
+        echo "  Disabling sddm.service (kept installed as rollback: 'sudo systemctl disable greetd && sudo systemctl enable --now sddm')..."
+        sudo systemctl disable sddm.service
+    fi
+    sudo systemctl enable greetd.service
+    echo "  greetd.service enabled as the login manager."
+else
+    echo "  greetd not installed, falling back to SDDM setup..."
+
+    SDDM_CONF="/etc/sddm.conf"
+    if [[ ! -f "$SDDM_CONF" ]]; then
+        sudo tee "$SDDM_CONF" > /dev/null << 'EOF'
+[General]
+Session=niri
+InputMethod=
+EOF
+        echo "  Created sddm.conf with niri session."
+    elif grep -q "^Session=" "$SDDM_CONF"; then
+        sudo sed -i 's/^Session=.*/Session=niri/' "$SDDM_CONF"
+    elif grep -q "^\[General\]" "$SDDM_CONF"; then
+        sudo sed -i '/^\[General\]/a Session=niri' "$SDDM_CONF"
     else
-        echo "  No fingerprint scanner detected, skipping fingerprint PAM setup..."
-        # Still install theme and basic sddm config without fingerprint
-        THEME_NAME="pixel-dusk-city"
-        THEME_SRC="$DOTFILES_DIR/sddm/theme"
-        THEME_DEST="/usr/share/sddm/themes/$THEME_NAME"
-        sudo rm -rf "$THEME_DEST"
-        sudo cp -r "$THEME_SRC" "$THEME_DEST"
-        sudo chmod -R 644 "$THEME_DEST"
-        sudo find "$THEME_DEST" -type d -exec chmod 755 {} +
-        if grep -q "^\[Theme\]" /etc/sddm.conf 2>/dev/null; then
-            sudo sed -i "s/^Current=.*/Current=$THEME_NAME/" /etc/sddm.conf
+        echo -e "\n[General]\nSession=niri" | sudo tee -a "$SDDM_CONF" > /dev/null
+    fi
+
+    if [[ -f "$DOTFILES_DIR/sddm-setup.sh" ]]; then
+        echo "Configuring SDDM..."
+        if $HAS_FINGERPRINT; then
+            echo "  Fingerprint scanner detected, enabling fingerprint login..."
+            bash "$DOTFILES_DIR/sddm-setup.sh"
         else
-            echo -e "\n[Theme]\nCurrent=$THEME_NAME" | sudo tee -a /etc/sddm.conf > /dev/null
+            echo "  No fingerprint scanner detected, skipping fingerprint PAM setup..."
+            # Still install theme and basic sddm config without fingerprint
+            THEME_NAME="pixel-dusk-city"
+            THEME_SRC="$DOTFILES_DIR/sddm/theme"
+            THEME_DEST="/usr/share/sddm/themes/$THEME_NAME"
+            sudo rm -rf "$THEME_DEST"
+            sudo cp -r "$THEME_SRC" "$THEME_DEST"
+            sudo chmod -R 644 "$THEME_DEST"
+            sudo find "$THEME_DEST" -type d -exec chmod 755 {} +
+            if grep -q "^\[Theme\]" /etc/sddm.conf 2>/dev/null; then
+                sudo sed -i "s/^Current=.*/Current=$THEME_NAME/" /etc/sddm.conf
+            else
+                echo -e "\n[Theme]\nCurrent=$THEME_NAME" | sudo tee -a /etc/sddm.conf > /dev/null
+            fi
         fi
     fi
+
+    sudo systemctl enable sddm.service
 fi
 
 # Skip installing sddm-fingerprint package if no scanner
 if ! $HAS_FINGERPRINT; then
     echo "  Skipping sddm-fingerprint package (no fingerprint scanner)"
 fi
-
-sudo systemctl enable sddm.service
 
 # 13. GRUB theme setup
 echo "Installing GRUB theme..."
@@ -296,6 +318,43 @@ if $HAS_FINGERPRINT; then
 else
     echo "Skipping Noctalia PAM setup (no fingerprint scanner)"
 fi
+
+# 15. Drift check: flag stale stuff the dotfiles no longer reference (report only, no auto-removal)
+echo "--------------------------------------------------------"
+echo "Checking for drift against dotfiles..."
+
+# Packages explicitly installed but not in either pkglist
+if [[ -f "$NATIVE_LIST" && -f "$AUR_LIST" ]]; then
+    WANTED_PKGS=$(grep -vE '^\s*#|^\s*$' "$NATIVE_LIST" "$AUR_LIST" | sort -u)
+    EXTRA_PKGS=$(comm -23 <(pacman -Qqe | sort -u) <(echo "$WANTED_PKGS"))
+    if [[ -n "$EXTRA_PKGS" ]]; then
+        echo "  Packages explicitly installed but not listed in dotfiles pkglists (review, don't auto-remove):"
+        echo "$EXTRA_PKGS" | sed 's/^/    - /'
+    fi
+fi
+
+# Services enabled on the system but not managed by this script
+KNOWN_CONFLICTS=(sddm.service)
+for service in "${KNOWN_CONFLICTS[@]}"; do
+    if systemctl is-enabled "$service" &>/dev/null; then
+        echo "  WARNING: $service is enabled but this run configured a different login manager. Disable it manually if unintended: sudo systemctl disable $service"
+    fi
+done
+
+# ~/.config symlinks that point into dotfiles but are no longer in SYMLINKS (renamed/removed dirs)
+for dest in "$CONFIG_DIR"/*; do
+    name=$(basename "$dest")
+    if [[ -L "$dest" ]]; then
+        target=$(readlink "$dest")
+        if [[ "$target" == "$DOTFILES_DIR"/* && -z "${SYMLINKS[$name]:-}" ]]; then
+            if [[ ! -e "$target" ]]; then
+                echo "  WARNING: ~/.config/$name is a dead symlink to $target (dotfiles dir removed/renamed)"
+            else
+                echo "  NOTE: ~/.config/$name -> $target is not in install.sh's SYMLINKS map anymore"
+            fi
+        fi
+    fi
+done
 
 echo "--------------------------------------------------------"
 echo "Installation Complete!"

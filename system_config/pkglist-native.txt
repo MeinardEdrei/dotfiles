@@ -38,6 +38,7 @@ udiskie
 wl-mirror
 hyprpaper
 niri
+greetd
 sddm
 qt5-graphicaleffects
 wlroots0.18

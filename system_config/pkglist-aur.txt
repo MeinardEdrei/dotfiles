@@ -15,6 +15,7 @@ emote
 
 # System & Utilities
 sddm-fingerprint
-noctalia-git
+noctalia
+noctalia-greeter
 
 
