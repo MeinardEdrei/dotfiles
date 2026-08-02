@@ -116,6 +116,23 @@ for src_name in "${!SYMLINKS[@]}"; do
     fi
 done
 
+# noctalia writes these theme-sync files at runtime (gitignored, not in the repo).
+# niri/kitty include them unconditionally, so a fresh clone needs a placeholder
+# until noctalia overwrites it with real synced colors.
+GENERATED_INCLUDES=(
+    "$DOTFILES_DIR/niri/noctalia.kdl:layout {}"
+    "$DOTFILES_DIR/kitty/themes/noctalia.conf:# placeholder, overwritten by noctalia theme sync"
+)
+for entry in "${GENERATED_INCLUDES[@]}"; do
+    file="${entry%%:*}"
+    placeholder="${entry#*:}"
+    if [[ ! -f "$file" ]]; then
+        echo "  Creating placeholder for missing generated file: $file"
+        mkdir -p "$(dirname "$file")"
+        printf '%s\n' "$placeholder" > "$file"
+    fi
+done
+
 # Starship config (unused, prompt is tide now)
 # STARSHIP_SRC="$DOTFILES_DIR/starship.toml"
 # STARSHIP_DEST="$CONFIG_DIR/starship.toml"
