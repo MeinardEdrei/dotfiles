@@ -116,6 +116,30 @@ for src_name in "${!SYMLINKS[@]}"; do
     fi
 done
 
+# Wallpapers live in the repo (dotfiles/wallpapers) and are symlinked into
+# ~/Pictures/Wallpapers, since noctalia/config.toml hardcodes that path.
+WALLPAPERS_SRC="$DOTFILES_DIR/wallpapers"
+WALLPAPERS_DEST="$HOME/Pictures/Wallpapers"
+mkdir -p "$HOME/Pictures"
+if [[ -d "$WALLPAPERS_SRC" ]]; then
+    if [[ -L "$WALLPAPERS_DEST" ]]; then
+        current_target=$(readlink "$WALLPAPERS_DEST")
+        if [[ "$current_target" != "$WALLPAPERS_SRC" ]]; then
+            echo "  Wallpapers symlink points elsewhere ($current_target), relinking..."
+            ln -sfn "$WALLPAPERS_SRC" "$WALLPAPERS_DEST"
+        fi
+    elif [[ -d "$WALLPAPERS_DEST" ]]; then
+        echo "  WARNING: $WALLPAPERS_DEST is a real directory. Backing up to ${WALLPAPERS_DEST}.bak and symlinking..."
+        mv "$WALLPAPERS_DEST" "${WALLPAPERS_DEST}.bak"
+        ln -s "$WALLPAPERS_SRC" "$WALLPAPERS_DEST"
+    else
+        echo "  Linking wallpapers..."
+        ln -s "$WALLPAPERS_SRC" "$WALLPAPERS_DEST"
+    fi
+else
+    echo "  Skipping wallpapers (not found in dotfiles)"
+fi
+
 # noctalia writes these theme-sync files at runtime (gitignored, not in the repo).
 # niri/kitty include them unconditionally, so a fresh clone needs a placeholder
 # until noctalia overwrites it with real synced colors.
