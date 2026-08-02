@@ -1,0 +1,30 @@
+font_family       JetBrains Mono Nerd Font
+bold_font         JetBrains Mono Nerd Font Bold
+italic_font       JetBrains Mono Nerd Font Italic
+bold_italic_font  JetBrains Mono Nerd Font Bold Italic
+
+font_size 11.0
+
+background_opacity 0.8
+window_padding_width 4
+
+cursor_trail 1
+cursor_trail_decay 0.15 0.6
+# cursor_trail_color #cba6f7
+
+# Notify via desktop notification when a command running >15s finishes
+notify_on_cmd_finish invisible 15
+
+copy_on_select yes
+cursor_trail_decay 0.1 0.3
+hide_window_decorations yes
+placement_strategy center
+resize_in_steps yes
+
+# Fallback palette, overridden by the noctalia-managed block below when present
+include themes/catppuccin-mocha.conf
+
+# BEGIN_KITTY_THEME
+# Noctalia
+include current-theme.conf
+# END_KITTY_THEME
