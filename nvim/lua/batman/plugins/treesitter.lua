@@ -26,6 +26,7 @@ return { -- Highlight, edit, and navigate code
 			"bash", "c", "diff", "html", "lua", "luadoc",
 			"markdown", "markdown_inline", "query", "vim", "vimdoc",
 			"javascript", "typescript", "tsx", "python", "c_sharp",
+			"kdl", "fish", "toml", "yaml", "json", "json5", "css", "regex", "tmux",
 		}
 		vim.schedule(function()
 			local installed = require("nvim-treesitter").get_installed()
@@ -38,8 +39,25 @@ return { -- Highlight, edit, and navigate code
 		end)
 		-- New v1.0 API: highlight must be started manually per buffer
 		vim.api.nvim_create_autocmd("FileType", {
-			callback = function()
-				pcall(vim.treesitter.start)
+			callback = function(args)
+				local buf = args.buf
+				local ft = vim.bo[buf].filetype
+				local lang = vim.treesitter.language.get_lang(ft) or ft
+				if not pcall(vim.treesitter.start, buf, lang) then
+					local ts = require("nvim-treesitter")
+					local parsers = require("nvim-treesitter.parsers")
+					if parsers[lang] and not vim.list_contains(ts.get_installed(), lang) then
+						local task = ts.install({ lang })
+						if task then
+							vim.schedule(function()
+								task:wait(10000)
+								if vim.api.nvim_buf_is_valid(buf) then
+									pcall(vim.treesitter.start, buf, lang)
+								end
+							end)
+						end
+					end
+				end
 			end,
 		})
 		-- Must run after built-in ftplugins (e.g. indent/html.vim sets HtmlIndent())
