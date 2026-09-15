@@ -26,7 +26,7 @@ return { -- Highlight, edit, and navigate code
 			"bash", "c", "diff", "html", "lua", "luadoc",
 			"markdown", "markdown_inline", "query", "vim", "vimdoc",
 			"javascript", "typescript", "tsx", "python", "c_sharp",
-			"kdl", "fish", "toml", "yaml", "json", "json5", "css", "regex", "tmux",
+			"kdl", "fish", "toml", "yaml", "json", "json5", "css", "regex",
 		}
 		vim.schedule(function()
 			local installed = require("nvim-treesitter").get_installed()
@@ -37,13 +37,25 @@ return { -- Highlight, edit, and navigate code
 				require("nvim-treesitter").install(missing)
 			end
 		end)
+		-- Some installed parsers ship no highlights.scm (e.g. tmux, dropped
+		-- upstream in nvim-treesitter main); fall back to legacy vim syntax
+		-- for those instead of leaving the buffer unhighlighted.
+		local function has_highlight_query(lang)
+			return vim.treesitter.query.get(lang, "highlights") ~= nil
+		end
+
 		-- New v1.0 API: highlight must be started manually per buffer
 		vim.api.nvim_create_autocmd("FileType", {
 			callback = function(args)
 				local buf = args.buf
 				local ft = vim.bo[buf].filetype
 				local lang = vim.treesitter.language.get_lang(ft) or ft
-				if not pcall(vim.treesitter.start, buf, lang) then
+				local started = pcall(vim.treesitter.start, buf, lang)
+				if started and not has_highlight_query(lang) then
+					vim.treesitter.stop(buf)
+					started = false
+				end
+				if not started then
 					local ts = require("nvim-treesitter")
 					local parsers = require("nvim-treesitter.parsers")
 					if parsers[lang] and not vim.list_contains(ts.get_installed(), lang) then
@@ -52,11 +64,20 @@ return { -- Highlight, edit, and navigate code
 							vim.schedule(function()
 								task:wait(10000)
 								if vim.api.nvim_buf_is_valid(buf) then
-									pcall(vim.treesitter.start, buf, lang)
+									local ok = pcall(vim.treesitter.start, buf, lang)
+									if ok and has_highlight_query(lang) then
+										return
+									end
+									if ok then
+										vim.treesitter.stop(buf)
+									end
+									vim.bo[buf].syntax = ft
 								end
 							end)
+							return
 						end
 					end
+					vim.bo[buf].syntax = ft
 				end
 			end,
 		})
