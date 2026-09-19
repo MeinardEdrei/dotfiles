@@ -20,12 +20,13 @@ end = [
     "battery",
     "weather",
     "notifications",
+    "control-center",
     "clock"
 ]
 font_family = "Inter SemiBold"
 margin_edge = 0
 scale = 0.90000000596046448
-start = [ "workspaces", "active_window", "media", "clipboard", "control-center", "wallhaven" ]
+start = [ "workspaces", "active_window", "media", "clipboard" ]
 thickness = 25
 
 [battery]
@@ -53,10 +54,10 @@ show_shortcut_labels = false
     type = "notification"
 
     [[control_center.shortcuts]]
-    type = "power_profile"
+    type = "alexander/screen-toolkit:toggle"
 
     [[control_center.shortcuts]]
-    type = "alexander/screen-toolkit:toggle"
+    type = "noctalia/wallhaven:shortcut"
 
 [desktop_widgets]
 schema_version = 2
@@ -65,7 +66,7 @@ widget_order = [ "desktop-widget-0000000000000004", "desktop-widget-000000000000
     [desktop_widgets.grid]
     cell_size = 16
     major_interval = 4
-    visible = false
+    visible = true
 
     [desktop_widgets.widget.desktop-widget-0000000000000004]
     box_height = 272.0
@@ -80,6 +81,8 @@ widget_order = [ "desktop-widget-0000000000000004", "desktop-widget-000000000000
 
         [desktop_widgets.widget.desktop-widget-0000000000000004.settings]
         background = true
+        background_opacity = 0.80000000000000004
+        fade_when_idle = false
         visualization_mode = "wave"
 
     [desktop_widgets.widget.desktop-widget-0000000000000005]
@@ -124,6 +127,9 @@ icon_size = 37
 magnification_scale = 1.1500000022351742
 margin_edge = 10
 smart_auto_hide = true
+
+[hot_corners]
+enabled = false
 
 [idle]
 behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
@@ -208,14 +214,7 @@ panel_placement = "attached"
 audio_source = "none"
 
 [plugins]
-enabled = [
-    "noctalia/notes",
-    "noctalia/bongocat",
-    "alexander/screen-toolkit",
-    "noctalia/wallhaven",
-    "aristides/udiskie",
-    "andrewdems/printers"
-]
+enabled = [ "noctalia/notes", "alexander/screen-toolkit", "aristides/udiskie", "andrewdems/printers", "noctalia/wallhaven" ]
 
 [shell]
 avatar_path = "/home/batman/Documents/1x1.jpg"
@@ -234,6 +233,9 @@ telemetry_enabled = true
     [shell.panel]
     clipboard_placement = "attached"
     transparency_mode = "glass"
+
+    [shell.screen_corners]
+    enabled = false
 
     [[shell.session.actions]]
     action = "lock"
@@ -284,13 +286,13 @@ wallpaper_scheme = "m3-content"
 directory = "/home/batman/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/batman/Pictures/Wallpapers/wallhaven-k8d851.jpg"
+    path = "/home/batman/Pictures/Wallpapers/wallhaven-qrol25.jpg"
 
     [wallpaper.last]
-    path = "/home/batman/Pictures/Wallpapers/wallhaven-k8d851.jpg"
+    path = "/home/batman/Pictures/Wallpapers/wallhaven-qrol25.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/batman/Pictures/Wallpapers/wallhaven-k8d851.jpg"
+    path = "/home/batman/Pictures/Wallpapers/wallhaven-qrol25.jpg"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
@@ -369,12 +371,10 @@ drawer = true
 enabled = false
 show_label = false
 
-[widget.wallhaven]
-type = "noctalia/wallhaven:wallhaven"
-
 [widget.weather]
 show_condition = false
 
 [widget.workspaces]
+enabled = false
 pill_scale = 0.40000000000000002
 show_labels = false
