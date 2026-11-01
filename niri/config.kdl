@@ -647,6 +647,8 @@ binds {
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
+    // App thinks it's fullscreen but stays in its window (e.g. Canva present mode).
+    Mod+Ctrl+F { toggle-windowed-fullscreen; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Center all fully visible columns on screen.
