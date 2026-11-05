@@ -686,15 +686,11 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    // COPY TO CLIPBOARD ONLY
-    Print { screenshot-screen write-to-disk=false; }
-    Alt+Print { screenshot-window write-to-disk=false; }
-
-    // SAVE TO DISK + COPY TO CLIPBOARD
-    Shift+Print { screenshot-screen; }
-    Alt+Shift+Print { screenshot-window; }
-
-    Ctrl+Print { screenshot; }
+    // Screenshots via Noctalia
+    Print       { spawn "noctalia" "msg" "screenshot-region"; }
+    Shift+Print { spawn "noctalia" "msg" "screenshot-fullscreen"; }
+    Alt+Print   { spawn "noctalia" "msg" "screenshot-window"; }
+    Ctrl+Print  { spawn "noctalia" "msg" "screenshot-annotate"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
