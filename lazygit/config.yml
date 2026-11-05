@@ -9,33 +9,22 @@ gui:
   timeFormat: "02 Jan 06"
   shortTimeFormat: "3:04PM"
   theme:
-    # PREMIUM BLACK: jet black (#000), soft white text, restrained gold accent
+    # ACTIVE BORDER: Matte Grey
     activeBorderColor:
-      - "#d4af37"
+      - "#585b70"
       - bold
+    # INACTIVE BORDER: Pure Black
     inactiveBorderColor:
-      - "#1f1f1f"
-    searchingActiveBorderColor:
-      - "#e6c76a"
-      - bold
+      - "#343434"
+    # TEXT COLORS
     optionsTextColor:
-      - "#8a8a8a"
+      - "#89b4fa"
     selectedLineBgColor:
-      - "#0d0d0d"
-    inactiveViewSelectedLineBgColor:
-      - "#080808"
-    cherryPickedCommitFgColor:
-      - "#d4af37"
-    cherryPickedCommitBgColor:
-      - "#0d0d0d"
-    markedBaseCommitFgColor:
-      - "#e6c76a"
-    markedBaseCommitBgColor:
-      - "#0d0d0d"
-    unstagedChangesColor:
-      - "#e5736b"
+      - "#1e1e2e"
     defaultFgColor:
-      - "#d8d8d8"
+      - "#9399b2"
+    searchingActiveBorderColor:
+      - "#fab387"
 git:
   # This removes the technical "diff --git a/..." header noise
   parseEmoji: true
