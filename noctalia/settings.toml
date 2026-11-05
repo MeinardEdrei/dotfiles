@@ -41,6 +41,9 @@ enabled = true
 [control_center]
 show_shortcut_labels = false
 
+    [control_center.calendar]
+    show_events_card = true
+
     [[control_center.shortcuts]]
     type = "wifi"
 
@@ -154,6 +157,7 @@ auto_locate = true
 
 [lockscreen]
 fingerprint = false
+transition = []
 wallpaper = "/home/batman/Pictures/Wallpapers/wallhaven-w55zwx.png"
 
 [lockscreen_widgets]
@@ -313,7 +317,7 @@ builtin = "Noctalia"
 community_palette = "Oxocarbon"
 mode = "dark"
 source = "wallpaper"
-wallpaper_scheme = "m3-content"
+wallpaper_scheme = "vibrant"
 
     [theme.templates]
     builtin_ids = [ "btop", "kitty", "niri" ]
@@ -323,13 +327,13 @@ wallpaper_scheme = "m3-content"
 directory = "/home/batman/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/batman/Pictures/Wallpapers/wallhaven-qrp8y7.png"
+    path = "/home/batman/Pictures/Wallpapers/wallhaven-3qgzyy.jpg"
 
     [wallpaper.last]
-    path = "/home/batman/Pictures/Wallpapers/wallhaven-qrp8y7.png"
+    path = "/home/batman/Pictures/Wallpapers/wallhaven-3qgzyy.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/batman/Pictures/Wallpapers/wallhaven-qrp8y7.png"
+    path = "/home/batman/Pictures/Wallpapers/wallhaven-3qgzyy.jpg"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
