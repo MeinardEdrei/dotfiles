@@ -13,6 +13,7 @@ end = [
     "tray",
     "status",
     "printer",
+    "mirror",
     "network",
     "bluetooth",
     "keyboard_layout",
@@ -48,9 +49,6 @@ show_shortcut_labels = false
     type = "wifi"
 
     [[control_center.shortcuts]]
-    type = "bluetooth"
-
-    [[control_center.shortcuts]]
     type = "caffeine"
 
     [[control_center.shortcuts]]
@@ -61,6 +59,9 @@ show_shortcut_labels = false
 
     [[control_center.shortcuts]]
     type = "noctalia/wallhaven:shortcut"
+
+    [[control_center.shortcuts]]
+    type = "icefish/phone-operate:tile"
 
 [desktop_widgets]
 schema_version = 2
@@ -74,11 +75,11 @@ widget_order = [ "desktop-widget-0000000000000004", "desktop-widget-000000000000
     [desktop_widgets.widget.desktop-widget-0000000000000004]
     box_height = 272.0
     box_width = 224.0
-    cx = 166.0703125
-    cy = 251.9453125
+    cx = 165.96652221679688
+    cy = 251.66537475585938
     output = "eDP-1"
-    placement_height = 900.0
-    placement_width = 1600.0
+    placement_height = 899.0
+    placement_width = 1599.0
     rotation = 0.0
     type = "fancy_audio_visualizer"
 
@@ -91,11 +92,11 @@ widget_order = [ "desktop-widget-0000000000000004", "desktop-widget-000000000000
     [desktop_widgets.widget.desktop-widget-0000000000000005]
     box_height = 271.4609375
     box_width = 207.1953125
-    cx = 392.80859375
-    cy = 252.03515625
+    cx = 392.56307983398438
+    cy = 251.755126953125
     output = "eDP-1"
-    placement_height = 900.0
-    placement_width = 1600.0
+    placement_height = 899.0
+    placement_width = 1599.0
     rotation = 0.0
     type = "media_player"
 
@@ -107,11 +108,11 @@ widget_order = [ "desktop-widget-0000000000000004", "desktop-widget-000000000000
     [desktop_widgets.widget.desktop-widget-0000000000000006]
     box_height = 303.62890625
     box_width = 441.609375
-    cx = 274.6328125
-    cy = 552.791015625
+    cx = 274.46115112304688
+    cy = 552.17681884765625
     output = "eDP-1"
-    placement_height = 900.0
-    placement_width = 1600.0
+    placement_height = 899.0
+    placement_width = 1599.0
     rotation = 0.0
     type = "calendar"
 
@@ -193,6 +194,7 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -200,11 +202,11 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 196.0
     box_width = 720.0
-    cx = 800.0
-    cy = 783.0
+    cx = 799.5
+    cy = 782.1300048828125
     output = "eDP-1"
-    placement_height = 900.0
-    placement_width = 1600.0
+    placement_height = 899.0
+    placement_width = 1599.0
     rotation = 0.0
     type = "login_box"
 
@@ -220,6 +222,7 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -245,7 +248,15 @@ panel_placement = "attached"
 audio_source = "none"
 
 [plugins]
-enabled = [ "noctalia/notes", "alexander/screen-toolkit", "aristides/udiskie", "andrewdems/printers", "noctalia/wallhaven" ]
+enabled = [
+    "noctalia/notes",
+    "alexander/screen-toolkit",
+    "aristides/udiskie",
+    "andrewdems/printers",
+    "noctalia/wallhaven",
+    "elijaharch/wl-screen-mirror",
+    "icefish/phone-operate"
+]
 
 [shell]
 avatar_path = "/home/batman/Documents/1x1.jpg"
@@ -255,7 +266,7 @@ polkit_agent = true
 telemetry_enabled = true
 
     [shell.greeter_sync]
-    auto_sync = true
+    auto_sync = false
     privilege_command = "kitty -e pkexec"
 
     [shell.launcher]
@@ -317,23 +328,23 @@ builtin = "Noctalia"
 community_palette = "Oxocarbon"
 mode = "dark"
 source = "wallpaper"
-wallpaper_scheme = "vibrant"
+wallpaper_scheme = "m3-content"
 
     [theme.templates]
-    builtin_ids = [ "btop", "kitty", "niri" ]
+    builtin_ids = [ "btop", "kitty", "niri", "umbriel" ]
     community_ids = []
 
 [wallpaper]
 directory = "/home/batman/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/batman/Pictures/Wallpapers/wallhaven-3qgzyy.jpg"
+    path = "/home/batman/Pictures/Wallpapers/93165067_p1.jpg"
 
     [wallpaper.last]
-    path = "/home/batman/Pictures/Wallpapers/wallhaven-3qgzyy.jpg"
+    path = "/home/batman/Pictures/Wallpapers/93165067_p1.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/batman/Pictures/Wallpapers/wallhaven-3qgzyy.jpg"
+    path = "/home/batman/Pictures/Wallpapers/93165067_p1.jpg"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
@@ -365,6 +376,9 @@ directory = "/home/batman/Pictures/Wallpapers"
     theme_mode = "dark"
     wallpaper_scheme = "m3-content"
 
+    [[wallpaper.favorite]]
+    path = "/home/batman/Pictures/Wallpapers/wallhaven-g7p6x3.png"
+
 [widget.active_window]
 capsule = true
 
@@ -395,6 +409,9 @@ enabled = false
 [widget.media]
 hide_when_no_media = true
 title_scroll = "on_hover"
+
+[widget.mirror]
+type = "elijaharch/wl-screen-mirror:mirror"
 
 [widget.network]
 enabled = false
