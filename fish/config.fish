@@ -49,8 +49,8 @@ set -gx EAS_LOCAL_BUILD_WORKING_DIR $HOME/.eas-build-local
 
 set -gx PATH $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $ANDROID_HOME/tools $ANDROID_HOME/tools/bin $PATH
 
-# Autostart Niri on TTY1 console login only
-if status is-login; and test (tty) = /dev/tty1; and test -z "$WAYLAND_DISPLAY"
+# Autostart Niri on TTY1 console login only (not when start-umbriel re-enters the login shell)
+if status is-login; and test (tty) = /dev/tty1; and test -z "$WAYLAND_DISPLAY"; and test -z "$UMBRIEL_LOGIN_REENTRY"
     exec niri-session -l
 end
 
