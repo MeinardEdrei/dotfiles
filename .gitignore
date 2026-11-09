@@ -11,5 +11,6 @@ install_log.txt
 kitty/current-theme.conf
 kitty/themes/noctalia.conf
 niri/noctalia.kdl
+umbriel/noctalia.toml
 fish/fish_variables
 fish/fish_variables?*

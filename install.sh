@@ -87,6 +87,7 @@ declare -A SYMLINKS=(
     ["lazydocker"]="lazydocker"
     ["niri"]="niri"
     ["noctalia"]="noctalia"
+    ["umbriel"]="umbriel"
 )
 
 for src_name in "${!SYMLINKS[@]}"; do
