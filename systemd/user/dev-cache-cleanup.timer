@@ -1,0 +1,10 @@
+[Unit]
+Description=Weekly dev-tool cache cleanup
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target

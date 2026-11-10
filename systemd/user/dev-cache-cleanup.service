@@ -1,0 +1,6 @@
+[Unit]
+Description=Prune dev-tool caches (yay, npm, pip, docker)
+
+[Service]
+Type=oneshot
+ExecStart=%h/dotfiles/_scripts/dev-cache-cleanup.sh

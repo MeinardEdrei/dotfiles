@@ -198,6 +198,14 @@ sudo systemctl daemon-reload
 sudo systemctl enable tmux-save.service
 sudo systemctl start tmux-save.service
 
+# Dev-tool cache cleanup (yay/npm/pip/docker) — runs as the user, weekly
+echo "Setting up dev-cache-cleanup timer..."
+mkdir -p "$HOME/.config/systemd/user"
+ln -sf "$DOTFILES_DIR/systemd/user/dev-cache-cleanup.service" "$HOME/.config/systemd/user/dev-cache-cleanup.service"
+ln -sf "$DOTFILES_DIR/systemd/user/dev-cache-cleanup.timer" "$HOME/.config/systemd/user/dev-cache-cleanup.timer"
+systemctl --user daemon-reload
+systemctl --user enable --now dev-cache-cleanup.timer
+
 # Suppress shutdown wall messages and reduce user session stop timeout
 echo "Applying systemd shutdown tweaks..."
 sudo mkdir -p /etc/systemd/logind.conf.d /etc/systemd/user.conf.d
