@@ -1,5 +1,6 @@
 # Browsers & communication
 google-chrome
+zen-browser-twilight-bin
 discord
 anydesk-bin
 blueberry
@@ -8,6 +9,10 @@ blueberry
 android-studio
 postman-bin
 ngrok
+cursor-ai-bin
+antigravity-cli
+figma-linux-bin
+davinci-resolve
 
 # Notes & productivity
 notion-app-electron
@@ -18,3 +23,8 @@ sddm-fingerprint
 noctalia
 noctalia-greeter
 umbriel-git
+cnijfilter2
+
+# Fonts
+nerd-fonts-sf-mono
+ttf-pixelify-sans

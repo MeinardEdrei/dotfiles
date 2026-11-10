@@ -179,6 +179,7 @@ SERVICES=(
     docker.service
     NetworkManager.service
     thermald.service
+    power-profiles-daemon.service
     paccache.timer
 )
 
@@ -219,8 +220,28 @@ sudo mkinitcpio -P
 echo "Configuring Docker permissions..."
 sudo usermod -aG docker "$USER"
 
-# 10. Ensure niri is registered as a wayland session
-echo "Registering niri session..."
+# 10. Ensure umbriel is registered as a wayland session (primary session;
+# umbriel-git normally ships its own /usr/share/wayland-sessions/umbriel.desktop,
+# this is just a defensive fallback since it's a -git package)
+echo "Registering umbriel session..."
+UMBRIEL_DESKTOP="/usr/share/wayland-sessions/umbriel.desktop"
+if [[ ! -f "$UMBRIEL_DESKTOP" ]]; then
+    sudo mkdir -p /usr/share/wayland-sessions
+    sudo tee "$UMBRIEL_DESKTOP" > /dev/null << 'EOF'
+[Desktop Entry]
+Name=Umbriel
+Comment=Umbriel Wayland Compositor
+Exec=start-umbriel
+Type=Application
+DesktopNames=Umbriel
+EOF
+    echo "  umbriel session registered."
+else
+    echo "  umbriel session already registered, skipping."
+fi
+
+# niri kept registered too (rollback: pick "Niri" at the greeter if umbriel misbehaves)
+echo "Registering niri session (rollback)..."
 NIRI_DESKTOP="/usr/share/wayland-sessions/niri.desktop"
 if [[ ! -f "$NIRI_DESKTOP" ]]; then
     sudo mkdir -p /usr/share/wayland-sessions
@@ -368,7 +389,7 @@ echo "Checking for drift against dotfiles..."
 
 # Packages explicitly installed but not in either pkglist
 if [[ -f "$NATIVE_LIST" && -f "$AUR_LIST" ]]; then
-    WANTED_PKGS=$(grep -vE '^\s*#|^\s*$' "$NATIVE_LIST" "$AUR_LIST" | sort -u)
+    WANTED_PKGS=$(grep -hvE '^\s*#|^\s*$' "$NATIVE_LIST" "$AUR_LIST" | sort -u)
     EXTRA_PKGS=$(comm -23 <(pacman -Qqe | sort -u) <(echo "$WANTED_PKGS"))
     if [[ -n "$EXTRA_PKGS" ]]; then
         echo "  Packages explicitly installed but not listed in dotfiles pkglists (review, don't auto-remove):"

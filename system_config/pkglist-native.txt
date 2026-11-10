@@ -9,7 +9,6 @@ sudo
 
 # Boot & filesystem
 efibootmgr
-grub
 dosfstools
 fatresize
 reflector
@@ -19,7 +18,11 @@ zram-generator
 networkmanager
 network-manager-applet
 bluez-utils
-blueman
+syncthing
+cloudflared
+ufw
+sshfs
+vdirsyncer
 
 # Audio (PipeWire)
 pipewire-alsa
@@ -28,9 +31,10 @@ wireplumber
 pavucontrol
 pamixer
 
-# Wayland + Niri
+# Wayland + Niri + Umbriel
 cliphist
 nwg-displays
+nwg-look
 rofi
 swaybg
 swayosd
@@ -48,8 +52,12 @@ swaylock
 wl-clipboard
 xwayland-satellite
 xdg-desktop-portal-gtk
-xdg-desktop-portal-wlr
 xdg-desktop-portal-gnome
+waybar
+playerctl
+wlsunset
+quickshell
+matugen
 
 # Power & thermals (HP laptop)
 thermald
@@ -60,7 +68,6 @@ usbutils
 
 # Input & camera
 libinput-tools
-fprintd
 v4l2loopback-dkms
 v4l2loopback-utils
 
@@ -70,7 +77,12 @@ pacman-contrib
 # File manager & utils
 gnome-keyring
 cups
+gutenprint
+system-config-printer
 nautilus
+dolphin
+dolphin-plugins
+konsole
 gvfs-afc
 gvfs-mtp
 gvfs-smb
@@ -79,6 +91,12 @@ zip
 wget
 lsof
 ncdu
+stow
+lftp
+bleachbit
+scrcpy
+kdeconnect
+flatpak
 
 # Terminal & shell
 btop
@@ -90,6 +108,8 @@ tmux
 fzf
 bat
 less
+nano
+fastfetch
 
 # Editors & dev basics
 ripgrep
@@ -106,6 +126,13 @@ npm
 rust
 php
 phpmyadmin
+github-cli
+uv
+dotnet-sdk
+jdk17-openjdk
+dbeaver
+mysql-workbench
+claude-desktop
 
 # Containers
 docker-compose
@@ -116,8 +143,16 @@ lazydocker
 inter-font
 noto-fonts
 noto-fonts-emoji
+noto-fonts-cjk
 ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
+ttf-nerd-fonts-symbols-common
+ttf-cascadia-code-nerd
+otf-geist-mono-nerd
+ttf-dejavu
+ttf-roboto
+ttf-twemoji
+woff2-font-awesome
 papirus-icon-theme
 
 # Media
@@ -125,6 +160,8 @@ mpv
 mpv-mpris
 obs-studio
 imv
+inkscape
+steam
 
 # Office
 obsidian
