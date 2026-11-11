@@ -258,6 +258,7 @@ default_display = "normal"
 
 [[window_rule]]
 blur = true
+default_floating = true
 
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia.Settings$"

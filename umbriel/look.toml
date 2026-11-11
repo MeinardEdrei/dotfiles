@@ -32,7 +32,7 @@ dim = 0.08
 
 # Traffic-light buttons on the left, only in stacking workspaces
 [appearance.title_bar]
-mode = "off"
+mode = "on"
 height = 32
 button_position = "left"
 buttons = ["close", "minimize", "maximize"]
