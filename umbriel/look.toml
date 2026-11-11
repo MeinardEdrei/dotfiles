@@ -1,0 +1,45 @@
+# Springs: spring:<damping>,<stiffness>. Damping 1 settles without overshoot.
+[animation.windows_in]
+style = "popin"
+scale = 0.92
+curve = "spring:1,520"
+
+[animation.windows_out]
+style = "popin"
+scale = 0.95
+curve = "spring:1,1200"
+
+[animation.windows_move]
+curve = "spring:1,700"
+
+[animation.windows_resize]
+curve = "spring:1,700"
+
+[animation.workspaces]
+style = "slide"
+curve = "spring:1,650"
+
+[animation.overview]
+curve = "spring:1,700"
+
+[animation.scratchpad]
+curve = "spring:1,700"
+
+# Inactive windows dim slightly
+[animation.dim_unfocused]
+enabled = true
+dim = 0.08
+
+# Traffic-light buttons on the left, only in stacking workspaces
+[appearance.title_bar]
+mode = "off"
+height = 32
+button_position = "left"
+buttons = ["close", "minimize", "maximize"]
+button_size = 12
+button_gap = 8
+button_glyph = "hover"
+
+[[window_rule]]
+match.layout = "stacking"
+title_bar = "on"

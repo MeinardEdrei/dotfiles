@@ -227,6 +227,9 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
         show_unlock_hint = true
         show_weather = true
 
+[notification]
+layer = "overlay"
+
 [osd]
 position = "bottom_center"
 
@@ -264,6 +267,9 @@ clipboard_history_max_entries = 500
 niri_overview_type_to_launch_enabled = true
 polkit_agent = true
 telemetry_enabled = true
+umbriel_audio_provider_enabled = true
+umbriel_overview_close_on_launch_enabled = true
+umbriel_overview_type_to_launch_enabled = true
 
     [shell.greeter_sync]
     auto_sync = false
@@ -275,9 +281,15 @@ telemetry_enabled = true
     category_icons_only = true
     compact = false
     layout = "simple"
+    show_app_actions = false
 
     [shell.panel]
     clipboard_placement = "attached"
+    control_center_placement = "floating"
+    control_center_position = "auto"
+    floating_layer = "overlay"
+    launcher_placement = "floating"
+    launcher_position = "auto"
     transparency_mode = "glass"
 
     [shell.screen_corners]
@@ -338,13 +350,13 @@ wallpaper_scheme = "m3-content"
 directory = "/home/batman/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/batman/Pictures/Wallpapers/93165067_p1.jpg"
+    path = "/home/batman/Pictures/Wallpapers/wallhaven-nkz257.jpg"
 
     [wallpaper.last]
-    path = "/home/batman/Pictures/Wallpapers/93165067_p1.jpg"
+    path = "/home/batman/Pictures/Wallpapers/wallhaven-nkz257.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/batman/Pictures/Wallpapers/93165067_p1.jpg"
+    path = "/home/batman/Pictures/Wallpapers/wallhaven-nkz257.jpg"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
