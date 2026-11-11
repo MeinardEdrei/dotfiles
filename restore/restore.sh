@@ -65,6 +65,9 @@ save_configs() {
     run mkdir -p "$HERE/configs/home"
     run rsync -t "$HOME/$p" "$HERE/configs/home/$p"
   done
+  if command -v fish >/dev/null 2>&1; then
+    run_sh "fish -c 'for v in (set --names --universal | string match -r \"^tide_.*\" | sort); printf \"set -U %s %s\\n\" \$v (string join \" \" -- (string escape -- \$\$v)); end' > '$HERE/configs/tide-settings.fish'"
+  fi
   say "  Done. Review and commit:  cd $DOTFILES && git status && git diff restore/configs"
   say "  (.gitconfig holds your name and email: keep it out of a public repo if you do not want them shown)"
 }
@@ -180,6 +183,18 @@ link_dotfiles() {
   link_path "$DOTFILES/wallpapers" "$HOME/Pictures/Wallpapers"
 }
 
+# Tide (fish prompt) keeps its choices in fish universal variables, which are not tracked by git.
+# They are saved as plain "set -U" lines in configs/tide-settings.fish and re-applied here.
+restore_tide() {
+  step "Tide prompt settings"
+  local f="$HERE/configs/tide-settings.fish"
+  if [[ -f "$f" ]] && command -v fish >/dev/null 2>&1; then
+    run_sh "fish '$f'"
+  else
+    say "  skipped (no saved tide settings, or fish is not installed)"
+  fi
+}
+
 # ---------- plugins ----------
 install_plugins() {
   step "tmux and nvim plugins"
@@ -264,6 +279,7 @@ run sudo pacman -Syu $NOCONFIRM || fail "system update reported errors"
 install_packages
 restore_configs
 link_dotfiles
+restore_tide
 install_plugins
 enable_services
 setup_login

@@ -19,12 +19,14 @@ When it finishes, reboot and run `gh auth login`.
 3. **Restores your app settings** (GTK, Qt, mpv, btop, Dolphin, Cursor settings, `.gitconfig`, ...) from `restore/configs/`.
 4. **Links your configs** from this repo into `~/.config`: fish, kitty, nvim, tmux, lazygit, lazydocker, rofi, niri,
    umbriel, noctalia and the wallpapers.
-5. **Installs plugins**: tmux plugins (tpm) and nvim plugins (lazy.nvim).
-6. **Enables services**: NetworkManager, bluetooth, thermald, power-profiles-daemon, ufw, cups, docker (plus the
+5. **Re-applies your Tide prompt settings** from `configs/tide-settings.fish`. Tide stores its choices in fish's
+   untracked `fish_variables`, so they are saved as plain `set -U` lines instead.
+6. **Installs plugins**: tmux plugins (tpm) and nvim plugins (lazy.nvim).
+7. **Enables services**: NetworkManager, bluetooth, thermald, power-profiles-daemon, ufw, cups, docker (plus the
    `docker` group), paccache, and your weekly dev-cache-cleanup timer.
-7. **Sets up the login screen and keyring unlock**: greetd with noctalia-greeter, and the PAM lines that unlock
+8. **Sets up the login screen and keyring unlock**: greetd with noctalia-greeter, and the PAM lines that unlock
    gnome-keyring with your login password. It only touches the login manager if noctalia-greeter is installed.
-8. **Prints a summary** of anything that failed.
+9. **Prints a summary** of anything that failed.
 
 ## Options
 
@@ -40,6 +42,8 @@ When it finishes, reboot and run `gh auth login`.
 
 - **Dotfiles you symlink** (fish, kitty, nvim, tmux, niri, umbriel, noctalia, ...): editing them edits the repo directly.
   Just `git commit` and `git push`.
+- **Tide prompt**: after you run `tide configure` or change a `tide_*` setting, run `./restore/restore.sh --save-configs`
+  and commit, otherwise a reinstall brings back the default prompt.
 - **App settings that apps rewrite themselves** (GTK, Kvantum, qt5ct/qt6ct, mpv, btop, Dolphin, ...): these are copies, not symlinks.
   After you change them, run `./restore/restore.sh --save-configs`, then commit.
 - **Packages**: add a line to `packages.txt` when you install something you want to keep, and remove it when you drop one.
