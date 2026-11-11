@@ -1,6 +1,8 @@
 # packages.txt: everything restore.sh installs. One package per line.
 # "aur:name" = build from the AUR with yay. "#" starts a comment.
 # Skip a package by commenting it out; add one with a new line.
+# "@only umbriel" / "@only niri" start a block installed only for that desktop choice.
+# "@group apps|dev|extras|btrfs" start an optional group you can switch off in the menu. "@all" ends any block.
 # Check what is missing or extra at any time:  ./restore.sh --check
 
 ##### CORE: system, hardware, network, audio, shell tools, fonts, printing #####
@@ -39,6 +41,7 @@ libinput-tools
 networkmanager
 bluez
 bluez-utils
+alsa-utils
 pipewire-alsa
 pipewire-pulse
 wireplumber
@@ -89,14 +92,13 @@ papirus-icon-theme
 # --- AUR helper (arch-setup.sh bootstraps it if missing) ---
 aur:yay
 
-##### PRIMARY DESKTOP: Umbriel + noctalia shell + greetd login #####
+##### NOCTALIA SHELL + login screen + helpers (shared by both desktops) #####
 greetd
 qt5-graphicaleffects
 noctalia
 noctalia-greeter
 quickshell
 matugen
-aur:umbriel-git
 # helpers the session autostarts or you use daily
 wl-clipboard
 cliphist
@@ -109,12 +111,21 @@ grim
 slurp
 qt5-wayland
 
-##### BACKUP DESKTOP: niri (pick "Niri" at the login screen) #####
+##### DESKTOP: Umbriel (the default). Installed with:  restore.sh --desktop umbriel  (or both) #####
+@only umbriel
+aur:umbriel-git
+
+##### DESKTOP: niri (backup you can go back to). Installed with:  restore.sh --desktop niri  (or both) #####
+# Your niri config is always kept and linked, so switching back to niri needs no restore of settings.
+@only niri
 niri
 xwayland-satellite
 xdg-desktop-portal-gnome
 
+@all
+
 ##### APPS #####
+@group apps
 aur:zen-browser-twilight-bin
 aur:google-chrome
 aur:claude-desktop
@@ -142,6 +153,7 @@ gvfs-afc
 sshfs
 lftp
 
+@group dev
 ##### DEV TOOLS #####
 docker
 docker-compose
@@ -158,6 +170,7 @@ xorg-server-xephyr
 cloudflared
 aur:ngrok
 
+@group extras
 ##### EXTRAS: small utilities #####
 bleachbit
 cage
@@ -186,6 +199,7 @@ aur:nerd-fonts-sf-mono
 aur:ttf-pixelify-sans
 aur:ttf-twemoji
 
+@group heavy
 ##### HEAVY / OPTIONAL: commented out on purpose, uncomment what you want #####
 # steam also needs the [multilib] repo enabled in /etc/pacman.conf
 # steam needs the [multilib] repo: run "arch-setup.sh apply --multilib heavy".
@@ -207,6 +221,7 @@ aur:ttf-twemoji
 # aur:packettracer
 # aur:jmeter
 
+@group btrfs
 ##### BTRFS (only useful on a btrfs root; you set snapper up yourself) #####
 btrfs-progs
 snapper

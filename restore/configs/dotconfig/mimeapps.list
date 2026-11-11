@@ -9,6 +9,7 @@ application/x-extension-shtml=zen-browser-twilight.desktop
 application/xhtml+xml=zen-browser-twilight.desktop
 application/x-extension-xhtml=zen-browser-twilight.desktop
 application/x-extension-xht=zen-browser-twilight.desktop
+inode/directory=org.kde.dolphin.desktop
 
 [Added Associations]
 x-scheme-handler/http=zen-browser-twilight.desktop;

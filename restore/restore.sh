@@ -2,12 +2,15 @@
 # restore.sh: one command to rebuild your Arch setup after a fresh install.
 #
 #   cd ~/dotfiles && git pull
-#   ./restore/restore.sh               do everything below
+#   ./restore/restore.sh               no options on a terminal = numbered menu (just type numbers)
+#   ./restore/restore.sh --restore     skip the menu and do everything below
 #   ./restore/restore.sh --dry-run     show what it WOULD do, change nothing
 #   ./restore/restore.sh --save-configs   copy your live app settings INTO the repo (then you commit)
 #   ./restore/restore.sh --check       packages missing / installed but not in packages.txt
 #   ./restore/restore.sh --ask         same as default, but pacman/yay ask before installing
+#   ./restore/restore.sh --desktop umbriel|niri|both    which desktop PACKAGES to install (default: umbriel)
 #
+# Your umbriel AND niri configs are always linked, so you can switch desktop later without restoring anything.
 # It does NOT touch partitions, btrfs/snapper, the bootloader or your personal files.
 # It is safe to run again: nothing is overwritten without a .bak-<date> copy.
 set -u
@@ -20,16 +23,97 @@ CONFIG="$HOME/.config"
 DRY=0; ASK=0; MODE=restore
 FAILED=()
 
-for a in "$@"; do
-  case "$a" in
+DESKTOP=umbriel; PKG_GROUPS="apps dev extras btrfs"; DO_SERVICES=1; DO_LOGIN=1; ARGC=$#
+
+# ---------- numbered menu (used when you run the script with no options on a terminal) ----------
+ask_one() {   # ask_one "Question" DEFAULT "option 1" "option 2" ...   -> sets REPLY_N (1-based)
+  local q="$1" def="$2"; shift 2
+  local i=1 o ans
+  echo; echo "$q"
+  for o in "$@"; do printf '  %d) %s\n' "$i" "$o"; i=$((i+1)); done
+  while true; do
+    read -r -p "Number [$def]: " ans; ans="${ans:-$def}"
+    if [[ "$ans" =~ ^[0-9]+$ ]] && ((ans>=1 && ans<=$#)); then REPLY_N=$ans; return; fi
+    echo "  please type a number from 1 to $#"
+  done
+}
+
+run_menu() {
+  echo "=== Arch restore ==="
+  ask_one "What do you want to do?" 1 \
+    "Restore everything (packages, configs, services, login screen)" \
+    "Preview only (dry run, changes nothing)" \
+    "Save my current app settings into the repo" \
+    "Check packages (missing / extra)" \
+    "Quit"
+  case $REPLY_N in
+    3) MODE=save; return;;
+    4) MODE=check; return;;
+    5) echo "Bye."; exit 0;;
+    2) DRY=1;;
+  esac
+  ask_one "Which desktop do you want installed?" 1 \
+    "Umbriel (your main desktop)" \
+    "niri (your backup desktop)" \
+    "Both (pick at the login screen)"
+  case $REPLY_N in 1) DESKTOP=umbriel;; 2) DESKTOP=niri;; 3) DESKTOP=both;; esac
+
+  echo; echo "Which optional package groups? Type numbers separated by spaces, or press Enter for all."
+  local names=(apps dev extras btrfs) labels=("Apps (browsers, Cursor, Discord, Obsidian, LibreOffice, media)" \
+    "Dev tools (docker, rust, node, php, java, dotnet)" "Extras (screen recording, OCR, small utilities)" \
+    "btrfs tools (snapper, grub-btrfs, ...)") i ans n
+  for i in "${!names[@]}"; do printf '  %d) %s\n' $((i+1)) "${labels[$i]}"; done
+  echo "  (core system, noctalia shell and your desktop are always installed)"
+  read -r -p "Groups [all]: " ans
+  if [[ -n "$ans" && "$ans" != all ]]; then
+    PKG_GROUPS=""
+    for n in $ans; do [[ "$n" =~ ^[1-4]$ ]] && PKG_GROUPS+="${names[$((n-1))]} "; done
+    PKG_GROUPS="${PKG_GROUPS% }"
+  fi
+
+  ask_one "Enable services (NetworkManager, bluetooth, docker, ufw, cups, ...)?" 1 "Yes" "No, skip"
+  ((REPLY_N==2)) && DO_SERVICES=0
+  ask_one "Set up the login screen and keyring unlock (greetd, PAM)?" 1 "Yes" "No, skip"
+  ((REPLY_N==2)) && DO_LOGIN=0
+  ask_one "How should installs run?" 1 \
+    "Unattended (fast; AUR builds are not shown to you)" \
+    "Ask me before installing (lets you review AUR builds)"
+  ((REPLY_N==2)) && ASK=1
+
+  echo; echo "---------------- summary ----------------"
+  echo "  mode:      $( ((DRY)) && echo 'preview only (nothing is changed)' || echo 'REAL run' )"
+  echo "  desktop:   $DESKTOP"
+  echo "  groups:    ${PKG_GROUPS:-none (core only)}"
+  echo "  services:  $( ((DO_SERVICES)) && echo yes || echo no )   login screen: $( ((DO_LOGIN)) && echo yes || echo no )   prompts: $( ((ASK)) && echo yes || echo no )"
+  ask_one "Go?" 1 "Yes, start" "Cancel"
+  ((REPLY_N==2)) && { echo "Cancelled."; exit 0; }
+}
+
+while (($#)); do
+  case "$1" in
     --dry-run)       DRY=1;;
     --ask)           ASK=1;;
+    --restore)       ;;
     --save-configs)  MODE=save;;
     --check)         MODE=check;;
-    -h|--help)       sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'; exit 0;;
-    *)               echo "unknown option: $a (try --help)"; exit 1;;
+    --desktop)       shift; DESKTOP="${1:-}";;
+    --desktop=*)     DESKTOP="${1#--desktop=}";;
+    --groups=*)      PKG_GROUPS="$(echo "${1#--groups=}" | tr ',' ' ')";;
+    --no-services)   DO_SERVICES=0;;
+    --no-login)      DO_LOGIN=0;;
+    --menu)          ARGC=0;;
+    -h|--help)       sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'; exit 0;;
+    *)               echo "unknown option: $1 (try --help)"; exit 1;;
   esac
+  shift
 done
+if ((ARGC==0)) && [[ -t 0 ]]; then run_menu; fi
+case "$DESKTOP" in
+  umbriel) DESKTOPS="umbriel";;
+  niri)    DESKTOPS="niri";;
+  both)    DESKTOPS="umbriel niri";;
+  *)       echo "--desktop must be umbriel, niri or both (got: '$DESKTOP')"; exit 1;;
+esac
 NOCONFIRM="--noconfirm"; ((ASK)) && NOCONFIRM=""
 
 # ---------- helpers ----------
@@ -47,7 +131,7 @@ TRACKED=(gtk-3.0 gtk-4.0 Kvantum qt5ct qt6ct nwg-look nwg-displays mpv easyeffec
          xsettingsd xdg-desktop-portal btop dolphinrc kdeglobals kdedefaults mimeapps.list
          user-dirs.dirs user-dirs.locale pavucontrol.ini qalculate Cursor/User/settings.json
          Cursor/User/snippets)
-TRACKED_HOME=(.gitconfig)
+TRACKED_HOME=(.gitconfig .local/share/dbus-1/services/org.freedesktop.FileManager1.service)
 RSYNC_X=(--exclude='*.log' --exclude='Cache' --exclude='cache' --exclude='*.lock' --exclude='*.bak' --exclude='dank-colors.css' --exclude='90-dms.conf' --exclude='noctalia.theme')
 
 save_configs() {
@@ -62,7 +146,7 @@ save_configs() {
   done
   for p in "${TRACKED_HOME[@]}"; do
     [[ -e "$HOME/$p" ]] || continue
-    run mkdir -p "$HERE/configs/home"
+    run mkdir -p "$(dirname "$HERE/configs/home/$p")"
     run rsync -t "$HOME/$p" "$HERE/configs/home/$p"
   done
   if command -v fish >/dev/null 2>&1; then
@@ -93,15 +177,21 @@ restore_configs() {
     [[ -e "$src" ]] || continue
     if [[ -e "$dest" ]] && cmp -s "$src" "$dest"; then continue; fi
     [[ -e "$dest" ]] && run mv "$dest" "$dest.bak-$STAMP"
+    run mkdir -p "$(dirname "$dest")"
     run cp -a "$src" "$dest"
   done
 }
 
 # ---------- packages ----------
-read_packages() {   # prints "native name" or "aur name" lines
-  local line
-  while IFS= read -r line; do
-    line="${line%%#*}"; line="$(echo "$line" | xargs)"; [[ -z "$line" ]] && continue
+read_packages() {   # prints "native name" or "aur name"; honours "@only X", "@group X" and "@all" blocks
+  local raw line sect=all grp=all
+  while IFS= read -r raw; do
+    if [[ "$raw" =~ ^@all ]]; then sect=all; grp=all; continue; fi
+    if [[ "$raw" =~ ^@only[[:space:]]+([a-z]+) ]]; then sect="${BASH_REMATCH[1]}"; continue; fi
+    if [[ "$raw" =~ ^@group[[:space:]]+([a-z]+) ]]; then grp="${BASH_REMATCH[1]}"; continue; fi
+    line="${raw%%#*}"; line="$(echo "$line" | xargs)"; [[ -z "$line" ]] && continue
+    if [[ $sect != all && " $DESKTOPS " != *" $sect "* ]]; then continue; fi
+    if [[ $grp != all && " $PKG_GROUPS " != *" $grp "* ]]; then continue; fi
     if [[ "$line" == aur:* ]]; then echo "aur ${line#aur:}"; else echo "native $line"; fi
   done < "$HERE/packages.txt"
 }
@@ -265,7 +355,7 @@ case "$MODE" in
   check) check_packages; exit 0;;
 esac
 
-say "restore.sh  dry-run=$DRY  unattended=$((1-ASK))   log: $LOG"
+say "restore.sh  dry-run=$DRY  unattended=$((1-ASK))  desktop=$DESKTOP  groups: ${PKG_GROUPS:-core only}   log: $LOG"
 ((DRY)) && say "DRY RUN: nothing below is executed."
 if ! ((DRY)); then
   [[ $EUID -ne 0 ]] || { echo "Run as your normal user, not root."; exit 1; }
@@ -281,8 +371,8 @@ restore_configs
 link_dotfiles
 restore_tide
 install_plugins
-enable_services
-setup_login
+((DO_SERVICES)) && enable_services
+((DO_LOGIN)) && setup_login
 
 step "Summary"
 if ((${#FAILED[@]})); then
@@ -293,5 +383,6 @@ else
 fi
 say ""
 say "  Next: reboot (login screen, keyring and microcode take effect), then run:  gh auth login"
+say "  Desktop packages installed: $DESKTOPS. Both configs are linked: to add another desktop later, run:  restore.sh --desktop both"
 say "  Your personal files, browser profiles and keys are not part of this script: restore them from your backup."
 exit 0

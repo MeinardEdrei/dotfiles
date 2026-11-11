@@ -2,7 +2,7 @@ zoxide init fish | source
 alias cat="bat --style=plain"
 
 
-# Ensure Wayland/Niri env variables are available in subshells
+# Ensure Wayland env variables are available in subshells
 if set -q TMUX
     # Only pull variables if they aren't already set correctly
     for var in WAYLAND_DISPLAY XDG_RUNTIME_DIR DISPLAY
@@ -11,6 +11,9 @@ if set -q TMUX
         end
     end
 end
+
+# No "Welcome to fish" banner (was a universal variable before, which git does not track)
+set -g fish_greeting
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -49,8 +52,9 @@ set -gx EAS_LOCAL_BUILD_WORKING_DIR $HOME/.eas-build-local
 
 set -gx PATH $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $ANDROID_HOME/tools $ANDROID_HOME/tools/bin $PATH
 
-# Autostart Niri on TTY1 console login only (not when start-umbriel re-enters the login shell)
-if status is-login; and test (tty) = /dev/tty1; and test -z "$WAYLAND_DISPLAY"; and test -z "$UMBRIEL_LOGIN_REENTRY"
+# Autostart Niri on TTY1 console login only (not when start-umbriel re-enters the login shell).
+# Only when niri is installed: with Umbriel as the only desktop, tty1 gives a plain shell (rescue login).
+if status is-login; and test (tty) = /dev/tty1; and test -z "$WAYLAND_DISPLAY"; and test -z "$UMBRIEL_LOGIN_REENTRY"; and command -q niri-session
     exec niri-session -l
 end
 
