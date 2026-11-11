@@ -325,6 +325,19 @@ enable_services() {
     run systemctl --user daemon-reload
     run systemctl --user enable --now dev-cache-cleanup.timer || fail "could not enable dev-cache-cleanup.timer"
   fi
+  # tmux autosave every 5 min (continuum's own autosave needs the status bar, which your config hides)
+  if [[ -f "$DOTFILES/systemd/user/tmux-autosave.timer" ]]; then
+    run ln -sf "$DOTFILES/systemd/user/tmux-autosave.service" "$CONFIG/systemd/user/tmux-autosave.service"
+    run ln -sf "$DOTFILES/systemd/user/tmux-autosave.timer" "$CONFIG/systemd/user/tmux-autosave.timer"
+    run systemctl --user daemon-reload
+    run systemctl --user enable --now tmux-autosave.timer || fail "could not enable tmux-autosave.timer"
+  fi
+  # save tmux sessions at shutdown/sleep (system service; installed from the repo)
+  if [[ -f "$DOTFILES/systemd/system/tmux-save.service" ]] && ! cmp -s "$DOTFILES/systemd/system/tmux-save.service" /etc/systemd/system/tmux-save.service 2>/dev/null; then
+    run sudo cp "$DOTFILES/systemd/system/tmux-save.service" /etc/systemd/system/tmux-save.service
+    run sudo systemctl daemon-reload
+    run sudo systemctl enable --now tmux-save.service || fail "could not enable tmux-save.service"
+  fi
   # keep debug packages from being built for every AUR package
   if grep -qE '^OPTIONS=.* debug ' /etc/makepkg.conf 2>/dev/null; then
     run sudo cp /etc/makepkg.conf "/etc/makepkg.conf.bak-$STAMP"

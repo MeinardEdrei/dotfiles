@@ -1,0 +1,88 @@
+# Never backed up: caches and anything that can be rebuilt or re-downloaded.
+# rsync pattern rules: a trailing "/" matches folders only, "*" matches any name.
+
+# --- package managers and build output (reinstall/rebuild instead) ---
+node_modules/
+.next/
+.nuxt/
+.svelte-kit/
+.turbo/
+.parcel-cache/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.gradle/
+.dart_tool/
+Pods/
+.cxx/
+target/debug/
+target/release/
+.npm/
+.yarn/
+.pnpm-store/
+_cacache/
+.cargo/registry/
+.rustup/
+go/pkg/mod/
+.nvm/
+.pyenv/versions/
+Android/Sdk/
+app/build/
+android/build/
+ios/build/
+android/.gradle/
+.expo/
+
+# --- caches of every kind ---
+.cache/
+Cache/
+Code Cache/
+GPUCache/
+DawnCache/
+DawnGraphiteCache/
+DawnWebGPUCache/
+GrShaderCache/
+ShaderCache/
+CacheStorage/
+Crashpad/
+blob_storage/
+cache2/
+startupCache/
+shader-cache/
+crashes/
+minidumps/
+gmp-widevinecdm/
+gmp-gmpopenh264/
+.thumbnails/
+
+# --- website caches inside browser profiles (cookies, bookmarks and logins are kept) ---
+storage/default/*/cache/
+# Chrome: extension code and service-worker caches are re-downloaded when you sign in
+.config/google-chrome/*/Extensions/
+.config/google-chrome/*/Service Worker/
+
+# --- temporary and lock files ---
+Singleton*
+.parentlock
+parent.lock
+lock
+*.tmp
+*.log
+.Trash*/
+.DS_Store
+
+# --- AI tool leftovers that are not memories ---
+.claude/shell-snapshots/
+.claude/session-env/
+.claude/cache/
+.claude/paste-cache/
+.claude/file-history/
+.claude/plugins/
+.claude/backups/
+.cursor/extensions/
+.cursor/ai-tracking/
+.gemini/tmp/
+.config/Cursor/User/workspaceStorage/*/anysphere.cursor-retrieval/

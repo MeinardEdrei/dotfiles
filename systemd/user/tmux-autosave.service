@@ -1,0 +1,7 @@
+[Unit]
+Description=Save tmux sessions (tmux-resurrect)
+
+[Service]
+Type=oneshot
+# Only when a tmux server is running. Works even with "status off", which stops continuum's own autosave.
+ExecStart=/bin/bash -c 'tmux has-session 2>/dev/null && exec %h/.config/tmux/plugins/tmux-resurrect/scripts/save.sh quiet || true'

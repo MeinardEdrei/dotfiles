@@ -1,0 +1,2 @@
+# Only with --downloads (or the menu question). Usually installers and temporary files.
+Downloads

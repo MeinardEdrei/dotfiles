@@ -1,0 +1,41 @@
+# Backed up by default. Paths are relative to your home folder. One per line, "#" = comment.
+# Missing paths are skipped silently. Caches and reinstallable files are removed by exclude.txt.
+
+# --- your files and projects ---
+Documents
+Desktop
+Pictures
+Videos
+Music
+AndroidStudioProjects
+animo-figma-plugin
+aidesigner-test
+umak-elec3-bcsad
+vericode-demo
+space-isolation
+
+# --- dotfiles repo (keeps commits that are not pushed to GitHub yet) ---
+dotfiles
+.gitconfig
+
+# --- shell, terminal and editor state ---
+.local/share/fish/fish_history
+.local/share/zoxide
+.local/share/nvim/auto_session
+.local/share/tmux/resurrect
+.local/share/dbus-1/services
+
+# --- AI tools: memories, sessions, history, plans ---
+.claude
+.cursor/projects
+.cursor/chats
+.cursor/plans
+.cursor/skills-cursor
+.gemini
+.hyperframes
+.config/Claude/claude-code-sessions
+.config/Claude/claude_desktop_config.json
+.config/Cursor/User
+
+# --- app settings that matter ---
+.config/obsidian
