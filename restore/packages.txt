@@ -1,0 +1,215 @@
+# packages.txt: everything restore.sh installs. One package per line.
+# "aur:name" = build from the AUR with yay. "#" starts a comment.
+# Skip a package by commenting it out; add one with a new line.
+# Check what is missing or extra at any time:  ./restore.sh --check
+
+##### CORE: system, hardware, network, audio, shell tools, fonts, printing #####
+# --- system ---
+base
+base-devel
+linux
+linux-firmware
+linux-headers
+intel-ucode
+sudo
+nano
+vim
+neovim
+git
+less
+lsof
+wget
+unzip
+zip
+rsync
+usbutils
+efibootmgr
+dosfstools
+exfatprogs
+reflector
+pacman-contrib
+zram-generator
+sof-firmware
+# --- hardware (Intel graphics) ---
+intel-media-driver
+vulkan-intel
+libva-utils
+libinput-tools
+# --- network, bluetooth, audio, power ---
+networkmanager
+bluez
+bluez-utils
+pipewire-alsa
+pipewire-pulse
+wireplumber
+pavucontrol
+pamixer
+playerctl
+brightnessctl
+power-profiles-daemon
+thermald
+ufw
+# --- keyring (needed for sign-ins, SSH/GPG secrets, Electron apps) ---
+gnome-keyring
+# --- shell and terminal tools ---
+fish
+tmux
+kitty
+btop
+fastfetch
+fd
+fzf
+bat
+jq
+ncdu
+stow
+tree-sitter-cli
+starship
+zoxide
+git-delta
+lazygit
+github-cli
+# --- printing ---
+cups
+system-config-printer
+gutenprint
+# --- fonts ---
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-jetbrains-mono-nerd
+ttf-nerd-fonts-symbols
+otf-geist-mono-nerd
+ttf-dejavu
+ttf-roboto
+inter-font
+ttf-cascadia-code-nerd
+woff2-font-awesome
+papirus-icon-theme
+# --- AUR helper (arch-setup.sh bootstraps it if missing) ---
+aur:yay
+
+##### PRIMARY DESKTOP: Umbriel + noctalia shell + greetd login #####
+greetd
+qt5-graphicaleffects
+noctalia
+noctalia-greeter
+quickshell
+matugen
+aur:umbriel-git
+# helpers the session autostarts or you use daily
+wl-clipboard
+cliphist
+udiskie
+rofi
+nwg-displays
+nwg-look
+wlsunset
+grim
+slurp
+qt5-wayland
+
+##### BACKUP DESKTOP: niri (pick "Niri" at the login screen) #####
+niri
+xwayland-satellite
+xdg-desktop-portal-gnome
+
+##### APPS #####
+aur:zen-browser-twilight-bin
+aur:google-chrome
+aur:claude-desktop
+aur:cursor-bin
+aur:postman-bin
+discord
+obsidian
+dolphin
+dolphin-plugins
+libreoffice-fresh
+inkscape
+imagemagick
+mpv
+mpv-mpris
+imv
+loupe
+obs-studio
+syncthing
+kdeconnect
+scrcpy
+flatpak
+gvfs-mtp
+gvfs-smb
+gvfs-afc
+sshfs
+lftp
+
+##### DEV TOOLS #####
+docker
+docker-compose
+lazydocker
+npm
+rust
+uv
+php
+jdk17-openjdk
+dotnet-sdk
+python-pytest
+extra-cmake-modules
+xorg-server-xephyr
+cloudflared
+aur:ngrok
+
+##### EXTRAS: small utilities #####
+bleachbit
+cage
+chafa
+clinfo
+gifski
+gpu-screen-recorder
+hyprpicker
+v4l2loopback-dkms
+v4l2loopback-utils
+wl-mirror
+wtype
+xorg-xwininfo
+zbar
+snapshot
+tesseract
+tesseract-data-eng
+tesseract-data-spa
+translate-shell
+fatresize
+gnome-themes-extra
+aur:wl-screenrec
+aur:jmtpfs
+aur:cnijfilter2
+aur:nerd-fonts-sf-mono
+aur:ttf-pixelify-sans
+aur:ttf-twemoji
+
+##### HEAVY / OPTIONAL: commented out on purpose, uncomment what you want #####
+# steam also needs the [multilib] repo enabled in /etc/pacman.conf
+# steam needs the [multilib] repo: run "arch-setup.sh apply --multilib heavy".
+# dbeaver
+# mysql-workbench
+# phpmyadmin
+# wine
+# wine-gecko
+# wine-mono
+# samba
+# gamescope
+# steam
+# aur:android-studio
+# aur:davinci-resolve
+# aur:figma-linux-bin
+# aur:notion-app-electron
+# aur:anydesk-bin
+# aur:antigravity-cli
+# aur:packettracer
+# aur:jmeter
+
+##### BTRFS (only useful on a btrfs root; you set snapper up yourself) #####
+btrfs-progs
+snapper
+snap-pac
+grub-btrfs
+inotify-tools

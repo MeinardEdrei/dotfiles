@@ -1,0 +1,23 @@
+[Default Applications]
+x-scheme-handler/http=zen-browser-twilight.desktop
+x-scheme-handler/https=zen-browser-twilight.desktop
+x-scheme-handler/chrome=zen-browser-twilight.desktop
+text/html=zen-browser-twilight.desktop
+application/x-extension-htm=zen-browser-twilight.desktop
+application/x-extension-html=zen-browser-twilight.desktop
+application/x-extension-shtml=zen-browser-twilight.desktop
+application/xhtml+xml=zen-browser-twilight.desktop
+application/x-extension-xhtml=zen-browser-twilight.desktop
+application/x-extension-xht=zen-browser-twilight.desktop
+
+[Added Associations]
+x-scheme-handler/http=zen-browser-twilight.desktop;
+x-scheme-handler/https=zen-browser-twilight.desktop;
+x-scheme-handler/chrome=zen-browser-twilight.desktop;
+text/html=zen-browser-twilight.desktop;
+application/x-extension-htm=zen-browser-twilight.desktop;
+application/x-extension-html=zen-browser-twilight.desktop;
+application/x-extension-shtml=zen-browser-twilight.desktop;
+application/xhtml+xml=zen-browser-twilight.desktop;
+application/x-extension-xhtml=zen-browser-twilight.desktop;
+application/x-extension-xht=zen-browser-twilight.desktop;

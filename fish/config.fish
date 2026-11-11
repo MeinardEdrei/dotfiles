@@ -80,3 +80,5 @@ function davincify
         ffmpeg -i "$i" -c:v prores_ks -profile:v 3 -c:a pcm_s16le "converted/"(string replace -r '\.mp4$|\.mkv$' '.mov' $i)
     end
 end
+
+fish_add_path $HOME/.local/bin

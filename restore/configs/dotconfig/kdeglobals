@@ -1,0 +1,13 @@
+[General]
+ColorScheme=Darkly
+
+[Icons]
+Theme=WhiteSur-dark
+
+[KDE]
+ShowDeleteCommand=false
+widgetStyle=Darkly
+
+[PreviewSettings]
+EnableRemoteFolderThumbnail=false
+MaximumRemoteSize=0
