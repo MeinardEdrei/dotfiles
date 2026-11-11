@@ -25,6 +25,7 @@ unzip
 zip
 rsync
 usbutils
+inetutils
 efibootmgr
 dosfstools
 exfatprogs
@@ -89,6 +90,8 @@ inter-font
 ttf-cascadia-code-nerd
 woff2-font-awesome
 papirus-icon-theme
+breeze
+plasma-integration
 # --- AUR helper (arch-setup.sh bootstraps it if missing) ---
 aur:yay
 

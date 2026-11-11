@@ -237,6 +237,15 @@ check_packages() {
   say "  installed on purpose but NOT in packages.txt:"
   comm -23 <(pacman -Qqe | sort -u) <(printf '%s\n' "${wanted[@]}" | sort -u) | sed 's/^/    - /' | tee -a "$LOG"
   say "  orphans: $(pacman -Qdtq 2>/dev/null | tr '\n' ' ')"
+  # On a terminal, offer to install what is missing right away (the check itself changes nothing).
+  if ((${#missing[@]})) && [[ -t 0 ]] && ! ((DRY)); then
+    ask_one "Install the ${#missing[@]} missing package(s) now?" 1 "Yes, install them" "No, just the report"
+    if ((REPLY_N==1)); then
+      sudo -v || { say "  sudo is required."; return; }
+      install_packages
+      say "  Done. Re-run the check to confirm."
+    fi
+  fi
 }
 
 # ---------- config symlinks (repo -> ~/.config) ----------
